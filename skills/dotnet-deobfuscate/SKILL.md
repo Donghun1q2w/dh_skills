@@ -1,71 +1,71 @@
 ---
 name: dotnet-deobfuscate
-description: "난독화된 .NET 어셈블리를 정리한다. 읽을 수 없는 이름 복원, 암호화된 문자열 복호화, 난독화 어트리뷰트 제거, 데드코드 정리를 수행하여 분석 가능한 깨끗한 DLL/EXE를 생성한다. '난독화 해제', '이름 복원', '문자열 복호화', 'deobfuscate', '코드가 읽히지 않는다', '변수명이 이상하다', 'ConfuserEx 해제', 'Dotfuscator 해제' 같은 요청에 반드시 이 스킬을 사용하라. 난독화 감지만 원하면 dotnet-analyze를 사용한다."
+description: "Cleans obfuscated .NET assemblies. Performs unreadable name restoration, encrypted string decryption, obfuscation attribute removal, and dead code cleanup to produce a clean, analyzable DLL/EXE. Must be used for requests like 'deobfuscate', 'restore names', 'decrypt strings', 'code is unreadable', 'variable names are garbled', 'remove ConfuserEx', or 'remove Dotfuscator'. Use dotnet-analyze if only obfuscation detection is needed."
 allowed-tools: Bash, Read, Write, Grep, Glob
 ---
 
-# .NET 어셈블리 난독화 해제
+# .NET Assembly Deobfuscation
 
-dnlib을 사용하여 난독화된 .NET 어셈블리를 정리하고, 분석 가능한 깨끗한 바이너리를 생성한다.
+Uses dnlib to clean obfuscated .NET assemblies and produce analyzable, clean binaries.
 
-## 사전 요건
+## Prerequisites
 
 - .NET 8 SDK
-- 공통 프로젝트: `dotnet-analyze` 스킬의 `scripts/setup-project.sh` 실행
+- Shared project: Run `scripts/setup-project.sh` from the `dotnet-analyze` skill
 
-## 난독화 해제 4단계 파이프라인
+## 4-Stage Deobfuscation Pipeline
 
-### 1단계: 이름 복원 (Name Restoration)
+### Stage 1: Name Restoration
 
-난독화된 이름을 타입과 용도를 기반으로 추론한 의미있는 이름으로 교체한다.
+Replaces obfuscated names with meaningful names inferred from type and usage context.
 
-**이름 복원 전략:**
+**Name restoration strategy:**
 
-| 대상 | 복원 규칙 | 예시 |
-|------|-----------|------|
-| 타입 (Class) | `{Kind}_{Namespace}_{순번}` | `Class_Services_001` |
-| 타입 (Interface) | `IFace_{Namespace}_{순번}` | `IFace_Data_002` |
-| 타입 (Enum) | `Enum_{Namespace}_{순번}` | `Enum_Models_003` |
-| 메서드 (void 반환) | `Do_{순번}` 또는 `Process_{순번}` | `Do_0012` |
-| 메서드 (bool 반환) | `Check_{순번}` | `Check_0015` |
-| 메서드 (string 반환) | `GetText_{순번}` | `GetText_0018` |
-| 메서드 (컬렉션 반환) | `GetList_{순번}` | `GetList_0020` |
-| 필드 (static) | `s_field_{순번}` | `s_field_0025` |
-| 필드 (bool) | `m_flag_{순번}` | `m_flag_0030` |
-| 필드 (string) | `m_text_{순번}` | `m_text_0031` |
-| 필드 (int) | `m_num_{순번}` | `m_num_0032` |
-| 프로퍼티 | `Prop_{순번}` | `Prop_0040` |
+| Target | Restoration Rule | Example |
+|--------|-----------------|---------|
+| Type (Class) | `{Kind}_{Namespace}_{Seq}` | `Class_Services_001` |
+| Type (Interface) | `IFace_{Namespace}_{Seq}` | `IFace_Data_002` |
+| Type (Enum) | `Enum_{Namespace}_{Seq}` | `Enum_Models_003` |
+| Method (void return) | `Do_{Seq}` or `Process_{Seq}` | `Do_0012` |
+| Method (bool return) | `Check_{Seq}` | `Check_0015` |
+| Method (string return) | `GetText_{Seq}` | `GetText_0018` |
+| Method (collection return) | `GetList_{Seq}` | `GetList_0020` |
+| Field (static) | `s_field_{Seq}` | `s_field_0025` |
+| Field (bool) | `m_flag_{Seq}` | `m_flag_0030` |
+| Field (string) | `m_text_{Seq}` | `m_text_0031` |
+| Field (int) | `m_num_{Seq}` | `m_num_0032` |
+| Property | `Prop_{Seq}` | `Prop_0040` |
 
-### 2단계: 문자열 복호화 (String Decryption)
+### Stage 2: String Decryption
 
-정적 분석으로 감지 가능한 패턴을 처리한다.
+Handles patterns detectable through static analysis.
 
-**지원하는 패턴:**
-- `ldstr` + `call FromBase64String` → Base64 디코딩 후 인라인 치환
-- `ldstr` + `call XorDecrypt` (단순 상수 키) → XOR 복호화 시도
-- 문자열 프록시 메서드 감지 (상수 인덱스로 배열 접근)
+**Supported patterns:**
+- `ldstr` + `call FromBase64String` → Inline replacement after Base64 decoding
+- `ldstr` + `call XorDecrypt` (simple constant key) → XOR decryption attempt
+- String proxy method detection (array access with constant index)
 
-**한계:**
-- 동적 키를 사용하는 복호화는 정적 분석으로 불가능
-- ConfuserEx의 상수 보호는 런타임 분석이 필요 (de4dot 추천)
-- 커스텀 암호화 알고리즘은 수동 분석 필요
+**Limitations:**
+- Decryption with dynamic keys is not possible through static analysis
+- ConfuserEx constant protection requires runtime analysis (de4dot recommended)
+- Custom encryption algorithms require manual analysis
 
-### 3단계: 난독화 어트리뷰트 제거
+### Stage 3: Obfuscation Attribute Removal
 
-모듈, 어셈블리, 타입 레벨에서 다음 키워드를 포함하는 CustomAttribute를 제거한다:
+Removes CustomAttributes containing the following keywords at module, assembly, and type levels:
 
 `Dotfuscator`, `Obfusc`, `ConfusedBy`, `SmartAssembly`, `Suppress`, `NETGuard`, `Babel`, `Eazfuscator`, `CryptoObfuscator`, `ILProtector`
 
-### 4단계: 데드코드 정리
+### Stage 4: Dead Code Cleanup
 
-- 연속 NOP 명령어 제거 (분기 대상 NOP 제외)
-- 참조되지 않는 빈 타입 식별 (삭제는 하지 않고 보고만)
+- Remove consecutive NOP instructions (excluding NOPs that are branch targets)
+- Identify unreferenced empty types (reported only, not deleted)
 
-## 스크립트 템플릿
+## Script Template
 
-상세 구현은 `references/deobfuscate-template.cs`를 참조한다.
+See `references/deobfuscate-template.cs` for the detailed implementation.
 
-## 핵심 코드 패턴
+## Core Code Pattern
 
 ```csharp
 using dnlib.DotNet;
@@ -73,7 +73,7 @@ using dnlib.DotNet.Writer;
 
 var module = ModuleDefMD.Load(inputPath);
 
-// 이름 복원
+// Name restoration
 foreach (var type in module.GetTypes())
 {
     if (IsObfuscatedName(type.Name))
@@ -87,55 +87,55 @@ foreach (var type in module.GetTypes())
     }
 }
 
-// 저장
+// Save
 var options = new ModuleWriterOptions(module)
 {
-    Logger = DummyLogger.NoThrowInstance  // 오류 시 예외 대신 무시
+    Logger = DummyLogger.NoThrowInstance  // Ignore errors instead of throwing exceptions
 };
 module.Write(outputPath, options);
 ```
 
-## 출력
+## Output
 
 ```
 ┌──────────────────────────────────────┐
-│      난독화 해제 결과                │
+│      Deobfuscation Results           │
 ├─────────────────┬────────────────────┤
-│ 이름 복원       │ 247                │
-│ 문자열 복호화   │ 12                 │
-│ 어트리뷰트 제거 │ 3                  │
-│ 데드코드 정리   │ 1,204              │
-│ 합계            │ 1,466              │
+│ Names Restored  │ 247                │
+│ Strings Decrypted│ 12                │
+│ Attributes Removed│ 3               │
+│ Dead Code Cleaned│ 1,204            │
+│ Total           │ 1,466              │
 └─────────────────┴────────────────────┘
-✓ 출력 파일: MyApp_cleaned.dll
+✓ Output file: MyApp_cleaned.dll
 ```
 
-## 권장 워크플로우
+## Recommended Workflow
 
 ```
-1. dotnet-analyze로 난독화 감지
-     ↓ (난독화 확인됨)
-2. dotnet-deobfuscate로 정리
-     ↓ (깨끗한 DLL 생성)
-3. dotnet-decompile로 소스 복원
-     ↓ (읽을 수 있는 C# 코드)
-4. dotnet-callgraph로 구조 시각화
+1. Detect obfuscation with dotnet-analyze
+     ↓ (obfuscation confirmed)
+2. Clean with dotnet-deobfuscate
+     ↓ (clean DLL generated)
+3. Recover source with dotnet-decompile
+     ↓ (readable C# code)
+4. Visualize structure with dotnet-callgraph
 ```
 
-## 고급: de4dot 통합
+## Advanced: de4dot Integration
 
-ConfuserEx 등 고도의 난독화에는 오픈소스 도구 de4dot의 사용을 권장한다:
+For advanced obfuscation such as ConfuserEx, the open-source tool de4dot is recommended:
 
 ```bash
-# de4dot 사용 (별도 설치 필요)
+# Using de4dot (requires separate installation)
 de4dot target.dll -o target_cleaned.dll
 
-# 이후 이 스킬의 이름 복원을 추가로 적용할 수 있다
+# Name restoration from this skill can be additionally applied afterward
 ```
 
-## 주의사항
+## Notes
 
-- 난독화 해제된 DLL은 원본과 동일하게 실행되지 않을 수 있다 (서명 무효화)
-- Strong Name이 있는 어셈블리는 재서명이 필요하다
-- 라이선스 보호 목적의 난독화 해제는 법적 문제가 될 수 있다
-- 이 스킬은 보안 분석/호환성 유지/레거시 코드 이해 목적으로만 사용한다
+- Deobfuscated DLLs may not execute identically to the original (signature invalidation)
+- Assemblies with Strong Names will require re-signing
+- Deobfuscating license-protection obfuscation may raise legal concerns
+- This skill is intended only for security analysis, compatibility maintenance, and legacy code understanding

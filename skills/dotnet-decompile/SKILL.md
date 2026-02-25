@@ -1,23 +1,23 @@
 ---
 name: dotnet-decompile
-description: ".NET 어셈블리(DLL/EXE)를 C# 소스코드로 디컴파일한다. IL 코드를 원본에 가까운 C# 코드로 복원하여 파일로 저장한다. '소스코드 복원', '디컴파일', 'C# 코드로 변환', 'DLL에서 코드 추출', '소스 뽑아줘', '코드 보여줘' 같은 요청에 반드시 이 스킬을 사용하라. 특정 클래스만 추출하거나 전체 어셈블리를 네임스페이스별 .cs 파일로 분리 저장하는 것도 지원한다."
+description: "Decompiles .NET assemblies (DLL/EXE) into C# source code. Recovers IL code into near-original C# code and saves to files. Must be used for requests like 'recover source code', 'decompile', 'convert to C# code', 'extract code from DLL', 'get me the source', or 'show me the code'. Also supports extracting specific classes or saving the entire assembly as separate .cs files organized by namespace."
 allowed-tools: Bash, Read, Write, Grep, Glob
 ---
 
-# .NET 어셈블리 디컴파일 (IL → C#)
+# .NET Assembly Decompilation (IL → C#)
 
-ICSharpCode.Decompiler(ILSpy 엔진)를 사용하여 .NET 어셈블리를 C# 소스코드로 복원한다.
+Uses ICSharpCode.Decompiler (ILSpy engine) to recover .NET assemblies into C# source code.
 
-## 사전 요건
+## Prerequisites
 
 - .NET 8 SDK
-- 공통 프로젝트 설정: `dotnet-analyze` 스킬의 `scripts/setup-project.sh`를 먼저 실행
+- Shared project setup: Run `scripts/setup-project.sh` from the `dotnet-analyze` skill first
 
-## 디컴파일 모드
+## Decompilation Modes
 
-### 모드 1: 전체 어셈블리 → 단일 파일
+### Mode 1: Entire Assembly → Single File
 
-대상 어셈블리 전체를 하나의 .cs 파일로 출력한다. 빠른 확인에 적합하다.
+Outputs the entire target assembly as a single .cs file. Suitable for quick inspection.
 
 ```csharp
 using ICSharpCode.Decompiler;
@@ -35,9 +35,9 @@ string fullSource = decompiler.DecompileWholeModuleAsString();
 File.WriteAllText(outputPath, fullSource);
 ```
 
-### 모드 2: 타입별 개별 .cs 파일
+### Mode 2: Individual .cs Files Per Type
 
-네임스페이스를 디렉토리 구조로 매핑하여 각 타입을 개별 .cs 파일로 저장한다. 코드 분석에 가장 유용하다.
+Maps namespaces to directory structures and saves each type as an individual .cs file. Most useful for code analysis.
 
 ```csharp
 var types = decompiler.TypeSystem.GetAllTypeDefinitions()
@@ -47,7 +47,7 @@ foreach (var type in types)
 {
     string source = decompiler.DecompileTypeAsString(new FullTypeName(type.FullName));
 
-    // 네임스페이스 → 디렉토리
+    // Namespace → Directory
     string[] parts = type.FullName.Split('.');
     string dir = Path.Combine(outputDir, Path.Combine(parts.Take(parts.Length - 1).ToArray()));
     Directory.CreateDirectory(dir);
@@ -57,20 +57,20 @@ foreach (var type in types)
 }
 ```
 
-### 모드 3: 특정 타입만 디컴파일
+### Mode 3: Decompile Specific Type Only
 
-사용자가 특정 클래스/인터페이스를 지정한 경우.
+When the user specifies a particular class/interface.
 
 ```csharp
 string source = decompiler.DecompileTypeAsString(new FullTypeName("MyApp.Services.UserService"));
 Console.WriteLine(source);
 ```
 
-## 전체 스크립트 템플릿
+## Full Script Template
 
-상세 템플릿은 `references/decompile-template.cs`를 참조한다.
+See `references/decompile-template.cs` for the detailed template.
 
-## 출력 구조 예시
+## Output Structure Example
 
 ```
 decompiled_src/
@@ -88,40 +88,40 @@ decompiled_src/
         └── UserRepository.cs
 ```
 
-## DecompilerSettings 주요 옵션
+## DecompilerSettings Key Options
 
-| 옵션 | 기본값 | 설명 |
-|------|--------|------|
-| `LanguageVersion` | CSharp11 | 출력 C# 버전 (최신 문법 활용) |
-| `ThrowOnAssemblyResolveErrors` | false | 참조 해결 실패 시 예외 억제 |
-| `RemoveDeadCode` | true | 사용되지 않는 코드 제거 |
-| `RemoveDeadStores` | true | 불필요한 변수 할당 제거 |
-| `ShowXmlDocumentation` | true | XML 문서 주석 포함 |
-| `DecompileMemberBodies` | true | 메서드 본문 디컴파일 |
+| Option | Default | Description |
+|--------|---------|-------------|
+| `LanguageVersion` | CSharp11 | Output C# version (uses latest syntax) |
+| `ThrowOnAssemblyResolveErrors` | false | Suppress exceptions on reference resolution failure |
+| `RemoveDeadCode` | true | Remove unused code |
+| `RemoveDeadStores` | true | Remove unnecessary variable assignments |
+| `ShowXmlDocumentation` | true | Include XML doc comments |
+| `DecompileMemberBodies` | true | Decompile method bodies |
 
-## 디컴파일 실패 처리
+## Decompilation Failure Handling
 
-일부 타입은 디컴파일에 실패할 수 있다. 실패한 타입은 건너뛰고 주석으로 기록한다:
+Some types may fail to decompile. Failed types are skipped and recorded as comments:
 
 ```csharp
 try
 {
     string source = decompiler.DecompileTypeAsString(new FullTypeName(type.FullName));
-    // 저장
+    // Save
 }
 catch (Exception ex)
 {
-    string fallback = $"// 디컴파일 실패: {type.FullName}\n// 오류: {ex.Message}\n";
-    // fallback 저장
+    string fallback = $"// Decompilation failed: {type.FullName}\n// Error: {ex.Message}\n";
+    // Save fallback
 }
 ```
 
-## 난독화된 어셈블리 처리
+## Handling Obfuscated Assemblies
 
-난독화가 감지된 어셈블리는 디컴파일 전에 `dotnet-deobfuscate` 스킬로 먼저 정리하는 것을 권장한다. 난독화된 상태로 디컴파일하면 읽기 어려운 변수명과 제어 흐름이 그대로 출력된다.
+For assemblies where obfuscation is detected, it is recommended to clean them first using the `dotnet-deobfuscate` skill before decompilation. Decompiling in an obfuscated state will produce unreadable variable names and control flow as-is.
 
-## 주의사항
+## Notes
 
-- 디컴파일된 코드는 원본과 100% 동일하지 않다 (컴파일러 최적화, 디버그 정보 손실)
-- `async/await`, LINQ 등은 상태머신으로 변환되어 있을 수 있다
-- 대규모 어셈블리(500+ 타입)는 전체 디컴파일에 수분이 걸릴 수 있다
+- Decompiled code is not 100% identical to the original (due to compiler optimizations, debug info loss)
+- `async/await`, LINQ, etc. may appear as state machines
+- Full decompilation of large assemblies (500+ types) may take several minutes
