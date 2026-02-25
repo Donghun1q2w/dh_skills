@@ -8,6 +8,11 @@
       "name": "commit-guide",
       "source": "./skills/commit-guide",
       "description": "Git commit guidance skill for structured and consistent commit messages."
+    },
+    {
+      "name": "pdf2img",
+      "source": "./skills/pdf2img",
+      "description": "PDF to image conversion guide. References refcode/pdf2jpg for converting PDF files to JPG images using PyMuPDF."
     }
   ]
 }
