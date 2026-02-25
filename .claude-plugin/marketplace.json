@@ -5,14 +5,16 @@
   },
   "plugins": [
     {
-      "name": "commit-guide",
-      "source": "./skills/commit-guide",
-      "description": "Git commit guidance skill for structured and consistent commit messages."
-    },
-    {
-      "name": "pdf2img",
-      "source": "./skills/pdf2img",
-      "description": "PDF to image conversion guide. References refcode/pdf2jpg for converting PDF files to JPG images using PyMuPDF."
+      "name": "skill_donghun",
+      "source": "./",
+      "description": "skill for donghun",
+      "category": "productivity",
+      "homepage": "https://github.com/Yeachan-Heo/oh-my-claudecode",
+      "tags": [
+        "C#",
+        "C_Sharp",
+        "commit"
+      ]
     }
   ]
 }
