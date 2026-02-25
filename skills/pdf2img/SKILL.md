@@ -67,8 +67,8 @@ def convert_pdf_to_images(pdf_path, output_folder, dpi=300, jpg_quality=100, col
 |------|--------|
 | Import | Use `import pymupdf`. Never use `import fitz` (namespace conflict) |
 | Alpha | `alpha=False` is required - ensures white background for transparent content |
-| Filename | Format: `{stem}_{page_num+1:03d}.jpg` (1-indexed, 3-digit zero-padded) |
-| Save | `pix.save(str(output_path), jpg_quality=...)` - Path objects must be converted with str() |
+| Filename | Format: `{stem}_{page_num+1:03d}.{format}` (1-indexed, 3-digit zero-padded) |
+| Save | JPG: `pix.save(str(output_path), jpg_quality=...)` / PNG: `pix.save(str(output_path))` - Path objects must be converted with str() |
 | Encryption | Always check `doc.is_encrypted` before conversion |
 | Close | Always call `doc.close()` when done |
 
@@ -103,7 +103,7 @@ Settings can be managed via `settings.json`:
     "input_folder": "./input",
     "output_folder": "./output",
     "dpi": 300,
-    "format": "jpg",
+    "format": "jpg",  // "jpg" or "png"
     "jpg_quality": 90,
     "colorspace": "rgb",
     "overwrite": false,
