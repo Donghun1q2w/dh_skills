@@ -1,9 +1,13 @@
 {
   "name": "dh-skills",
-  "description": "DH's custom skills plugin for Claude Code",
-  "version": "1.0.0",
-  "author": {
+  "owner": {
     "name": "donghun.lee"
   },
-  "keywords": ["workflow", "git", "productivity"]
+  "plugins": [
+    {
+      "name": "commit-guide",
+      "source": "./skills/commit-guide",
+      "description": "Git commit guidance skill for structured and consistent commit messages."
+    }
+  ]
 }
