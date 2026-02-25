@@ -1,0 +1,9 @@
+{
+  "name": "dh-skills",
+  "description": "DH's custom skills plugin for Claude Code",
+  "version": "1.0.0",
+  "author": {
+    "name": "donghun.lee"
+  },
+  "keywords": ["workflow", "git", "productivity"]
+}
