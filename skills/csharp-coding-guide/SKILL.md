@@ -1,6 +1,6 @@
 ---
 name: csharp-coding-guide
-description: "C# and .NET coding reference guide with mandatory research workflow. Use when writing C# code, planning C# architecture, refactoring C# code, analyzing C# errors, reviewing C# code, or working with any .NET framework (ASP.NET, Blazor, MAUI, WPF, WinForms, Entity Framework, etc.). Triggers on: C# code writing, C# error analysis, C# refactoring, .NET project planning, .NET API usage questions, NuGet package selection, or any C#/.NET development task. Enforces a 3-step reference order: (1) Microsoft official docs, (2) StackOverflow, (3) GitHub."
+description: "C# and .NET coding reference guide with mandatory research workflow. Use when writing C# code(*.cs, *.csproj, *.sln), planning C# architecture, refactoring C# code, analyzing C# errors, reviewing C# code, or working with any .NET framework (ASP.NET, Blazor, MAUI, WPF, WinForms, Entity Framework, etc.). Triggers on: C# code writing, C# error analysis, C# refactoring, .NET project planning, .NET API usage questions, NuGet package selection, or any C#/.NET development task. Enforces a 3-step reference order: (1) Microsoft official docs, (2) StackOverflow, (3) GitHub."
 ---
 
 # C# / .NET Coding Reference Guide
