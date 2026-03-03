@@ -6,30 +6,30 @@ argument-hint: "[optional: target language (python/csharp/vba) or specific API k
 
 # Shared API Key Loader
 
-부서 공용서버의 `.env` 파일에서 API 키를 로드하는 표준 패턴.
+Standard pattern for loading API keys from a `.env` file on a shared department server.
 
-## 핵심 구조
+## Core Structure
 
 ```
 project/
-├── settings.ini              ← 공용서버 경로 설정 (Git 추적 가능)
-├── shared_apikey_loader.py   ← 키 로드 유틸리티
-├── .env                      ← 로컬 폴백 (Git 제외, .gitignore에 추가)
-└── your_app.py               ← 실제 애플리케이션
+├── settings.ini              ← Shared server path config (Git-trackable)
+├── shared_apikey_loader.py   ← Key loader utility
+├── .env                      ← Local fallback (excluded from Git, add to .gitignore)
+└── your_app.py               ← Your application
 ```
 
-## 동작 방식
+## How It Works
 
-1. `settings.ini`에서 공용서버 `.env` 경로를 읽음
-2. 해당 경로의 `.env` 파일을 `python-dotenv`로 환경변수에 로드
-3. 공용서버 접근 실패 시 로컬 `.env`로 폴백
-4. `os.getenv()`로 개별 키를 참조
+1. Read the shared server `.env` path from `settings.ini`
+2. Load the `.env` file into environment variables using `python-dotenv`
+3. Fall back to a local `.env` if the shared server is unreachable
+4. Access individual keys via `os.getenv()`
 
-## settings.ini 형식
+## settings.ini Format
 
 ```ini
 [server]
-# UNC 경로 또는 로컬 마운트 경로
+# UNC path or local mount path
 env_path = \\192.168.1.100\shared\config\.env
 
 [options]
@@ -38,9 +38,9 @@ use_local_fallback = true
 local_env_path = .env
 ```
 
-공용서버 경로는 반드시 `settings.ini`에서만 관리한다. 코드에 경로를 하드코딩하지 않는다.
+The shared server path must only be managed in `settings.ini`. Never hard-code paths in source code.
 
-## 사용 패턴
+## Usage Patterns
 
 ### Python
 ```python
@@ -64,37 +64,37 @@ Dim apiKey As String
 apiKey = GetKey("OPENAI_API_KEY")
 ```
 
-## 코드 작성 시 준수사항
+## Coding Guidelines
 
-1. **API 키를 소스코드에 직접 쓰지 않는다** — 항상 `get_key()` 함수를 통해 참조
-2. **서버 경로는 settings.ini에서만 관리** — 경로 변경 시 코드 수정 불필요
-3. **로컬 .env는 .gitignore에 반드시 추가** — `echo ".env" >> .gitignore`
-4. **키 값 출력/로깅 시 마스킹** — `list_keys()` 함수는 자동 마스킹 적용
-5. **폴백 메커니즘 유지** — 공용서버 접속 불가 시 로컬 개발 가능하도록
+1. **Never write API keys directly in source code** — always reference via `get_key()`
+2. **Manage server paths only in settings.ini** — no code changes needed when the path changes
+3. **Always add local .env to .gitignore** — `echo ".env" >> .gitignore`
+4. **Mask key values when printing/logging** — `list_keys()` applies automatic masking
+5. **Maintain the fallback mechanism** — enable local development when the shared server is unavailable
 
-## 레퍼런스 코드
+## Reference Code
 
-전체 구현 코드는 `references/` 디렉토리를 참조:
+See the `references/` directory for full implementations:
 
 ### Python
-- `references/shared_apikey_loader.py` — 핵심 로더 모듈
-- `references/usage_example.py` — 사용 예제
+- `references/shared_apikey_loader.py` — Core loader module
+- `references/usage_example.py` — Usage example
 
 ### C#
-- `references/SharedApiKeyLoader.cs` — C# 구현 (IniParser 기반)
+- `references/SharedApiKeyLoader.cs` — C# implementation (IniParser-based)
 
 ### VBA
-- `references/SharedApiKeyLoader.bas` — VBA 모듈 (Excel/Access 등에서 사용)
+- `references/SharedApiKeyLoader.bas` — VBA module (for Excel/Access, etc.)
 
-### 공통
-- `references/settings.ini` — 설정 파일 템플릿
-- `references/sample.env` — .env 파일 샘플
+### Common
+- `references/settings.ini` — Configuration file template
+- `references/sample.env` — Sample .env file
 
-새 프로젝트에 API 키 로딩을 추가할 때는 위 레퍼런스 파일들을 기반으로 프로젝트에 맞게 커스터마이징한다.
+When adding API key loading to a new project, use the reference files above and customize them to fit your project.
 
-## 보안 주의사항
+## Security Notes
 
-- 공용서버 `.env` 파일에는 NTFS 권한으로 부서원만 읽기 가능하게 설정
-- `settings.ini`는 Git에 포함해도 무방 (경로 정보만 포함, 키 미포함)
-- `.env` 파일은 절대 Git에 커밋하지 않음
-- 키 순환 시 공용서버 `.env`만 업데이트하면 전체 반영
+- Set NTFS permissions on the shared server `.env` file to restrict read access to department members only
+- `settings.ini` is safe to include in Git (contains only path info, no keys)
+- Never commit `.env` files to Git
+- When rotating keys, update only the shared server `.env` — changes propagate to all users automatically

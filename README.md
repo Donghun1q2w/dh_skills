@@ -7,6 +7,7 @@ Claude Code용 개인 스킬 플러그인. 반복적인 개발 패턴과 도구 
 | 스킬 | 설명 | 언어 |
 |------|------|------|
 | [commit-guide](skills/commit-guide/) | Conventional Commit 형식의 Git 커밋 메시지 작성 가이드 | - |
+| [csharp-coding-guide](skills/csharp-coding-guide/) | C#/.NET 코딩 참조 가이드 (3단계 레퍼런스 순서 강제) | C# |
 | [load-API-key](skills/load-API-key/) | 공용서버 .env 파일에서 API 키를 로드하는 표준 패턴 | Python, C#, VBA |
 | [pdf2img](skills/pdf2img/) | PDF를 JPG 이미지로 변환하는 가이드 | Python |
 | [dotnet-analyze](skills/dotnet-analyze/) | .NET 어셈블리(DLL/EXE) 구조 분석, 메타데이터 추출 | C# |
@@ -23,6 +24,8 @@ dh_skills/
 │   └── marketplace.json          ← 플러그인 메타데이터
 ├── skills/
 │   ├── commit-guide/
+│   │   └── SKILL.md
+│   ├── csharp-coding-guide/
 │   │   └── SKILL.md
 │   ├── load-API-key/
 │   │   ├── SKILL.md
