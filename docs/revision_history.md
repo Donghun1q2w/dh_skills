@@ -4,6 +4,16 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-03-03 23:05:00 — plan-context 스킬 추가
+
+[Detail](revisions/2026-03-03_230500_add-plan-context-skill.md)
+
+- `skills/plan-context/SKILL.md` — 스킬 본문 (Phase A: 컨텍스트 탐색, Phase B: 계획 문서 저장)
+- `skills/plan-context/references/templates.md` — Plan Document/History 템플릿 및 Status Values
+- `README.md` — 스킬 테이블 행 추가 + 디렉토리 트리 업데이트
+
+---
+
 ## 2026-03-03 22:36:21 — revision-tracker Section 5 "Git Commit" 기능 확장
 
 [Detail](revisions/2026-03-03_223621_extend-git-commit-flow.md)

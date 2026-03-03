@@ -16,6 +16,7 @@ Claude Code용 개인 스킬 플러그인. 반복적인 개발 패턴과 도구 
 | [dotnet-callgraph](skills/dotnet-callgraph/) | .NET 메서드 호출 관계 분석 및 시각화 | C# |
 | [pdp-agent](skills/pdp-agent/) | 제품 개발 프로세스 에이전트 — 기획→리스크→구현→런칭→회고 5단계 가이드 | - |
 | [python-windows-deploy](skills/python-windows-deploy/) | Python 프로젝트를 Windows 독립 실행형 콘솔 앱(.exe)으로 빌드 및 배포 | Python |
+| [plan-context](skills/plan-context/) | 계획 수립 시 프로젝트 컨텍스트 제공 및 완료된 계획을 docs\plans\에 저장 | - |
 | [revision-tracker](skills/revision-tracker/) | 파일 수정 시 docs\revisions\에 수정내역 로그 생성 및 revision_history.md 인덱싱 | - |
 
 ## 디렉토리 구조
@@ -54,6 +55,10 @@ dh_skills/
 │   ├── dotnet-callgraph/
 │   │   ├── SKILL.md
 │   │   └── references/
+│   ├── plan-context/
+│   │   ├── SKILL.md
+│   │   └── references/
+│   │       └── templates.md      ← 계획 문서 및 인덱스 템플릿
 │   ├── pdp-agent/
 │   │   ├── SKILL.md              ← 오케스트레이터 (단계 판별 → 라우팅)
 │   │   └── references/
@@ -72,6 +77,8 @@ dh_skills/
 │       └── references/
 │           └── templates.md      ← 수정내역 파일 및 인덱스 템플릿
 ├── docs/
+│   ├── plan_history.md             ← 전체 계획 인덱스
+│   ├── plans/                      ← 개별 계획 문서
 │   ├── revision_history.md         ← 전체 수정내역 인덱스
 │   ├── revisions/                  ← 개별 수정내역 로그
 │   └── pdp-agent/
