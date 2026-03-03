@@ -15,6 +15,8 @@ Claude Code용 개인 스킬 플러그인. 반복적인 개발 패턴과 도구 
 | [dotnet-deobfuscate](skills/dotnet-deobfuscate/) | 난독화된 .NET 어셈블리 정리 (이름 복원, 문자열 복호화) | C# |
 | [dotnet-callgraph](skills/dotnet-callgraph/) | .NET 메서드 호출 관계 분석 및 시각화 | C# |
 | [pdp-agent](skills/pdp-agent/) | 제품 개발 프로세스 에이전트 — 기획→리스크→구현→런칭→회고 5단계 가이드 | - |
+| [python-windows-deploy](skills/python-windows-deploy/) | Python 프로젝트를 Windows 독립 실행형 콘솔 앱(.exe)으로 빌드 및 배포 | Python |
+| [revision-tracker](skills/revision-tracker/) | 파일 수정 시 docs\revisions\에 수정내역 로그 생성 및 revision_history.md 인덱싱 | - |
 
 ## 디렉토리 구조
 
@@ -52,14 +54,23 @@ dh_skills/
 │   ├── dotnet-callgraph/
 │   │   ├── SKILL.md
 │   │   └── references/
-│   └── pdp-agent/
-│       ├── SKILL.md              ← 오케스트레이터 (단계 판별 → 라우팅)
+│   ├── pdp-agent/
+│   │   ├── SKILL.md              ← 오케스트레이터 (단계 판별 → 라우팅)
+│   │   └── references/
+│   │       ├── planning.md       ← Phase 1: 기획
+│   │       ├── risk.md           ← Phase 2: 리스크
+│   │       ├── build.md          ← Phase 3: 구현
+│   │       ├── launch.md         ← Phase 4: 런칭
+│   │       └── retro.md          ← Phase 5: 회고
+│   ├── python-windows-deploy/
+│   │   ├── SKILL.md
+│   │   └── references/
+│   │       ├── spec_template.md  ← PyInstaller spec 파일 템플릿
+│   │       └── test_patterns.md  ← 배포 전 테스트 패턴
+│   └── revision-tracker/
+│       ├── SKILL.md
 │       └── references/
-│           ├── planning.md       ← Phase 1: 기획
-│           ├── risk.md           ← Phase 2: 리스크
-│           ├── build.md          ← Phase 3: 구현
-│           ├── launch.md         ← Phase 4: 런칭
-│           └── retro.md          ← Phase 5: 회고
+│           └── templates.md      ← 수정내역 파일 및 인덱스 템플릿
 ├── docs/
 │   └── pdp-agent/
 │       ├── README.md             ← 사용 가이드
