@@ -72,6 +72,8 @@ dh_skills/
 │       └── references/
 │           └── templates.md      ← 수정내역 파일 및 인덱스 템플릿
 ├── docs/
+│   ├── revision_history.md         ← 전체 수정내역 인덱스
+│   ├── revisions/                  ← 개별 수정내역 로그
 │   └── pdp-agent/
 │       ├── README.md             ← 사용 가이드
 │       └── AGENT.md              ← 설계 문서

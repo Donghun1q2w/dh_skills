@@ -57,25 +57,39 @@ If `README.md` or `CLAUDE.md` exists at project root, check for a directory tree
 - Remove any deleted files/directories from the tree
 - Keep the tree's existing formatting style and indentation
 
-### 5. Suggest Git Commit
+### 5. Git Commit
 
-If `.git\` exists at project root, suggest a commit at the end of the revision log output.
+If `.git\` exists at project root, propose a commit after logging the revision.
 
 **Write the commit message using the `/commit` skill** (skill_donghun:commit). Follow its format, type rules, and Korean subject convention.
 
 - **Staged files**: List only the files added/modified/deleted in the current modification (including the revision entry and updated docs)
 
-Format:
+#### Step 1: Present the commit proposal
+
+Show the proposed commit to the user:
 
 ```
-Suggested commit:
+Proposed commit:
   git add <file1> <file2> ...
   git commit -m "<type>(<scope>): <subject>
 
   <description>"
 ```
 
-Include a description (body) when the change needs context — explain why, not what. Do not execute the commit — only suggest it for user review.
+Include a description (body) when the change needs context — explain why, not what.
+
+#### Step 2: Ask the user
+
+Ask whether to proceed with the commit. Offer three choices:
+- **Commit** — execute as proposed
+- **Edit then commit** — let the user modify the message, then execute
+- **Skip** — do not commit; leave the proposal as reference only
+
+#### Step 3: Execute or skip
+
+- **Commit / Edit then commit**: Run `git add` for the listed files, then `git commit` with the (possibly edited) message. Report the result (commit hash).
+- **Skip**: No action. The proposal remains visible for manual use later.
 
 ## File Structure
 
