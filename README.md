@@ -14,6 +14,7 @@ Claude Code용 개인 스킬 플러그인. 반복적인 개발 패턴과 도구 
 | [dotnet-decompile](skills/dotnet-decompile/) | .NET 어셈블리를 C# 소스코드로 디컴파일 | C# |
 | [dotnet-deobfuscate](skills/dotnet-deobfuscate/) | 난독화된 .NET 어셈블리 정리 (이름 복원, 문자열 복호화) | C# |
 | [dotnet-callgraph](skills/dotnet-callgraph/) | .NET 메서드 호출 관계 분석 및 시각화 | C# |
+| [pdp-agent](skills/pdp-agent/) | 제품 개발 프로세스 에이전트 — 기획→리스크→구현→런칭→회고 5단계 가이드 | - |
 
 ## 디렉토리 구조
 
@@ -48,9 +49,21 @@ dh_skills/
 │   ├── dotnet-deobfuscate/
 │   │   ├── SKILL.md
 │   │   └── references/
-│   └── dotnet-callgraph/
-│       ├── SKILL.md
+│   ├── dotnet-callgraph/
+│   │   ├── SKILL.md
+│   │   └── references/
+│   └── pdp-agent/
+│       ├── SKILL.md              ← 오케스트레이터 (단계 판별 → 라우팅)
 │       └── references/
+│           ├── planning.md       ← Phase 1: 기획
+│           ├── risk.md           ← Phase 2: 리스크
+│           ├── build.md          ← Phase 3: 구현
+│           ├── launch.md         ← Phase 4: 런칭
+│           └── retro.md          ← Phase 5: 회고
+├── docs/
+│   └── pdp-agent/
+│       ├── README.md             ← 사용 가이드
+│       └── AGENT.md              ← 설계 문서
 └── refcode/
     └── pdf2jpg/                  ← PDF→JPG 변환 패키지 레퍼런스 구현
 ```
@@ -74,7 +87,7 @@ allowed-tools: Bash, Read, Write    # 선택. 허용 도구 제한
 
 | 폴더 | 용도 |
 |------|------|
-| `references/` | 레퍼런스 구현 코드, 템플릿, 설정 파일 샘플 |
+| `references/` | 레퍼런스 구현 코드, 템플릿, 단계별 에이전트 파일 |
 | `scripts/` | 셋업/자동화 스크립트 |
 
 SKILL.md 본문에서 번들 파일을 명시적으로 참조해야 한다.
