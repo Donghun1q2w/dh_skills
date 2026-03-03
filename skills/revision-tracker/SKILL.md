@@ -50,6 +50,33 @@ Each entry includes:
 
 Ensure `docs\revisions\` directory exists before writing. Create it if missing.
 
+### 4. Update Project Documentation
+
+If `README.md` or `CLAUDE.md` exists at project root, check for a directory tree section (code block showing project structure). If found:
+- Add any newly created files/directories to the tree
+- Remove any deleted files/directories from the tree
+- Keep the tree's existing formatting style and indentation
+
+### 5. Suggest Git Commit
+
+If `.git\` exists at project root, suggest a commit at the end of the revision log output.
+
+**Write the commit message using the `/commit` skill** (skill_donghun:commit). Follow its format, type rules, and Korean subject convention.
+
+- **Staged files**: List only the files added/modified/deleted in the current modification (including the revision entry and updated docs)
+
+Format:
+
+```
+Suggested commit:
+  git add <file1> <file2> ...
+  git commit -m "<type>(<scope>): <subject>
+
+  <description>"
+```
+
+Include a description (body) when the change needs context — explain why, not what. Do not execute the commit — only suggest it for user review.
+
 ## File Structure
 
 ```
