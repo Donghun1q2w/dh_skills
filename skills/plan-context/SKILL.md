@@ -1,6 +1,6 @@
 ---
 name: plan-context
-description: "Provide project context before planning and archive completed plans to docs\\plans\\ with indexing at docs\\plan_history.md. Read docs\\revision_history.md and docs\\plan_history.md to understand prior changes and past plans. Search existing plans for similar topics. Triggers when: entering plan mode, writing proposals/plans/specs/reviews (제안서/계획서/사양서/검토서)."
+description: "Provide project context before planning and archive completed plans to docs\\plans\\ with indexing at docs\\plan_history.md. Read docs\\revision_history.md and docs\\plan_history.md to understand prior changes and past plans. Search existing plans for similar topics. Delegate actual planning to oh-my-claudecode:plan (omc-plan) when available. Triggers when: entering plan mode, writing proposals/plans/specs/reviews (제안서/계획서/사양서/검토서)."
 ---
 
 # Plan Context
@@ -57,6 +57,14 @@ Present a concise summary to inform the planning work:
 ```
 
 If no history files exist, state that this appears to be the first documented plan and proceed.
+
+## Phase A-2: Plan Execution via omc-plan
+
+After presenting the context summary, check if `oh-my-claudecode:plan` skill is available.
+
+**If available**: Invoke `/oh-my-claudecode:plan` with the gathered context (revision history, plan history, similar cases) as input. The omc-plan skill handles the actual planning workflow (interview, architect analysis, consensus). Wait for it to complete, then proceed to Phase B with the resulting plan.
+
+**If not available**: Proceed with normal planning (user-driven or direct planning without omc orchestration), then move to Phase B.
 
 ## Phase B: Post-Planning Logging
 

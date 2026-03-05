@@ -4,6 +4,14 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-03-05 18:00:00 — plan-context 스킬에 omc-plan 연동 추가
+
+[Detail](revisions/2026-03-05_180000_plan-context-omc-plan.md)
+
+- `skills/plan-context/SKILL.md` — Phase A-2 (omc-plan 연동) 추가, description 업데이트
+
+---
+
 ## 2026-03-05 16:30:00 — hwpxskill & hwpxskill-math skill-creator compliance improvement
 
 [Detail](revisions/2026-03-05_163000_hwpxskill-improvement.md)
