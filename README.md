@@ -55,6 +55,16 @@ dh_skills/
 │   ├── dotnet-callgraph/
 │   │   ├── SKILL.md
 │   │   └── references/
+│   ├── hwp-analyze/
+│   │   ├── SKILL.md
+│   │   └── references/
+│   │       └── hwpx-structure.md   ← HWPX XML 구조 공통 참조
+│   ├── hwp-fill/
+│   │   └── SKILL.md
+│   ├── hwp-template/
+│   │   ├── SKILL.md
+│   │   └── scripts/
+│   │       └── manage_template.py  ← 템플릿 CRUD 관리
 │   ├── plan-context/
 │   │   ├── SKILL.md
 │   │   └── references/

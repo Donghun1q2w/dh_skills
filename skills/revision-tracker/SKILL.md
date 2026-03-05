@@ -57,7 +57,26 @@ If `README.md` or `CLAUDE.md` exists at project root, check for a directory tree
 - Remove any deleted files/directories from the tree
 - Keep the tree's existing formatting style and indentation
 
-### 5. Git Commit
+### 5. Code Quality Check (Optional)
+
+If the current session has access to `/simplify` or `/code-review` skills, invoke them on the changed source files **before committing**.
+
+**Trigger conditions** (all must be true):
+- Source code files were modified (`.py`, `.js`, `.ts`, `.cs`, `.java`, `.go`, `.rs`, `.c`, `.cpp`, etc.)
+- The modification is not a docs-only or config-only change
+- At least one skill (`simplify` or `code-review`) is available
+
+**Execution order**:
+1. `/simplify` first — fix reuse, quality, efficiency issues in changed code
+2. If `/simplify` made changes, update the revision entry's Changed Files and Details sections
+3. `/code-review` optionally — only if the user requests or the change is complex (>100 lines, >5 files)
+
+**Skip conditions** (any one):
+- Only documentation/config files changed
+- User explicitly requests to skip review
+- Neither skill is available in the session
+
+### 6. Git Commit
 
 If `.git\` exists at project root, propose a commit after logging the revision.
 

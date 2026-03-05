@@ -19,6 +19,14 @@ Chronological log of project modifications.
 [Detail](revisions/2026-03-03_223621_extend-git-commit-flow.md)
 
 - `skills/revision-tracker/SKILL.md` — Section 5를 3단계 인터랙티브 커밋 흐름으로 교체 (제안 → 사용자 확인 → 실행/건너뛰기)
+## 2026-03-05 10:30:00 — revision-tracker에 Code Quality Check 스텝 추가
+
+[Detail](revisions/2026-03-05_103000_add-code-quality-step.md)
+
+- `skills/revision-tracker/SKILL.md` — Step 5 "Code Quality Check" 추가, Git Commit을 Step 6으로 재번호
+
+---
+
 ## 2026-03-05 10:00:00 — HWP 스킬 3종 개선
 
 [Detail](revisions/2026-03-05_100000_hwp-skills-improvement.md)
