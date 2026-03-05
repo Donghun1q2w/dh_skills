@@ -4,6 +4,15 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-03-05 18:30:00 — plan-context 스킬에 omc-plan 워크플로우 내부 반영
+
+[Detail](revisions/2026-03-05_183000_plan-context-embed-omc-plan.md)
+
+- `skills/plan-context/SKILL.md` — Phase A-2를 내장 워크플로우로 교체 (4가지 모드 지원)
+- `skills/plan-context/references/planning-workflow.md` — 상세 절차 참조 파일 (Added)
+
+---
+
 ## 2026-03-05 18:00:00 — plan-context 스킬에 omc-plan 연동 추가
 
 [Detail](revisions/2026-03-05_180000_plan-context-omc-plan.md)

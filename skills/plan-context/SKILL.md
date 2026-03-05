@@ -1,6 +1,6 @@
 ---
 name: plan-context
-description: "Provide project context before planning and archive completed plans to docs\\plans\\ with indexing at docs\\plan_history.md. Read docs\\revision_history.md and docs\\plan_history.md to understand prior changes and past plans. Search existing plans for similar topics. Delegate actual planning to oh-my-claudecode:plan (omc-plan) when available. Triggers when: entering plan mode, writing proposals/plans/specs/reviews (제안서/계획서/사양서/검토서)."
+description: "Provide project context before planning, execute structured planning workflow, and archive completed plans to docs\\plans\\ with indexing at docs\\plan_history.md. Read docs\\revision_history.md and docs\\plan_history.md to understand prior changes and past plans. Search existing plans for similar topics. Supports interview, direct, consensus (RALPLAN-DR), and review modes. Triggers when: entering plan mode, writing proposals/plans/specs/reviews (제안서/계획서/사양서/검토서), 'plan this', 'plan the'."
 ---
 
 # Plan Context
@@ -58,13 +58,38 @@ Present a concise summary to inform the planning work:
 
 If no history files exist, state that this appears to be the first documented plan and proceed.
 
-## Phase A-2: Plan Execution via omc-plan
+## Phase A-2: Planning Workflow
 
-After presenting the context summary, check if `oh-my-claudecode:plan` skill is available.
+After presenting the context summary, execute the planning workflow. Select mode based on the request:
 
-**If available**: Invoke `/oh-my-claudecode:plan` with the gathered context (revision history, plan history, similar cases) as input. The omc-plan skill handles the actual planning workflow (interview, architect analysis, consensus). Wait for it to complete, then proceed to Phase B with the resulting plan.
+| Mode | Trigger | Behavior |
+|------|---------|----------|
+| Interview | Default for broad/vague requests | Interactive requirements gathering, one question at a time |
+| Direct | `--direct`, or detailed request | Skip interview, generate plan immediately |
+| Consensus | `--consensus`, "ralplan" | Planner -> Architect -> Critic loop with RALPLAN-DR |
+| Review | `--review`, "review this plan" | Critic evaluation of existing plan |
 
-**If not available**: Proceed with normal planning (user-driven or direct planning without omc orchestration), then move to Phase B.
+### Core Rules
+
+- Auto-detect interview vs direct mode based on request specificity (broad = vague verbs, no specific files, 3+ areas)
+- Ask **one question at a time** during interviews — never batch multiple questions
+- Gather codebase facts via `explore` agent **before** asking the user about them
+- Classify questions: codebase facts -> explore first; user preferences/scope/requirements -> ask user
+- Plans must reference specific files/lines where applicable (80%+ claims)
+- Acceptance criteria must be testable (90%+ concrete, no vague terms without metrics)
+- **All plan files save to `docs\plans\`** — never to `.omc\plans\`
+
+### Plan Output Format
+
+Every plan includes:
+- Requirements Summary
+- Acceptance Criteria (testable)
+- Implementation Steps (with file references)
+- Risks and Mitigations
+- Verification Steps
+- For consensus: RALPLAN-DR summary (Principles, Decision Drivers, Options) + ADR section
+
+For detailed procedures of each mode, see `references/planning-workflow.md`.
 
 ## Phase B: Post-Planning Logging
 
@@ -136,3 +161,4 @@ project/
 ## References
 
 - File templates: `references/templates.md`
+- Planning workflow details: `references/planning-workflow.md`
