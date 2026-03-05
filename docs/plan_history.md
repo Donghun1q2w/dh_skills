@@ -4,6 +4,14 @@ Chronological log of project plans and decisions.
 
 ---
 
+## 2026-03-05 16:30:00 — hwpxskill & hwpxskill-math Improvement
+
+[Detail](plans/2026-03-05_163000_hwpxskill-improvement.md) | Status: **Completed**
+
+Summary: Improve two HWPX skills to comply with skill-creator guidelines: split oversized SKILL.md (963 -> ~600 lines), enhance descriptions in English, relocate README.md to docs/, remove test files, and document code duplication.
+
+---
+
 ## 2026-03-05 10:00:00 — HWP 스킬 3종 개선
 
 [Detail](plans/2026-03-05_100000_hwp-skills-improvement.md) | Status: **Completed**

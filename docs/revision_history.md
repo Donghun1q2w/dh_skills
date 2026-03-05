@@ -4,6 +4,21 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-03-05 16:30:00 — hwpxskill & hwpxskill-math skill-creator compliance improvement
+
+[Detail](revisions/2026-03-05_163000_hwpxskill-improvement.md)
+
+- `skills/hwpxskill-math/SKILL.md` — Split equation syntax/graph shapes to references, English description (963->558 lines)
+- `skills/hwpxskill-math/references/equation-syntax.md` — Hancom equation script syntax reference (Added)
+- `skills/hwpxskill-math/references/graph-shapes.md` — Graph shape type JSON spec reference (Added)
+- `skills/hwpxskill-math/scripts/hwpx_utils.py` — Add intentional duplication documentation
+- `skills/hwpxskill-math/scripts/test_refactor.py` — Removed test file from skill package (Deleted)
+- `skills/hwpxskill/SKILL.md` — English description with trigger keywords
+- `skills/hwpxskill/README.md` — Moved to `docs/hwpxskill-readme.md` (Deleted)
+- `docs/hwpxskill-readme.md` — Relocated README (Added)
+
+---
+
 ## 2026-03-03 23:05:00 — plan-context 스킬 추가
 
 [Detail](revisions/2026-03-03_230500_add-plan-context-skill.md)
