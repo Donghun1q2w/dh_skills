@@ -4,6 +4,14 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-03-12 16:55:53 — Excel 스킬 추가 및 Windows/macOS 크로스플랫폼 최적화
+
+[Detail](revisions/2026-03-12_165553_add-excel-skill.md)
+
+- `skills/excel/SKILL.md` — Windows/macOS 크로스플랫폼 Excel 스킬 (UTF-8 우선, LibreOffice 제거)
+
+---
+
 ## 2026-03-05 18:30:00 — plan-context 스킬에 omc-plan 워크플로우 내부 반영
 
 [Detail](revisions/2026-03-05_183000_plan-context-embed-omc-plan.md)
