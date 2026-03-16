@@ -4,6 +4,14 @@ Chronological log of project plans and decisions.
 
 ---
 
+## 2026-03-16 15:00:00 — dh-dev 스킬 추가 (코드 기능개선 오케스트레이터)
+
+[Detail](plans/2026-03-16_150000_add-dh-dev-skill.md) | Status: **Completed**
+
+Summary: 기존 코드의 기능 개선에 특화된 end-to-end 오케스트레이터 스킬 신규 추가. plan-context → 사용자 리뷰 → ultrawork → revision-tracker 4단계 워크플로우를 하나의 스킬로 자동화.
+
+---
+
 ## 2026-03-05 16:30:00 — hwpxskill & hwpxskill-math Improvement
 
 [Detail](plans/2026-03-05_163000_hwpxskill-improvement.md) | Status: **Completed**

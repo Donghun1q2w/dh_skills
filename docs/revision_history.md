@@ -4,6 +4,17 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-03-16 15:00:00 — dh-dev 스킬 추가 (코드 기능개선 오케스트레이터)
+
+[Detail](revisions/2026-03-16_150000_add-dh-dev-skill.md)
+
+- `skills/dh-dev/SKILL.md` — 코드 기능개선 오케스트레이터 스킬 본문 (4단계 워크플로우)
+- `docs/plans/2026-03-16_150000_add-dh-dev-skill.md` — 기획 문서
+- `docs/plan_history.md` — dh-dev 계획 항목 추가
+- `README.md` — 스킬 테이블 + 디렉토리 트리 업데이트
+
+---
+
 ## 2026-03-12 16:55:53 — Excel 스킬 추가 및 Windows/macOS 크로스플랫폼 최적화
 
 [Detail](revisions/2026-03-12_165553_add-excel-skill.md)
