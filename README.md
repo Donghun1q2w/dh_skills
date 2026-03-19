@@ -14,6 +14,9 @@ Claude Code용 개인 스킬 플러그인. 반복적인 개발 패턴과 도구 
 | [dotnet-decompile](skills/dotnet-decompile/) | .NET 어셈블리를 C# 소스코드로 디컴파일 | C# |
 | [dotnet-deobfuscate](skills/dotnet-deobfuscate/) | 난독화된 .NET 어셈블리 정리 (이름 복원, 문자열 복호화) | C# |
 | [dotnet-callgraph](skills/dotnet-callgraph/) | .NET 메서드 호출 관계 분석 및 시각화 | C# |
+| [excel](skills/excel/) | Windows/macOS 크로스플랫폼 Excel 파일 처리 (UTF-8 우선, 한글 데이터 특화) | Python |
+| [hwpxskill](skills/hwpxskill/) | 한컴오피스 HWPX 문서 생성·편집·읽기 (XML-first, OWPML 표준) | Python |
+| [hwpxskill-math](skills/hwpxskill-math/) | 수학 문제지/시험지 HWPX 생성 (한컴 수식 스크립트, 학력평가/수능 형식) | Python |
 | [pdp-agent](skills/pdp-agent/) | 제품 개발 프로세스 에이전트 — 기획→리스크→구현→런칭→회고 5단계 가이드 | - |
 | [python-windows-deploy](skills/python-windows-deploy/) | Python 프로젝트를 Windows 독립 실행형 콘솔 앱(.exe)으로 빌드 및 배포 | Python |
 | [plan-context](skills/plan-context/) | 계획 수립 시 프로젝트 컨텍스트 제공 및 완료된 계획을 docs\plans\에 저장 | - |
@@ -56,16 +59,20 @@ dh_skills/
 │   ├── dotnet-callgraph/
 │   │   ├── SKILL.md
 │   │   └── references/
-│   ├── hwp-analyze/
+│   ├── excel/
 │   │   ├── SKILL.md
 │   │   └── references/
-│   │       └── hwpx-structure.md   ← HWPX XML 구조 공통 참조
-│   ├── hwp-fill/
-│   │   └── SKILL.md
-│   ├── hwp-template/
+│   ├── hwpxskill/
 │   │   ├── SKILL.md
-│   │   └── scripts/
-│   │       └── manage_template.py  ← 템플릿 CRUD 관리
+│   │   ├── references/
+│   │   ├── scripts/
+│   │   └── templates/
+│   ├── hwpxskill-math/
+│   │   ├── SKILL.md
+│   │   ├── examples/
+│   │   ├── references/
+│   │   ├── scripts/
+│   │   └── templates/
 │   ├── plan-context/
 │   │   ├── SKILL.md
 │   │   └── references/
@@ -90,6 +97,7 @@ dh_skills/
 │   └── dh-dev/
 │       └── SKILL.md              ← 코드 기능개선 오케스트레이터
 ├── docs/
+│   ├── hwpxskill-readme.md         ← HWPX 스킬 상세 가이드
 │   ├── plan_history.md             ← 전체 계획 인덱스
 │   ├── plans/                      ← 개별 계획 문서
 │   ├── revision_history.md         ← 전체 수정내역 인덱스

@@ -104,7 +104,10 @@ source "$VENV"
 │   ├── minutes/                          # 회의록 오버레이
 │   └── proposal/                         # 제안서/사업개요 오버레이 (색상 헤더바, 번호 배지)
 └── references/
-    └── hwpx-format.md                    # OWPML XML 요소 레퍼런스
+    ├── hwpx-format.md                    # OWPML XML 요소 레퍼런스
+    ├── section0-guide.md                 # section0.xml 상세 작성 가이드 (문단/표/ID)
+    ├── style-id-map.md                   # 템플릿별 charPr/paraPr/borderFill ID 맵
+    └── critical-rules.md                 # Critical Rules 전체 17개 상세
 ```
 
 ---
@@ -173,103 +176,15 @@ rm -f "$SECTION"
 
 ## section0.xml 작성 가이드
 
-### 필수 구조
+> 상세 XML 구조, 문단/빈줄/서식혼합/표 작성법, 표 크기 계산, ID 규칙은 `See references/section0-guide.md` 참조.
 
-section0.xml의 첫 문단(`<hp:p>`)의 첫 런(`<hp:run>`)에 반드시 `<hp:secPr>`과 `<hp:colPr>` 포함:
+### 핵심 요점
 
-```xml
-<hp:p id="1000000001" paraPrIDRef="0" styleIDRef="0" pageBreak="0" columnBreak="0" merged="0">
-  <hp:run charPrIDRef="0">
-    <hp:secPr ...>
-      <!-- 페이지 크기, 여백, 각주/미주 설정 등 -->
-    </hp:secPr>
-    <hp:ctrl>
-      <hp:colPr id="" type="NEWSPAPER" layout="LEFT" colCount="1" sameSz="1" sameGap="0"/>
-    </hp:ctrl>
-  </hp:run>
-  <hp:run charPrIDRef="0"><hp:t/></hp:run>
-</hp:p>
-```
-
-**Tip**: `templates/base/Contents/section0.xml` 의 첫 문단을 그대로 복사하면 된다.
-
-### 문단
-
-```xml
-<hp:p id="고유ID" paraPrIDRef="문단스타일ID" styleIDRef="0" pageBreak="0" columnBreak="0" merged="0">
-  <hp:run charPrIDRef="글자스타일ID">
-    <hp:t>텍스트 내용</hp:t>
-  </hp:run>
-</hp:p>
-```
-
-### 빈 줄
-
-```xml
-<hp:p id="고유ID" paraPrIDRef="0" styleIDRef="0" pageBreak="0" columnBreak="0" merged="0">
-  <hp:run charPrIDRef="0"><hp:t/></hp:run>
-</hp:p>
-```
-
-### 서식 혼합 런 (한 문단에 여러 스타일)
-
-```xml
-<hp:p id="고유ID" paraPrIDRef="0" styleIDRef="0" pageBreak="0" columnBreak="0" merged="0">
-  <hp:run charPrIDRef="0"><hp:t>일반 텍스트 </hp:t></hp:run>
-  <hp:run charPrIDRef="7"><hp:t>볼드 텍스트</hp:t></hp:run>
-  <hp:run charPrIDRef="0"><hp:t> 다시 일반</hp:t></hp:run>
-</hp:p>
-```
-
-### 표 작성법
-
-```xml
-<hp:p id="고유ID" paraPrIDRef="0" styleIDRef="0" pageBreak="0" columnBreak="0" merged="0">
-  <hp:run charPrIDRef="0">
-    <hp:tbl id="고유ID" zOrder="0" numberingType="TABLE" textWrap="TOP_AND_BOTTOM"
-            textFlow="BOTH_SIDES" lock="0" dropcapstyle="None" pageBreak="CELL"
-            repeatHeader="0" rowCnt="행수" colCnt="열수" cellSpacing="0"
-            borderFillIDRef="3" noAdjust="0">
-      <hp:sz width="42520" widthRelTo="ABSOLUTE" height="전체높이" heightRelTo="ABSOLUTE" protect="0"/>
-      <hp:pos treatAsChar="1" affectLSpacing="0" flowWithText="1" allowOverlap="0"
-              holdAnchorAndSO="0" vertRelTo="PARA" horzRelTo="COLUMN" vertAlign="TOP"
-              horzAlign="LEFT" vertOffset="0" horzOffset="0"/>
-      <hp:outMargin left="0" right="0" top="0" bottom="0"/>
-      <hp:inMargin left="0" right="0" top="0" bottom="0"/>
-      <hp:tr>
-        <hp:tc name="" header="0" hasMargin="0" protect="0" editable="0" dirty="1" borderFillIDRef="4">
-          <hp:subList id="" textDirection="HORIZONTAL" lineWrap="BREAK" vertAlign="CENTER"
-                     linkListIDRef="0" linkListNextIDRef="0" textWidth="0" textHeight="0"
-                     hasTextRef="0" hasNumRef="0">
-            <hp:p paraPrIDRef="21" styleIDRef="0" pageBreak="0" columnBreak="0" merged="0" id="고유ID">
-              <hp:run charPrIDRef="9"><hp:t>헤더 셀</hp:t></hp:run>
-            </hp:p>
-          </hp:subList>
-          <hp:cellAddr colAddr="0" rowAddr="0"/>
-          <hp:cellSpan colSpan="1" rowSpan="1"/>
-          <hp:cellSz width="열너비" height="행높이"/>
-          <hp:cellMargin left="0" right="0" top="0" bottom="0"/>
-        </hp:tc>
-        <!-- 나머지 셀... -->
-      </hp:tr>
-    </hp:tbl>
-  </hp:run>
-</hp:p>
-```
-
-### 표 크기 계산
-
-- **A4 본문폭**: 42520 HWPUNIT = 59528(용지) - 8504×2(좌우여백)
-- **열 너비 합 = 본문폭** (42520)
-- 예: 3열 균등 → 14173 + 14173 + 14174 = 42520
-- 예: 2열 (라벨:내용 = 1:4) → 8504 + 34016 = 42520
-- **행 높이**: 셀당 보통 2400~3600 HWPUNIT
-
-### ID 규칙
-
-- 문단 id: `1000000001`부터 순차 증가
-- 표 id: `1000000099` 등 별도 범위 사용 권장
-- 모든 id는 문서 내 고유해야 함
+- **첫 문단 필수**: 첫 `<hp:p>`의 첫 `<hp:run>`에 반드시 `<hp:secPr>` + `<hp:colPr>` 포함
+- **Tip**: `templates/base/Contents/section0.xml` 첫 문단을 그대로 복사
+- **빈 줄**: `<hp:run charPrIDRef="0"><hp:t/></hp:run>` (self-closing)
+- **ID**: 문단 id `1000000001`부터 순차, 표 id는 별도 범위, 문서 내 고유
+- **표 본문폭**: A4 기준 42520 HWPUNIT (열 너비 합 = 42520)
 
 ---
 
@@ -316,102 +231,17 @@ section0.xml의 첫 문단(`<hp:p>`)의 첫 런(`<hp:run>`)에 반드시 `<hp:se
 
 ## 템플릿별 스타일 ID 맵
 
-### base (기본)
+> 각 템플릿(base/gonmun/report/minutes/proposal)의 charPr/paraPr/borderFill 상세 ID 표는 `See references/style-id-map.md` 참조.
 
-| ID | 유형 | 설명 |
-|----|------|------|
-| charPr 0 | 글자 | 10pt 함초롬바탕, 기본 |
-| charPr 1 | 글자 | 10pt 함초롬돋움 |
-| charPr 2~6 | 글자 | Skeleton 기본 스타일 |
-| paraPr 0 | 문단 | JUSTIFY, 160% 줄간격 |
-| paraPr 1~19 | 문단 | Skeleton 기본 (개요, 각주 등) |
-| borderFill 1 | 테두리 | 없음 (페이지 보더) |
-| borderFill 2 | 테두리 | 없음 + 투명배경 (참조용) |
+### 빠른 참조
 
-### gonmun (공문) — base + 추가
-
-| ID | 유형 | 설명 |
-|----|------|------|
-| charPr 7 | 글자 | 22pt 볼드 함초롬바탕 (기관명/제목) |
-| charPr 8 | 글자 | 16pt 볼드 함초롬바탕 (서명자) |
-| charPr 9 | 글자 | 8pt 함초롬바탕 (하단 연락처) |
-| charPr 10 | 글자 | 10pt 볼드 함초롬바탕 (표 헤더) |
-| paraPr 20 | 문단 | CENTER, 160% 줄간격 |
-| paraPr 21 | 문단 | CENTER, 130% (표 셀) |
-| paraPr 22 | 문단 | JUSTIFY, 130% (표 셀) |
-| borderFill 3 | 테두리 | SOLID 0.12mm 4면 |
-| borderFill 4 | 테두리 | SOLID 0.12mm + #D6DCE4 배경 |
-
-### report (보고서) — base + 추가
-
-| ID | 유형 | 설명 |
-|----|------|------|
-| charPr 7 | 글자 | 20pt 볼드 (문서 제목) |
-| charPr 8 | 글자 | 14pt 볼드 (소제목) |
-| charPr 9 | 글자 | 10pt 볼드 (표 헤더) |
-| charPr 10 | 글자 | 10pt 볼드+밑줄 (강조 텍스트) |
-| charPr 11 | 글자 | 9pt 함초롬바탕 (소형/각주) |
-| charPr 12 | 글자 | 16pt 볼드 함초롬바탕 (1줄 제목) |
-| charPr 13 | 글자 | 12pt 볼드 함초롬돋움 (섹션 헤더) |
-| paraPr 20~22 | 문단 | CENTER/JUSTIFY 변형 |
-| paraPr 23 | 문단 | RIGHT 정렬, 160% 줄간격 |
-| paraPr 24 | 문단 | JUSTIFY, left 600 (□ 체크항목 들여쓰기) |
-| paraPr 25 | 문단 | JUSTIFY, left 1200 (하위항목 ①②③ 들여쓰기) |
-| paraPr 26 | 문단 | JUSTIFY, left 1800 (깊은 하위항목 - 들여쓰기) |
-| paraPr 27 | 문단 | LEFT, 상하단 테두리선 (섹션 헤더용), prev 400 |
-| borderFill 3 | 테두리 | SOLID 0.12mm 4면 |
-| borderFill 4 | 테두리 | SOLID 0.12mm + #DAEEF3 배경 |
-| borderFill 5 | 테두리 | 상단 0.4mm 굵은선 + 하단 0.12mm 얇은선 (섹션 헤더) |
-
-**들여쓰기 규칙**: 공백 문자가 아닌 반드시 paraPr의 left margin 사용. □ 항목은 paraPr 24, 하위 ①②③ 는 paraPr 25, 깊은 - 항목은 paraPr 26.
-
-**섹션 헤더 규칙**: paraPr 27 + charPr 13 조합. 문단 테두리(borderFillIDRef="5")로 상단 굵은선 + 하단 얇은선 자동 표시.
-
-### minutes (회의록) — base + 추가
-
-| ID | 유형 | 설명 |
-|----|------|------|
-| charPr 7 | 글자 | 18pt 볼드 (제목) |
-| charPr 8 | 글자 | 12pt 볼드 (섹션 라벨) |
-| charPr 9 | 글자 | 10pt 볼드 (표 헤더) |
-| paraPr 20~22 | 문단 | CENTER/JUSTIFY 변형 |
-| borderFill 3 | 테두리 | SOLID 0.12mm 4면 |
-| borderFill 4 | 테두리 | SOLID 0.12mm + #E2EFDA 배경 |
-
-### proposal (제안서/사업개요) — base + 추가
-
-시각적 구분이 필요한 공식 문서용. 색상 배경 헤더바와 번호 배지를 표(table) 기반 레이아웃으로 구현.
-
-| ID | 유형 | 설명 |
-|----|------|------|
-| charPr 7 | 글자 | 20pt 볼드 함초롬바탕 (문서 제목) |
-| charPr 8 | 글자 | 14pt 볼드 함초롬바탕 (소제목) |
-| charPr 9 | 글자 | 10pt 볼드 함초롬바탕 (표 헤더) |
-| charPr 10 | 글자 | 14pt 볼드 흰색 함초롬돋움 (대항목 번호, 녹색 배경) |
-| charPr 11 | 글자 | 11pt 볼드 흰색 함초롬돋움 (소항목 번호, 파란 배경) |
-| paraPr 20 | 문단 | CENTER, 160% 줄간격 |
-| paraPr 21 | 문단 | CENTER, 130% (표 셀) |
-| paraPr 22 | 문단 | JUSTIFY, 130% (표 셀) |
-| borderFill 3 | 테두리 | SOLID 0.12mm 4면 |
-| borderFill 4 | 테두리 | SOLID 0.12mm + #DAEEF3 배경 |
-| borderFill 5 | 테두리 | 올리브녹색 배경 #7B8B3D (대항목 번호 셀) |
-| borderFill 6 | 테두리 | 연한 회색 배경 #F2F2F2 + 회색 테두리 (대항목 제목 셀) |
-| borderFill 7 | 테두리 | 파란색 배경 #4472C4 (소항목 번호 배지) |
-| borderFill 8 | 테두리 | 하단 테두리만 #D0D0D0 (소항목 제목 영역) |
-
-#### proposal 레이아웃 패턴
-
-**대항목 헤더** (2셀 표: 번호 + 제목):
-```xml
-<!-- borderFillIDRef="5" + charPrIDRef="10" → 녹색배경 흰색 로마숫자 -->
-<!-- borderFillIDRef="6" + charPrIDRef="8"  → 회색배경 검정 볼드 제목 -->
-```
-
-**소항목 헤더** (2셀 표: 번호배지 + 제목):
-```xml
-<!-- borderFillIDRef="7" + charPrIDRef="11" → 파란배경 흰색 아라비아숫자 -->
-<!-- borderFillIDRef="8" + charPrIDRef="8"  → 하단선만 검정 볼드 제목 -->
-```
+| 템플릿 | 추가 charPr 범위 | 추가 paraPr 범위 | 추가 borderFill |
+|--------|-----------------|-----------------|-----------------|
+| base | 0~6 | 0~19 | 1~2 |
+| gonmun | +7~10 | +20~22 | +3~4 |
+| report | +7~13 | +20~27 | +3~5 |
+| minutes | +7~9 | +20~22 | +3~4 |
+| proposal | +7~11 | +20~22 | +3~8 |
 
 ---
 
@@ -570,20 +400,17 @@ python3 "$SKILL_DIR/scripts/page_guard.py" \
 
 ## Critical Rules
 
-1. **HWPX만 지원**: `.hwp`(바이너리) 파일은 지원하지 않는다. 사용자가 `.hwp` 파일을 제공하면 **한글 오피스에서 `.hwpx`로 다시 저장**하도록 안내할 것. (파일 → 다른 이름으로 저장 → 파일 형식: HWPX)
-2. **secPr 필수**: section0.xml 첫 문단의 첫 run에 반드시 secPr + colPr 포함
-3. **mimetype 순서**: HWPX 패키징 시 mimetype은 첫 번째 ZIP 엔트리, ZIP_STORED
-4. **네임스페이스 보존**: XML 편집 시 `hp:`, `hs:`, `hh:`, `hc:` 접두사 유지
-5. **itemCnt 정합성**: header.xml의 charProperties/paraProperties/borderFills itemCnt가 실제 자식 수와 일치
-6. **ID 참조 정합성**: section0.xml의 charPrIDRef/paraPrIDRef가 header.xml 정의와 일치
-7. **venv 사용**: 프로젝트의 `.venv/bin/python3` (lxml 패키지 필요)
-8. **검증**: 생성 후 반드시 `validate.py`로 무결성 확인
-9. **레퍼런스**: 상세 XML 구조는 `$SKILL_DIR/references/hwpx-format.md` 참조
-10. **build_hwpx.py 우선**: 새 문서 생성은 build_hwpx.py 사용 (python-hwpx API 직접 호출 지양)
-11. **빈 줄**: `<hp:t/>` 사용 (self-closing tag)
-12. **레퍼런스 우선 강제**: 사용자가 HWPX를 첨부하면 반드시 `analyze_template.py` + 추출 XML 기반으로 복원/재작성할 것
-13. **examples 폴더 미사용**: 작업 중 `.claude/skills/hwpx/examples/*` 파일은 읽기/참조/복사에 사용하지 말 것
-14. **쪽수 동일 필수**: 레퍼런스 기반 작업에서는 최종 결과의 쪽수를 레퍼런스와 동일하게 유지할 것
-15. **무단 페이지 증가 금지**: 사용자 명시 요청/승인 없이 쪽수 증가를 유발하는 구조 변경 금지
-16. **구조 변경 제한**: 사용자 요청이 없는 한 문단/표의 추가·삭제·분할·병합 금지 (치환 중심 편집)
-17. **page_guard 필수 통과**: `validate.py`와 별개로 `page_guard.py`를 반드시 통과해야 완료 처리
+> 전체 17개 규칙 상세 설명은 `See references/critical-rules.md` 참조.
+
+**반드시 지킬 핵심 규칙 요약:**
+
+- `.hwp` 바이너리 미지원 → `.hwpx`로 변환 안내
+- secPr + colPr: section0.xml 첫 문단 첫 run에 필수
+- mimetype: ZIP 첫 번째 엔트리, ZIP_STORED
+- itemCnt: header.xml 실제 자식 수와 일치
+- ID 참조: charPrIDRef/paraPrIDRef가 header.xml 정의와 일치
+- venv + lxml 필수
+- validate.py + page_guard.py 둘 다 통과해야 완료
+- 레퍼런스 첨부 시: analyze_template.py 기반 복원 강제
+- 쪽수 동일 필수: 레퍼런스 대비 페이지 증가 금지
+- 구조 변경 제한: 사용자 요청 없이 문단/표 추가·삭제 금지 (치환 중심)

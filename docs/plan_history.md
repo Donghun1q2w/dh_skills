@@ -4,6 +4,14 @@ Chronological log of project plans and decisions.
 
 ---
 
+## 2026-03-19 16:00:00 — skill-creator 가이드라인 기반 전체 스킬 재평가 및 개선
+
+[Detail](plans/2026-03-19_160000_skill-creator-reevaluation.md) | Status: **Completed**
+
+Summary: skill-creator 가이드라인(<500줄, progressive disclosure)을 기준으로 16개 스킬 재평가. hwpxskill(589→416줄), hwpxskill-math(558→317줄), excel(305→253줄) 3개 스킬의 상세 내용을 references 파일로 분리. README.md 정합성 수정(누락 3개 추가, 삭제 3개 제거).
+
+---
+
 ## 2026-03-16 15:00:00 — dh-dev 스킬 추가 (코드 기능개선 오케스트레이터)
 
 [Detail](plans/2026-03-16_150000_add-dh-dev-skill.md) | Status: **Completed**

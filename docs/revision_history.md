@@ -4,6 +4,23 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-03-19 16:00:00 — skill-creator 가이드라인 기반 전체 스킬 재평가 및 개선
+
+[Detail](revisions/2026-03-19_160000_skill-creator-reevaluation.md)
+
+- `skills/hwpxskill/SKILL.md` — 589→416줄 축소 (section0 가이드, 스타일 맵, Critical Rules를 references로 이동)
+- `skills/hwpxskill/references/section0-guide.md` — section0.xml 작성 가이드 (Added)
+- `skills/hwpxskill/references/style-id-map.md` — 5개 템플릿 스타일 ID 맵 (Added)
+- `skills/hwpxskill/references/critical-rules.md` — Critical Rules 1~17 상세 (Added)
+- `skills/hwpxskill-math/SKILL.md` — 558→317줄 축소 (스타일 맵, 시험지 형식, 단위 변환을 references로 이동)
+- `skills/hwpxskill-math/references/style-id-map.md` — charPr/paraPr/tabPr/borderFill ID 맵 (Added)
+- `skills/hwpxskill-math/references/exam-format.md` — 시험지 레이아웃, 수식 XML, 단위 변환 (Added)
+- `skills/excel/SKILL.md` — 305→253줄 축소 (금융 모델 규칙을 references로 이동)
+- `skills/excel/references/financial-model-rules.md` — 색상 코딩, 숫자 포맷, 수식 규칙 (Added)
+- `README.md` — 누락 스킬 3개 추가, 삭제된 스킬 3개 제거, 트리 정합성 수정
+
+---
+
 ## 2026-03-16 15:00:00 — dh-dev 스킬 추가 (코드 기능개선 오케스트레이터)
 
 [Detail](revisions/2026-03-16_150000_add-dh-dev-skill.md)
