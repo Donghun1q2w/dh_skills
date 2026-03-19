@@ -4,6 +4,15 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-03-20 08:30:07 — NotebookLM 스킬 추가 및 csharp-coding-guide.skill 정리
+
+[Detail](revisions/2026-03-20_083007_add-notebooklm-cleanup-csharp.md)
+
+- `skills/notebooklm-skill/` — NotebookLM Research Assistant 스킬 추가 (Added)
+- `csharp-coding-guide.skill` — 구 형식 바이너리 파일 삭제 (Deleted)
+
+---
+
 ## 2026-03-19 16:00:00 — skill-creator 가이드라인 기반 전체 스킬 재평가 및 개선
 
 [Detail](revisions/2026-03-19_160000_skill-creator-reevaluation.md)

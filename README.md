@@ -22,6 +22,7 @@ Claude Code용 개인 스킬 플러그인. 반복적인 개발 패턴과 도구 
 | [plan-context](skills/plan-context/) | 계획 수립 시 프로젝트 컨텍스트 제공 및 완료된 계획을 docs\plans\에 저장 | - |
 | [revision-tracker](skills/revision-tracker/) | 파일 수정 시 docs\revisions\에 수정내역 로그 생성 및 revision_history.md 인덱싱 | - |
 | [dh-dev](skills/dh-dev/) | 코드 기능개선 오케스트레이터 (plan→review→execute→commit) | - |
+| [notebooklm](skills/notebooklm-skill/) | Google NotebookLM 노트북 쿼리 (브라우저 자동화, 소스 근거 답변) | Python |
 
 ## 디렉토리 구조
 
@@ -94,8 +95,12 @@ dh_skills/
 │   │   ├── SKILL.md
 │   │   └── references/
 │   │       └── templates.md      ← 수정내역 파일 및 인덱스 템플릿
-│   └── dh-dev/
-│       └── SKILL.md              ← 코드 기능개선 오케스트레이터
+│   ├── dh-dev/
+│   │   └── SKILL.md              ← 코드 기능개선 오케스트레이터
+│   └── notebooklm-skill/
+│       ├── SKILL.md              ← NotebookLM Research Assistant
+│       ├── references/
+│       └── scripts/
 ├── docs/
 │   ├── hwpxskill-readme.md         ← HWPX 스킬 상세 가이드
 │   ├── plan_history.md             ← 전체 계획 인덱스
