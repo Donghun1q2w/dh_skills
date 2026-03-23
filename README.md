@@ -23,6 +23,7 @@ Claude Code용 개인 스킬 플러그인. 반복적인 개발 패턴과 도구 
 | [revision-tracker](skills/revision-tracker/) | 파일 수정 시 docs\revisions\에 수정내역 로그 생성 및 revision_history.md 인덱싱 | - |
 | [dh-dev](skills/dh-dev/) | 코드 기능개선 오케스트레이터 (plan→review→execute→commit) | - |
 | [notebooklm](skills/notebooklm-skill/) | Google NotebookLM 노트북 쿼리 (브라우저 자동화, 소스 근거 답변) | Python |
+| [e3d-standalone](skills/e3d-standalone/) | AVEVA E3D Standalone 모드 접속·PML 매크로 실행 가이드 | C# |
 
 ## 디렉토리 구조
 
@@ -97,10 +98,15 @@ dh_skills/
 │   │       └── templates.md      ← 수정내역 파일 및 인덱스 템플릿
 │   ├── dh-dev/
 │   │   └── SKILL.md              ← 코드 기능개선 오케스트레이터
-│   └── notebooklm-skill/
-│       ├── SKILL.md              ← NotebookLM Research Assistant
-│       ├── references/
-│       └── scripts/
+│   ├── notebooklm-skill/
+│   │   ├── SKILL.md              ← NotebookLM Research Assistant
+│   │   ├── references/
+│   │   └── scripts/
+│   └── e3d-standalone/
+│       ├── SKILL.md              ← E3D Standalone 접속·매크로 실행 가이드
+│       └── references/
+│           ├── e3d-connection-template.cs  ← 접속~실행 템플릿
+│           └── env-config-template.cs     ← 환경변수 구성 헬퍼
 ├── docs/
 │   ├── hwpxskill-readme.md         ← HWPX 스킬 상세 가이드
 │   ├── plan_history.md             ← 전체 계획 인덱스
@@ -111,7 +117,9 @@ dh_skills/
 │       ├── README.md             ← 사용 가이드
 │       └── AGENT.md              ← 설계 문서
 └── refcode/
-    └── pdf2jpg/                  ← PDF→JPG 변환 패키지 레퍼런스 구현
+    ├── pdf2jpg/                  ← PDF→JPG 변환 패키지 레퍼런스 구현
+    └── e3dstandalone/            ← E3D Standalone 레퍼런스 및 테스트
+        └── E3DStandaloneTest/    ← 접속 테스트 콘솔 앱 (ALP 프로젝트)
 ```
 
 ## 스킬 형식

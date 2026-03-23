@@ -4,6 +4,16 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-03-23 15:00:00 — e3d-standalone 스킬 테스트 및 런타임 DLL 로딩 패턴 추가
+
+[Detail](revisions/2026-03-23_150000_e3d-standalone-test-and-fix.md)
+
+- `skills/e3d-standalone/SKILL.md` — AssemblyResolve 필수 패턴 및 evarProj.bat 환경변수 로드 섹션 추가
+- `skills/e3d-standalone/references/e3d-connection-template.cs` — RegisterAssemblyResolver 정적 메서드 추가
+- `refcode/e3dstandalone/E3DStandaloneTest/` — ALP 프로젝트 대상 E3D Standalone 접속 테스트 앱 (Added)
+
+---
+
 ## 2026-03-20 08:30:07 — NotebookLM 스킬 추가 및 csharp-coding-guide.skill 정리
 
 [Detail](revisions/2026-03-20_083007_add-notebooklm-cleanup-csharp.md)
