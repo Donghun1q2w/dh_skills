@@ -4,6 +4,14 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-03-24 10:00:00 — E3D Standalone 스킬 계획 항목을 plan_history.md에 추가
+
+[Detail](revisions/2026-03-24_100000_add-e3d-plan-entry.md)
+
+- `docs/plan_history.md` — E3D Standalone 스킬 계획 항목 추가
+
+---
+
 ## 2026-03-23 15:00:00 — e3d-standalone 스킬 테스트 및 런타임 DLL 로딩 패턴 추가
 
 [Detail](revisions/2026-03-23_150000_e3d-standalone-test-and-fix.md)

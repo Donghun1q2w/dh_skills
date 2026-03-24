@@ -4,6 +4,14 @@ Chronological log of project plans and decisions.
 
 ---
 
+## 2026-03-23 12:00:00 — E3D Standalone 스킬 추가
+
+[Detail](plans/2026-03-23_120000_add-e3d-standalone-skill.md) | Status: **Completed**
+
+Summary: AVEVA E3D Standalone 모드 C# 개발 가이드 스킬 신규 추가. 접속(Standalone.Start/Open) → PML 매크로 실행(Command) → 종료(Finish) 워크플로우 가이드, 9개 DLL 참조, 환경변수 구성 템플릿 포함.
+
+---
+
 ## 2026-03-19 16:00:00 — skill-creator 가이드라인 기반 전체 스킬 재평가 및 개선
 
 [Detail](plans/2026-03-19_160000_skill-creator-reevaluation.md) | Status: **Completed**
