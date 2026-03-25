@@ -4,6 +4,17 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-03-25 16:38:00 — E3D Launcher 스킬 추가 (프로세스 기반 E3D 모듈 실행)
+
+[Detail](revisions/2026-03-25_163800_add-e3d-launcher-skill.md)
+
+- `skills/e3d-launcher/SKILL.md` — E3D Launcher 스킬 정의 (모듈별 launch 패턴, 경로 규칙, config 구조)
+- `skills/e3d-launcher/references/config-sample.json` — 프로젝트 인증/경로 config 샘플
+- `skills/e3d-launcher/references/e3d-launcher-sample.py` — Python subprocess 런처 샘플
+- `skills/e3d-launcher/references/e3d-launcher-sample.cs` — C# Process.Start 런처 샘플
+
+---
+
 ## 2026-03-24 10:00:00 — E3D Standalone 스킬 계획 항목을 plan_history.md에 추가
 
 [Detail](revisions/2026-03-24_100000_add-e3d-plan-entry.md)

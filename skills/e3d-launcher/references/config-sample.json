@@ -1,0 +1,27 @@
+{
+  "settings": {
+    "aveva_design_installed_dir": "C:\\cae_prog\\AVEVA\\v2.x\\e3d",
+    "aveva_admin_installed_dir": "C:\\cae_prog\\AVEVA\\v2.x\\Administration",
+    "target_dir": "%PUBLIC%\\Documents\\AVEVA\\USERDATA",
+    "working_dir": "",
+    "batch_file": "J:\\cae_proj\\evarProj.bat"
+  },
+  "projects": {
+    "TESTPROJ": {
+      "USERNAME": "user1",
+      "PASSWORD": "password1",
+      "MDB": "MASTER",
+      "systemUSERNAME": "SYSTEM",
+      "systemPASSWORD": "XXXXXX",
+      "systeMDB": "MASTER"
+    },
+    "LIVEPROJ": {
+      "USERNAME": "user2",
+      "PASSWORD": "password2",
+      "MDB": "MASTER",
+      "systemUSERNAME": "SYSTEM",
+      "systemPASSWORD": "XXXXXX",
+      "systeMDB": "MASTER"
+    }
+  }
+}
