@@ -25,7 +25,15 @@ Read `docs\plan_history.md` if it exists. Understand:
 - Patterns of past decisions
 - Deferred or superseded plans that may be relevant
 
-### 3. Search Similar Past Plans
+### 3. Explore Git History (git 이력 탐색)
+
+Execute only if the project is a git repository (`.git` directory exists). Skip this step otherwise.
+
+- Run `git log --oneline -10` — understand recent commit topics and pace
+- Run `git diff --stat` — identify currently unstaged changes
+- If `docs\revision_history.md` exists, cross-reference: note commits not yet reflected in revision_history
+
+### 4. Search Similar Past Plans
 
 Extract keywords from the current planning topic and search for similar cases:
 - Search `docs\plan_history.md` for matching entries
@@ -35,7 +43,7 @@ Extract keywords from the current planning topic and search for similar cases:
   - Approach taken
   - Open questions or lessons learned
 
-### 4. Present Context Summary
+### 5. Present Context Summary
 
 Present a concise summary to inform the planning work:
 
@@ -45,6 +53,11 @@ Present a concise summary to inform the planning work:
 ### Recent Changes (최근 변경)
 - <date> — <summary> (from revision_history)
 - <date> — <summary>
+
+### Git History (git 이력)
+- Recent commits: <last 10 commits summary>
+- Unstaged changes: <file list or "none">
+- Untracked in revision_history: <commits not in revision_history, if any>
 
 ### Related Past Plans (관련 과거 계획)
 - <date> — <title> (Status: <status>) — <key takeaway>

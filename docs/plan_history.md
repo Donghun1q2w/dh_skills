@@ -4,6 +4,14 @@ Chronological log of project plans and decisions.
 
 ---
 
+## 2026-04-01 22:10:00 — plan-context Phase A에 git 이력 탐색 단계 추가
+
+[Detail](plans/2026-04-01_221000_add-git-history-to-plan-context.md) | Status: **Completed**
+
+Summary: plan-context 스킬의 Phase A에 git 기반 이력 탐색 단계(Step 3)를 추가. git 저장소인 프로젝트에서 `git log`, `git diff`를 활용하여 실시간 변경 컨텍스트를 수집하고, revision_history와 교차 참조하여 누락된 변경 사항을 식별.
+
+---
+
 ## 2026-03-23 12:00:00 — E3D Standalone 스킬 추가
 
 [Detail](plans/2026-03-23_120000_add-e3d-standalone-skill.md) | Status: **Completed**

@@ -4,6 +4,15 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-04-01 22:10:00 — plan-context Phase A에 git 이력 탐색 단계 추가
+
+[Detail](revisions/2026-04-01_221000_add-git-history-to-plan-context.md)
+
+- `skills/plan-context/SKILL.md` — Phase A Step 3 "Explore Git History" 추가, Step 번호 재조정, Context Summary에 Git History 섹션 추가
+- `skills/dh-dev/SKILL.md` — Step 1-b 컨텍스트 소스에 git history 참조 추가
+
+---
+
 ## 2026-03-25 16:38:00 — E3D Launcher 스킬 추가 (프로세스 기반 E3D 모듈 실행)
 
 [Detail](revisions/2026-03-25_163800_add-e3d-launcher-skill.md)
