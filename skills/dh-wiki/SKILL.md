@@ -13,7 +13,7 @@ Persistent, self-maintained markdown knowledge base for project and session know
 Process knowledge into wiki pages. A single ingest can touch multiple pages.
 
 ```
-wiki_ingest({ title: "Auth Architecture", content: "...", tags: ["auth", "architecture"], category: "architecture" })
+dh_wiki_ingest({ title: "Auth Architecture", content: "...", tags: ["auth", "architecture"], category: "architecture" })
 ```
 
 ### Query
@@ -21,7 +21,7 @@ wiki_ingest({ title: "Auth Architecture", content: "...", tags: ["auth", "archit
 Search across all wiki pages by keywords and tags. Returns matching pages with snippets — YOU (the LLM) synthesize answers with citations from the results.
 
 ```
-wiki_query({ query: "authentication", tags: ["auth"], category: "architecture" })
+dh_wiki_query({ query: "authentication", tags: ["auth"], category: "architecture" })
 ```
 
 ### Lint
@@ -29,7 +29,7 @@ wiki_query({ query: "authentication", tags: ["auth"], category: "architecture" }
 Run health checks on the wiki. Detects orphan pages, stale content, broken cross-references, oversized pages, and structural contradictions.
 
 ```
-wiki_lint()
+dh_wiki_lint()
 ```
 
 ### Quick Add
@@ -37,15 +37,15 @@ wiki_lint()
 Add a single page quickly (simpler than ingest).
 
 ```
-wiki_add({ title: "Page Title", content: "...", tags: ["tag1"], category: "decision" })
+dh_wiki_add({ title: "Page Title", content: "...", tags: ["tag1"], category: "decision" })
 ```
 
 ### List / Read / Delete
 
 ```
-wiki_list()           # Show all pages (reads index.md)
-wiki_read({ page: "auth-architecture" })  # Read specific page
-wiki_delete({ page: "outdated-page" })    # Delete a page
+dh_wiki_list()           # Show all pages (reads index.md)
+dh_wiki_read({ page: "auth-architecture" })  # Read specific page
+dh_wiki_delete({ page: "outdated-page" })    # Delete a page
 ```
 
 ### Log

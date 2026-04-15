@@ -4,7 +4,7 @@
  * dh-wiki MCP Server
  *
  * Standalone LLM Wiki MCP server providing 7 tools:
- * wiki_add, wiki_ingest, wiki_query, wiki_list, wiki_read, wiki_delete, wiki_lint
+ * dh_wiki_add, dh_wiki_ingest, dh_wiki_query, dh_wiki_list, dh_wiki_read, dh_wiki_delete, dh_wiki_lint
  *
  * Storage: docs/wiki/ (configurable via WIKI_ROOT env var)
  * Transport: stdio
@@ -38,11 +38,11 @@ function getRoot() {
 }
 
 // ============================================================================
-// wiki_ingest
+// dh_wiki_ingest
 // ============================================================================
 
 server.tool(
-  'wiki_ingest',
+  'dh_wiki_ingest',
   'Process knowledge into wiki pages. Creates new pages or merges into existing ones (append strategy — never replaces).',
   {
     title: z.string().max(200).describe('Page title (max 200 chars)'),
@@ -75,11 +75,11 @@ server.tool(
 );
 
 // ============================================================================
-// wiki_query
+// dh_wiki_query
 // ============================================================================
 
 server.tool(
-  'wiki_query',
+  'dh_wiki_query',
   'Search across all wiki pages by keywords and tags. Returns matching pages with relevance snippets. YOU synthesize answers with citations.',
   {
     query: z.string().describe('Search text'),
@@ -119,11 +119,11 @@ server.tool(
 );
 
 // ============================================================================
-// wiki_lint
+// dh_wiki_lint
 // ============================================================================
 
 server.tool(
-  'wiki_lint',
+  'dh_wiki_lint',
   'Run health checks on the wiki. Detects orphan pages, stale content, broken cross-references, oversized pages.',
   {},
   async () => {
@@ -156,12 +156,12 @@ server.tool(
 );
 
 // ============================================================================
-// wiki_add
+// dh_wiki_add
 // ============================================================================
 
 server.tool(
-  'wiki_add',
-  'Quick-add a wiki page. Simpler than wiki_ingest — creates a single page directly.',
+  'dh_wiki_add',
+  'Quick-add a wiki page. Simpler than dh_wiki_ingest — creates a single page directly.',
   {
     title: z.string().max(200).describe('Page title (max 200 chars)'),
     content: z.string().max(50000).describe('Page content in markdown (max 50KB)'),
@@ -175,7 +175,7 @@ server.tool(
 
       if (readPage(root, slug)) {
         return {
-          content: [{ type: 'text', text: `Page "${slug}" already exists. Use wiki_ingest to merge content.` }],
+          content: [{ type: 'text', text: `Page "${slug}" already exists. Use dh_wiki_ingest to merge content.` }],
           isError: true,
         };
       }
@@ -197,11 +197,11 @@ server.tool(
 );
 
 // ============================================================================
-// wiki_list
+// dh_wiki_list
 // ============================================================================
 
 server.tool(
-  'wiki_list',
+  'dh_wiki_list',
   'List all wiki pages with summaries. Reads the auto-maintained index.',
   {},
   async () => {
@@ -212,7 +212,7 @@ server.tool(
       if (!index) {
         const pages = listPages(root);
         if (pages.length === 0) {
-          return { content: [{ type: 'text', text: 'Wiki is empty. Use wiki_add or wiki_ingest to create pages.' }] };
+          return { content: [{ type: 'text', text: 'Wiki is empty. Use dh_wiki_add or dh_wiki_ingest to create pages.' }] };
         }
         return { content: [{ type: 'text', text: `Wiki has ${pages.length} pages but no index.\n${pages.map(p => `- ${p}`).join('\n')}` }] };
       }
@@ -225,11 +225,11 @@ server.tool(
 );
 
 // ============================================================================
-// wiki_read
+// dh_wiki_read
 // ============================================================================
 
 server.tool(
-  'wiki_read',
+  'dh_wiki_read',
   'Read a specific wiki page by filename (without .md extension is OK).',
   {
     page: z.string().describe('Page filename or slug (e.g., "auth-architecture")'),
@@ -261,11 +261,11 @@ server.tool(
 );
 
 // ============================================================================
-// wiki_delete
+// dh_wiki_delete
 // ============================================================================
 
 server.tool(
-  'wiki_delete',
+  'dh_wiki_delete',
   'Delete a wiki page by filename.',
   {
     page: z.string().describe('Page filename or slug to delete'),

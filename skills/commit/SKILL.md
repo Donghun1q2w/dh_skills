@@ -1,6 +1,6 @@
 ---
 name: commit
-description: Git commit message writing guide. Use when creating git commits, writing commit messages, or when the user asks to commit changes. Enforces conventional commit format with clear subject and description.
+description: '"Git commit message writing guide. Use when creating git commits, writing commit messages, or when the user asks to commit changes. Enforces conventional commit format with clear subject and description."'
 argument-hint: "[optional: commit context or ticket number]"
 ---
 
@@ -19,7 +19,7 @@ Write commit messages following the rules below. Apply this guide whenever creat
 ## Subject Line Rules
 
 | Rule | Detail |
-|------|--------|
+| --- | --- |
 | Type | **Required.** One of the types listed below |
 | Scope | Optional. Module, component, or file area affected (e.g., `auth`, `api`, `ui`) |
 | Subject | Imperative mood, no period at end |
@@ -29,7 +29,7 @@ Write commit messages following the rules below. Apply this guide whenever creat
 ### Allowed Types
 
 | Type | When to Use |
-|------|-------------|
+| --- | --- |
 | `feat` | New feature or capability |
 | `fix` | Bug fix |
 | `refactor` | Code restructuring without behavior change |
@@ -56,7 +56,7 @@ perf(query): 사용자 조회 인덱스 추가
 ## Description (Body) Rules
 
 | Rule | Detail |
-|------|--------|
+| --- | --- |
 | When required | Changes that need context: why, trade-offs, side effects |
 | When optional | Trivial changes where the subject says it all |
 | Blank line | Always separate subject and body with a blank line |
@@ -95,15 +95,22 @@ BREAKING CHANGE: CartService.getTotal()에 TaxStrategy 인자 필수
 ## Additional Context
 
 If `$ARGUMENTS` is provided, incorporate it as context:
+
 - Ticket numbers: reference in the description (e.g., `Closes #123`)
 - File context: tailor the scope and type accordingly
 
 ## Commit Checklist
 
 Before committing, verify:
+
 - [ ] Subject uses correct type
+
 - [ ] Subject는 한국어로 작성 (type/scope는 영문)
+
 - [ ] Subject is under 50 characters
+
 - [ ] Description explains WHY (if body is included)
+
 - [ ] No unrelated changes are staged
+
 - [ ] Sensitive files (.env, credentials) are NOT staged

@@ -78,7 +78,7 @@ async function main() {
       'Auto-captured session metadata.',
       `Session ID: ${sessionId}`,
       '',
-      'Review and promote significant findings to curated wiki pages via `wiki_ingest`.',
+      'Review and promote significant findings to curated wiki pages via `dh_wiki_ingest`.',
       '',
     ].join('\n');
 

@@ -49,7 +49,7 @@ async function main() {
       continue: true,
       hookSpecificOutput: {
         hookEventName: 'PreCompact',
-        additionalContext: `[Wiki: ${pages.length} pages at docs/wiki/ — use wiki_query to search, wiki_list to browse]`,
+        additionalContext: `[Wiki: ${pages.length} pages at docs/wiki/ — use dh_wiki_query to search, dh_wiki_list to browse]`,
       },
     }));
   } catch (error) {

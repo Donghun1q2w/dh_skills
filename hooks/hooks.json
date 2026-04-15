@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"$CLAUDE_PLUGIN_ROOT\"/skills/dh-wiki/hooks/session-start.mjs",
+            "command": "node \"$CLAUDE_PLUGIN_ROOT\"/skills/dh-wiki/hooks/dh-wiki-session-start.mjs",
             "timeout": 5
           }
         ]
@@ -19,7 +19,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"$CLAUDE_PLUGIN_ROOT\"/skills/dh-wiki/hooks/pre-compact.mjs",
+            "command": "node \"$CLAUDE_PLUGIN_ROOT\"/skills/dh-wiki/hooks/dh-wiki-pre-compact.mjs",
             "timeout": 3
           }
         ]
@@ -31,7 +31,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"$CLAUDE_PLUGIN_ROOT\"/skills/dh-wiki/hooks/session-end.mjs",
+            "command": "node \"$CLAUDE_PLUGIN_ROOT\"/skills/dh-wiki/hooks/dh-wiki-session-end.mjs",
             "timeout": 30
           }
         ]

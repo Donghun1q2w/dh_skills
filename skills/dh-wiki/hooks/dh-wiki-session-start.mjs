@@ -62,7 +62,7 @@ async function main() {
     const summary = [
       `[LLM Wiki: ${pages.length} pages at docs/wiki/]`,
       '',
-      'Use wiki_query to search, wiki_list to browse, wiki_read to view pages.',
+      'Use dh_wiki_query to search, dh_wiki_list to browse, dh_wiki_read to view pages.',
       '',
       indexContent ? indexContent.split('\n').slice(0, 30).join('\n') : `Pages: ${pages.join(', ')}`,
     ].join('\n');
