@@ -1,0 +1,41 @@
+{
+  "description": "dh-skills plugin hooks",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PLUGIN_ROOT\"/skills/dh-wiki/hooks/session-start.mjs",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PLUGIN_ROOT\"/skills/dh-wiki/hooks/pre-compact.mjs",
+            "timeout": 3
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PLUGIN_ROOT\"/skills/dh-wiki/hooks/session-end.mjs",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

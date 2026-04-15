@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "dh-wiki": {
+      "command": "node",
+      "args": ["skills/dh-wiki/mcp-server/index.mjs"],
+      "env": {
+        "WIKI_ROOT": "docs/wiki"
+      }
+    }
+  }
+}

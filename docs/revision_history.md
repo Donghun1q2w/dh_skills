@@ -4,6 +4,18 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-04-15 15:00:00 — dh-wiki 독립 로컬 MCP 서버 구축
+
+[Detail](revisions/2026-04-15_150000_add-dh-wiki-mcp-server.md)
+
+- `skills/dh-wiki/SKILL.md` — 경로를 docs/wiki/로 변경, OMC 의존 제거
+- `skills/dh-wiki/mcp-server/*` — 독립 MCP 서버 (7개 도구, 6개 파일 신규)
+- `skills/dh-wiki/hooks/*` — Hook 3개 내재화 (session-start, pre-compact, session-end)
+- `hooks/hooks.json` — 플러그인 루트 hook 등록 (신규)
+- `.mcp.json` — MCP 서버 등록 (신규)
+
+---
+
 ## 2026-04-01 22:10:00 — plan-context Phase A에 git 이력 탐색 단계 추가
 
 [Detail](revisions/2026-04-01_221000_add-git-history-to-plan-context.md)

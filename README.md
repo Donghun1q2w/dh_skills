@@ -25,6 +25,7 @@ Claude Code용 개인 스킬 플러그인. 반복적인 개발 패턴과 도구 
 | [notebooklm](skills/notebooklm-skill/) | Google NotebookLM 노트북 쿼리 (브라우저 자동화, 소스 근거 답변) | Python |
 | [e3d-standalone](skills/e3d-standalone/) | AVEVA E3D Standalone 모드 접속·PML 매크로 실행 가이드 | C# |
 | [e3d-launcher](skills/e3d-launcher/) | E3D 모듈(Design/Drawing/Paragon/Admin) 프로세스 실행 런처 | Python, C# |
+| [dh-wiki](skills/dh-wiki/) | LLM Wiki — docs/wiki/ 기반 마크다운 지식 베이스 (독립 MCP 서버) | Node.js |
 
 ## 디렉토리 구조
 
@@ -33,6 +34,9 @@ dh_skills/
 ├── README.md
 ├── .claude-plugin/
 │   └── marketplace.json          ← 플러그인 메타데이터
+├── .mcp.json                     ← MCP 서버 등록 (dh-wiki)
+├── hooks/
+│   └── hooks.json                ← 플러그인 루트 hook 등록
 ├── skills/
 │   ├── commit/
 │   │   └── SKILL.md
@@ -108,12 +112,26 @@ dh_skills/
 │   │   └── references/
 │   │       ├── e3d-connection-template.cs  ← 접속~실행 템플릿
 │   │       └── env-config-template.cs     ← 환경변수 구성 헬퍼
-│   └── e3d-launcher/
-│       ├── SKILL.md              ← E3D 모듈 프로세스 실행 런처
-│       └── references/
-│           ├── config-sample.json         ← 프로젝트 인증/경로 config 샘플
-│           ├── e3d-launcher-sample.py     ← Python subprocess 런처
-│           └── e3d-launcher-sample.cs     ← C# Process.Start 런처
+│   ├── e3d-launcher/
+│   │   ├── SKILL.md              ← E3D 모듈 프로세스 실행 런처
+│   │   └── references/
+│   │       ├── config-sample.json         ← 프로젝트 인증/경로 config 샘플
+│   │       ├── e3d-launcher-sample.py     ← Python subprocess 런처
+│   │       └── e3d-launcher-sample.cs     ← C# Process.Start 런처
+│   └── dh-wiki/
+│       ├── SKILL.md              ← LLM Wiki 스킬 안내
+│       ├── mcp-server/           ← 독립 MCP 서버
+│       │   ├── package.json
+│       │   ├── index.mjs         ← 서버 진입점 (7개 도구)
+│       │   ├── types.mjs
+│       │   ├── storage.mjs       ← 파일 I/O (docs/wiki/)
+│       │   ├── ingest.mjs
+│       │   ├── query.mjs
+│       │   └── lint.mjs
+│       └── hooks/
+│           ├── session-start.mjs ← SessionStart 컨텍스트 주입
+│           ├── pre-compact.mjs   ← PreCompact 요약 주입
+│           └── session-end.mjs   ← SessionEnd 자동 캡처
 ├── docs/
 │   ├── hwpxskill-readme.md         ← HWPX 스킬 상세 가이드
 │   ├── plan_history.md             ← 전체 계획 인덱스
