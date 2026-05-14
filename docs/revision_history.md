@@ -4,6 +4,18 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-05-14 12:05:00 — plan-context 비-git 프로젝트 컨텍스트 파이프라인 추가
+
+[Detail](revisions/2026-05-14_120500_plan-context-non-git-pipeline.md)
+
+- `skills/plan-context/SKILL.md` — Phase A Step 0(감지 매트릭스), Step 3 분기(3-A/3-B), Step 5 Context Summary 이중 템플릿 추가
+- `skills/plan-context/references/templates.md` — Context Summary Templates 섹션(Git/Non-Git/Bootstrap) 신설
+- `skills/dh-dev/SKILL.md` — Step 1-b의 git 의존 표현을 plan-context Phase A Step 3 위임 형태로 갱신
+- `docs/plans/2026-05-14_120000_plan-context-non-git-pipeline.md` — 신규 계획 문서
+- `docs/plan_history.md` — 신규 계획 항목 추가
+
+---
+
 ## 2026-04-15 15:00:00 — dh-wiki 독립 로컬 MCP 서버 구축
 
 [Detail](revisions/2026-04-15_150000_add-dh-wiki-mcp-server.md)

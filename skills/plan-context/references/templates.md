@@ -1,5 +1,60 @@
 # Plan Context Templates
 
+## Context Summary Templates
+
+Two variants. Pick based on `.git` presence at project root.
+
+### Git Variant
+
+```markdown
+## Project Context
+
+### Recent Changes (최근 변경)
+- <date> — <summary> (from revision_history)
+
+### Change History (변경 이력) — git
+- Recent commits: <last 10 commits summary>
+- Unstaged changes: <file list or "none">
+- Untracked in revision_history: <commits not in revision_history, if any>
+
+### Related Past Plans (관련 과거 계획)
+- <date> — <title> (Status: <status>) — <key takeaway>
+
+### Similar Cases (유사 사례)
+- <plan title> — <relevance and lessons>
+
+### Notes
+- <any important context, caveats, or dependencies>
+```
+
+### Non-Git Variant
+
+```markdown
+## Project Context
+
+### Recent Changes (최근 변경)
+- <date> — <summary> (from revision_history, if exists)
+
+### Change History (변경 이력) — file system (no git)
+- Recent file modifications (last 7 days): <file list with mtime, top 10>
+- Recent revision entries: <last 5 entries from docs/revisions/, if exists>
+- Untracked in revision_history: <files modified but not logged, if any>
+
+### Related Past Plans (관련 과거 계획)
+- <date> — <title> (Status: <status>) — <key takeaway>
+
+### Similar Cases (유사 사례)
+- <plan title> — <relevance and lessons>
+
+### Notes
+- No git tracking: change history is mtime-based and approximate
+- <any important context, caveats, or dependencies>
+```
+
+### Bootstrap State (no history files, no git)
+
+Output the Non-Git variant with `Recent Changes` and `Recent revision entries` set to `(none — first documented plan)`. Add a Note: `Bootstrap state: no prior tracking. Consider initializing git and revision-tracker after this plan.`
+
 ## Plan Document Template
 
 File: `docs\plans\YYYY-MM-DD_HHMMSS_<slug>.md`

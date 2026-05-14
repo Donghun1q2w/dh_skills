@@ -4,6 +4,22 @@ Chronological log of project plans and decisions.
 
 ---
 
+## 2026-05-14 12:00:00 — plan-context 비-git 프로젝트 파이프라인 추가
+
+[Detail](plans/2026-05-14_120000_plan-context-non-git-pipeline.md) | Status: **Completed**
+
+Summary: plan-context 스킬의 Phase A에 `.git` 부재 시 동작하는 대체 컨텍스트 수집 파이프라인을 추가. 파일시스템 mtime 기반 최근 변경 탐색, `revision_history.md` 단독 의존 경로, Context Summary 템플릿의 git/non-git 조건부 분기를 도입.
+
+---
+
+## 2026-04-20 14:00:00 — dh-wiki MCP 배포 정상화
+
+[Detail](plans/2026-04-20_140000_fix-dh-wiki-mcp-deployment.md) | Status: **In Progress**
+
+Summary: 배포 환경에서 dh-wiki MCP 서버 기동 실패 원인 2가지를 수정. (1) `node_modules/`가 Git에 추적되지 않아 플러그인 캐시에 미배포 → Git에 포함. (2) `.mcp.json`의 상대 경로를 `${CLAUDE_PLUGIN_ROOT}` 기반 절대 경로로 전환.
+
+---
+
 ## 2026-04-15 15:00:00 — dh-wiki 독립 로컬 MCP 서버 구축
 
 [Detail](plans/2026-04-15_150000_dh-wiki-local-mcp-server.md) | Status: **Completed**

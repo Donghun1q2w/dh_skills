@@ -1,8 +1,7 @@
 ---
-name: dh-dev
-description: ' "End-to-end orchestrator for code improvement tasks on existing codebases. Chains explore (code analysis) → plan-context (structured planning) → user review (approve/reject/comment loop) → ultrawork (parallel implementation) → revision-tracker (revision logging, code quality check, git commit). Use when: adding features to existing code, refactoring modules, performance optimization, bug fixing, improving code quality, enhancing existing functionality, or any code improvement requiring structured planning and tracked execution."'
-Triggers: "'기능 개선', '기능 추가', '리팩토링', 'improve', 'enhance', 'refactor', 'optimize', 'fix bug', 'code improvement'."
----
+
+## name: dh-dev description: ' "End-to-end orchestrator for code improvement tasks on existing codebases. Chains explore (code analysis) → plan-context (structured planning) → user review (approve/reject/comment loop) → ultrawork (parallel implementation) → revision-tracker (revision logging, code quality check, git commit). Use when: adding features to existing code, refactoring modules, performance optimization, bug fixing, improving code quality, enhancing existing functionality, or any code improvement requiring structured planning and tracked execution."' Triggers: "'기능 개선', '기능 추가', '리팩토링', 'improve', 'enhance', 'refactor', 'optimize', 'fix bug', 'code improvement'."
+
 # dh-dev
 
 Orchestrate code improvement tasks through four sequential phases.
@@ -26,7 +25,7 @@ Explore target files/modules to understand current structure, behavior, and depe
 
 Invoke `/plan-context` skill to produce a structured plan.
 
-- Incorporate context from `docs\revision_history.md`, `docs\plan_history.md`, and git history (if `.git` exists)
+- Incorporate context from `docs\revision_history.md`, `docs\plan_history.md`, and change history — git history when `.git` exists, file-system mtime when `.git` is absent (handled by plan-context Phase A Step 3)
 - Write concrete Implementation Steps with file references
 - Include before/after comparison criteria in Acceptance Criteria
 - Output: plan document saved to `docs\plans\`
