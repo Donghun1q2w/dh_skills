@@ -1,0 +1,8 @@
+# macOS metadata
+.DS_Store
+
+# OMC workspace state (local session/state/memory)
+.omc/
+
+# Local wiki workspace (per-project runtime data — not tracked in skill source repo)
+docs/wiki/
