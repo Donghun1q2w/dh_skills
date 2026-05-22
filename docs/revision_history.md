@@ -4,6 +4,21 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-05-22 15:45:00 — dh-wiki Hook 이벤트 재구성 (FileChanged 미러링 도입)
+
+[Detail](revisions/2026-05-22_154500_dh-wiki-hooks-rework.md)
+
+- `hooks/hooks.json` — SessionStart/SessionEnd 블록 제거, UserPromptSubmit/FileChanged 블록 추가, PreCompact 유지
+- `skills/dh-wiki/SKILL.md` — "Auto-Capture" 섹션 제거, "Auto-Mirror (FileChanged)" 섹션 신설
+- `skills/dh-wiki/hooks/dh-wiki-session-start.mjs` — 삭제 (UserPromptSubmit으로 이관)
+- `skills/dh-wiki/hooks/dh-wiki-session-end.mjs` — 삭제 (자동 세션 로그 폐기)
+- `skills/dh-wiki/hooks/dh-wiki-user-prompt-submit.mjs` — 신규 (매 프롬프트 wiki 컨텍스트 주입, 페이로드 축약)
+- `skills/dh-wiki/hooks/dh-wiki-file-changed.mjs` — 신규 (`.md` 변경 → `docs/wiki/` 자동 미러링/삭제, 통일 슬러그)
+- `docs/plans/2026-05-22_153000_dh-wiki-hooks-rework.md` — 신규 계획 문서
+- `docs/plan_history.md` — 신규 계획 항목 등록
+
+---
+
 ## 2026-05-14 12:05:00 — plan-context 비-git 프로젝트 컨텍스트 파이프라인 추가
 
 [Detail](revisions/2026-05-14_120500_plan-context-non-git-pipeline.md)

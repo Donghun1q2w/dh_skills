@@ -67,9 +67,15 @@ Pages are organized by category: `architecture`, `decision`, `pattern`, `debuggi
 
 Use `[[page-name]]` wiki-link syntax to create cross-references between pages.
 
-## Auto-Capture
+## Auto-Mirror (FileChanged)
 
-At session end, significant discoveries are automatically captured as session-log pages.
+Any `.md` file changed in the project is automatically mirrored to `docs/wiki/`.
+
+- **Trigger**: `FileChanged` hook on every disk-level change
+- **Excluded paths**: `docs/plans/**`, `docs/revisions/**`, `*history.md`, `docs/wiki/**`, `node_modules/**`, any path segment starting with `.` (`.git/`, `.omc/`, `.obsidian/`, `.claude/`, etc.)
+- **Slug**: `<file stem> (<6-char path hash>)` — stable across upsert/delete so deletions clean up correctly
+- **Category**: `reference`, **tags**: `["mirrored", "<parent-dir>"]`, **sources**: `[<original relative path>]`
+- **Delete**: removing the source `.md` removes the mirrored wiki page
 
 ## Hard Constraints
 

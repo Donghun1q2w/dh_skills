@@ -1,15 +1,13 @@
 #!/usr/bin/env node
 
 /**
- * Wiki SessionStart Hook
+ * Wiki UserPromptSubmit Hook
  *
- * On session start:
- * 1. Check if docs/wiki/ exists with pages
- * 2. Rebuild index if missing
- * 3. Inject wiki context summary into conversation
+ * Replaces SessionStart context injection. Fires on every user prompt,
+ * so payload is kept compact: page count + top index lines only.
  */
 
-import { existsSync, readFileSync, readdirSync, mkdirSync, writeFileSync } from 'fs';
+import { existsSync, readFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 
 function readStdin(timeoutMs = 1000) {
@@ -52,30 +50,28 @@ async function main() {
       return;
     }
 
-    // Read or note missing index
     const indexPath = join(wikiDir, 'index.md');
-    let indexContent = '';
+    let topLines = '';
     if (existsSync(indexPath)) {
-      indexContent = readFileSync(indexPath, 'utf-8');
+      const indexContent = readFileSync(indexPath, 'utf-8');
+      topLines = indexContent.split('\n').slice(0, 5).join('\n');
     }
 
     const summary = [
       `[LLM Wiki: ${pages.length} pages at docs/wiki/]`,
-      '',
-      'Use dh_wiki_query to search, dh_wiki_list to browse, dh_wiki_read to view pages.',
-      '',
-      indexContent ? indexContent.split('\n').slice(0, 30).join('\n') : `Pages: ${pages.join(', ')}`,
-    ].join('\n');
+      'Use dh_wiki_query/list/read to access wiki content.',
+      topLines,
+    ].filter(Boolean).join('\n');
 
     console.log(JSON.stringify({
       continue: true,
       hookSpecificOutput: {
-        hookEventName: 'SessionStart',
+        hookEventName: 'UserPromptSubmit',
         additionalContext: summary,
       },
     }));
   } catch (error) {
-    console.error('[dh-wiki-session-start] Error:', error.message);
+    console.error('[dh-wiki-user-prompt-submit] Error:', error.message);
     console.log(JSON.stringify({ continue: true, suppressOutput: true }));
   }
 }

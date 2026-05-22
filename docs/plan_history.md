@@ -4,6 +4,14 @@ Chronological log of project plans and decisions.
 
 ---
 
+## 2026-05-22 15:30:00 — dh-wiki Hook 이벤트 재구성 (FileChanged 미러링 도입)
+
+[Detail](plans/2026-05-22_153000_dh-wiki-hooks-rework.md) | Status: **Completed**
+
+Summary: dh-wiki 플러그인의 hook을 재편성. `SessionStart` → `UserPromptSubmit`으로 이관, `SessionEnd` 폐기, 신규 `FileChanged` hook으로 프로젝트 내 임의 `.md` 변경(생성·수정·삭제)을 `docs/wiki/`에 자동 미러링. 제외 대상: `docs/plans/**`, `docs/revisions/**`, `*history.md`, `docs/wiki/**`.
+
+---
+
 ## 2026-05-14 12:00:00 — plan-context 비-git 프로젝트 파이프라인 추가
 
 [Detail](plans/2026-05-14_120000_plan-context-non-git-pipeline.md) | Status: **Completed**

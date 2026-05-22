@@ -1,13 +1,13 @@
 {
   "description": "dh-skills plugin hooks",
   "hooks": {
-    "SessionStart": [
+    "UserPromptSubmit": [
       {
-        "matcher": "*",
+        "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "node \"$CLAUDE_PLUGIN_ROOT\"/skills/dh-wiki/hooks/dh-wiki-session-start.mjs",
+            "command": "node \"$CLAUDE_PLUGIN_ROOT\"/skills/dh-wiki/hooks/dh-wiki-user-prompt-submit.mjs",
             "timeout": 5
           }
         ]
@@ -25,14 +25,14 @@
         ]
       }
     ],
-    "SessionEnd": [
+    "FileChanged": [
       {
-        "matcher": "*",
+        "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "node \"$CLAUDE_PLUGIN_ROOT\"/skills/dh-wiki/hooks/dh-wiki-session-end.mjs",
-            "timeout": 30
+            "command": "node \"$CLAUDE_PLUGIN_ROOT\"/skills/dh-wiki/hooks/dh-wiki-file-changed.mjs",
+            "timeout": 10
           }
         ]
       }
