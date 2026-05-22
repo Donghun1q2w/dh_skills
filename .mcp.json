@@ -2,7 +2,7 @@
   "mcpServers": {
     "dh-wiki": {
       "command": "node",
-      "args": ["skills/dh-wiki/mcp-server/index.mjs"],
+      "args": ["skills/dh-wiki/mcp-server/dist/server.bundle.mjs"],
       "env": {
         "WIKI_ROOT": "docs/wiki"
       }
