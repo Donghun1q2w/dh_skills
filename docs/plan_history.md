@@ -4,6 +4,14 @@ Chronological log of project plans and decisions.
 
 ---
 
+## 2026-05-22 17:30:00 — plan-context Phase A에 Wiki 탐색 단계 통합
+
+[Detail](plans/2026-05-22_173000_plan-context-wiki-integration.md) | Status: **Completed**
+
+Summary: plan-context 스킬의 Phase A에 신규 Step 5 "Search Wiki Knowledge Base" 추가. `docs/wiki/` 존재 시 `dh_wiki_query/list/read`로 관련 지식을 사전 탐색하고 Context Summary의 Wiki Knowledge 섹션에 정리. Step 0 감지 매트릭스에 `docs\wiki\` 컬럼 추가, 기존 Step 5→6 재번호, Git/Non-Git 템플릿(SKILL.md + templates.md) 양쪽에 Wiki Knowledge 섹션 동기화.
+
+---
+
 ## 2026-05-22 15:30:00 — dh-wiki Hook 이벤트 재구성 (FileChanged 미러링 도입)
 
 [Detail](plans/2026-05-22_153000_dh-wiki-hooks-rework.md) | Status: **Completed**

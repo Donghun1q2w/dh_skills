@@ -23,6 +23,10 @@ Two variants. Pick based on `.git` presence at project root.
 ### Similar Cases (유사 사례)
 - <plan title> — <relevance and lessons>
 
+### Wiki Knowledge (위키 지식)
+- <page-slug> — <key fact / constraint relevant to this plan>
+- (omit section if `docs\wiki\` is absent or no relevant pages found)
+
 ### Notes
 - <any important context, caveats, or dependencies>
 ```
@@ -45,6 +49,10 @@ Two variants. Pick based on `.git` presence at project root.
 
 ### Similar Cases (유사 사례)
 - <plan title> — <relevance and lessons>
+
+### Wiki Knowledge (위키 지식)
+- <page-slug> — <key fact / constraint relevant to this plan>
+- (omit section if `docs\wiki\` is absent or no relevant pages found)
 
 ### Notes
 - No git tracking: change history is mtime-based and approximate

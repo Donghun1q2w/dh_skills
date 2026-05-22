@@ -20,15 +20,16 @@ Before gathering context, check which sources are available. The combination det
 | Git repository | `.git` directory exists at project root |
 | Revision history | `docs\revision_history.md` exists |
 | Plan history | `docs\plan_history.md` exists |
+| Wiki knowledge base | `docs\wiki\` directory exists |
 
 Behavior matrix:
 
-| `.git` | `revision_history.md` | `plan_history.md` | Phase A Branch |
-| --- | --- | --- | --- |
-| ✓ | ✓ | ✓ | Full path: Steps 1, 2, 3-A, 4, 5 (Git variant summary) |
-| ✓ | ✗ or ✓ | ✗ or ✓ | Steps 1/2 skipped if file missing; 3-A always runs |
-| ✗ | ✓ | ✓ or ✗ | Steps 1/2 run from docs only; 3-B replaces 3-A |
-| ✗ | ✗ | ✗ | Bootstrap: announce first plan, run 3-B with file system only |
+| `.git` | `revision_history.md` | `plan_history.md` | `docs\wiki\` | Phase A Branch |
+| --- | --- | --- | --- | --- |
+| ✓ | ✓ | ✓ | ✓ | Full path: Steps 1, 2, 3-A, 4, 5, 6 (Git variant summary) |
+| ✓ | ✗ or ✓ | ✗ or ✓ | ✗ or ✓ | Steps 1/2 skipped if file missing; 3-A always runs; Step 5 skipped if `docs\wiki\` missing |
+| ✗ | ✓ | ✓ or ✗ | ✗ or ✓ | Steps 1/2 run from docs only; 3-B replaces 3-A; Step 5 runs only if `docs\wiki\` exists |
+| ✗ | ✗ | ✗ | ✗ | Bootstrap: announce first plan, run 3-B with file system only; Step 5 skipped |
 
 ### 1. Read Revision History
 
@@ -80,7 +81,20 @@ Extract keywords from the current planning topic and search for similar cases:
   - Approach taken
   - Open questions or lessons learned
 
-### 5. Present Context Summary
+### 5. Search Wiki Knowledge Base (위키 지식 탐색)
+
+If `docs\wiki\` exists, use the `dh-wiki` skill to surface persisted knowledge relevant to the planning topic. Skip this step if the directory is absent.
+
+- Extract 2-5 keywords from the planning topic (domain terms, component names, technologies)
+- Run `dh_wiki_query({ query: "<keyword>" })` for the primary keyword; add `tags`/`category` filters when the topic clearly maps to one (e.g., `architecture`, `decision`, `pattern`, `convention`)
+- Optionally run `dh_wiki_list()` first to scan available pages when keywords are uncertain
+- For each hit, call `dh_wiki_read({ page: "<slug>" })` and note:
+  - Existing architectural decisions or patterns that constrain the plan
+  - Prior debugging notes or conventions that should be honored
+  - Cross-references (`[[page-name]]`) worth following
+- Record findings to feed into the Context Summary (Wiki Knowledge section)
+
+### 6. Present Context Summary
 
 Present a concise summary to inform the planning work. Use the **Git variant** when `.git` exists, otherwise use the **Non-Git variant**.
 
@@ -102,6 +116,10 @@ Present a concise summary to inform the planning work. Use the **Git variant** w
 
 ### Similar Cases (유사 사례)
 - <plan title> — <relevance and lessons>
+
+### Wiki Knowledge (위키 지식)
+- <page-slug> — <key fact / constraint relevant to this plan>
+- (omit section if `docs\wiki\` is absent or no relevant pages found)
 
 ### Notes
 - <any important context, caveats, or dependencies>
@@ -125,6 +143,10 @@ Present a concise summary to inform the planning work. Use the **Git variant** w
 
 ### Similar Cases (유사 사례)
 - <plan title> — <relevance and lessons>
+
+### Wiki Knowledge (위키 지식)
+- <page-slug> — <key fact / constraint relevant to this plan>
+- (omit section if `docs\wiki\` is absent or no relevant pages found)
 
 ### Notes
 - No git tracking: change history is mtime-based and approximate

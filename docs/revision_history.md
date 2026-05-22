@@ -4,6 +4,18 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-05-22 17:30:00 — plan-context Phase A에 Wiki 탐색 단계 통합
+
+[Detail](revisions/2026-05-22_173000_plan-context-wiki-integration.md)
+
+- `skills/plan-context/SKILL.md` — Step 0 매트릭스에 `docs\wiki\` 컬럼 추가, 신규 Step 5(Wiki 지식 탐색) 삽입, 구 Step 5→6 재번호, Context Summary 템플릿(Git/Non-Git)에 Wiki Knowledge 섹션 추가
+- `skills/plan-context/references/templates.md` — Context Summary 템플릿(Git/Non-Git) 양쪽에 Wiki Knowledge 섹션 추가 (SKILL.md와 동기화)
+- `skills/plan-context/references/planning-workflow.md` — 마크다운 포매터 부수 변경(테이블 헤더 정규화, HTML 엔티티 escape, 리스트 후 빈 줄). 내용 변경 없음
+- `docs/plans/2026-05-22_173000_plan-context-wiki-integration.md` — 사후 기록 계획 문서
+- `docs/plan_history.md` — 신규 계획 항목 등록
+
+---
+
 ## 2026-05-22 16:00:00 — dh-wiki .md 미러링 트리거 전환 (FileChanged → PostToolUse + Stop)
 
 [Detail](revisions/2026-05-22_160000_dh-wiki-mirror-trigger-fallback.md)
