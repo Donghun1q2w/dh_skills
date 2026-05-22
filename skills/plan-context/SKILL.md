@@ -1,6 +1,7 @@
 ---
-
-## name: plan-context description: "Provide project context before planning, execute structured planning workflow, and archive completed plans to docs\\plans\\ with indexing at docs\\plan_history.md. Read docs\\revision_history.md and docs\\plan_history.md to understand prior changes and past plans. Search existing plans for similar topics. Supports interview, direct, consensus (RALPLAN-DR), and review modes. Triggers when: entering plan mode, writing proposals/plans/specs/reviews (제안서/계획서/사양서/검토서), 'plan this', 'plan the'."
+name: plan-context
+description: "Provide project context before planning, execute structured planning workflow, and archive completed plans to docs\\plans\\ with indexing at docs\\plan_history.md. Read docs\\revision_history.md and docs\\plan_history.md to understand prior changes and past plans. Search existing plans for similar topics. Supports interview, direct, consensus (RALPLAN-DR), and review modes. Triggers when: entering plan mode, writing proposals/plans/specs/reviews (제안서/계획서/사양서/검토서), 'plan this', 'plan the'."
+---
 
 # Plan Context
 

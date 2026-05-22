@@ -1,5 +1,5 @@
 ---
-name: math-hwpx
+name: hwpxskill-math
 description: "Generate math worksheet and exam paper HWPX documents with Hancom equation script (hp:equation). Produces 2-column exam papers in Korean standardized test format (학력평가/수능) or simple worksheets. Supports grade 7-12 math (중1~고3), graph/geometry PNG generation (triangle, circle, coordinate, solid3d), and JSON-to-HWPX pipeline. Use when creating math worksheets, exam papers, equation documents, 수학 문제지, 시험지, 수식 문서, or 학력평가/수능 문제 generation."
 ---
 

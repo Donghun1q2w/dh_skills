@@ -1,5 +1,5 @@
 ---
-name: hwpx
+name: hwpxskill
 description: "Create, read, and edit Hancom Office HWPX documents using XML-first workflow (OWPML standard). Supports reference-based document restoration (99% fidelity), template-based generation (gonmun/report/minutes/proposal), text extraction, and structural validation with page-guard drift detection. Use for .hwpx files, 한글 문서, Hancom document creation/editing, OWPML XML manipulation, 공문 작성, 보고서 문서, 회의록, 제안서, or any Korean word processor document task."
 ---
 

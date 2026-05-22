@@ -1,7 +1,6 @@
 ---
 name: dh-wiki
-description: "LLM Wiki — persistent markdown knowledge base at docs/wiki/ with standalone MCP server (no OMC dependency)" 
-triggers: \["wiki", "wiki this", "wiki add", "wiki lint", "wiki query"\]
+description: "LLM Wiki — persistent markdown knowledge base at docs/wiki/ with standalone MCP server (no OMC dependency). Use when: 'wiki', 'wiki this', 'wiki add', 'wiki lint', 'wiki query'."
 ---
 
 # Wiki

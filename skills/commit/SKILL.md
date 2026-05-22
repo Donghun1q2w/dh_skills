@@ -1,6 +1,6 @@
 ---
 name: commit
-description: '"Git commit message writing guide. Use when creating git commits, writing commit messages, or when the user asks to commit changes. Enforces conventional commit format with clear subject and description."'
+description: "Git commit message writing guide. Use when creating git commits, writing commit messages, or when the user asks to commit changes. Enforces conventional commit format with clear subject and description."
 argument-hint: "[optional: commit context or ticket number]"
 ---
 

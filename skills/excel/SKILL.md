@@ -1,6 +1,6 @@
 ---
 name: excel
-description: "Windows/macOS 크로스플랫폼 Excel 스킬. UTF-8 인코딩 우선 적용, cp949/euc-kr 자동 fallback으로 한글 데이터 처리에 특화. .xlsx, .xlsm, .csv, .tsv 파일의 읽기, 편집, 생성, 변환 작업 시 트리거. openpyxl/pandas 기반으로 외부 의존성 없이 동작."
+description: "Cross-platform Excel skill for Windows/macOS with UTF-8 encoding priority and cp949/euc-kr automatic fallback specialized for Korean data. Use when reading, editing, creating, or converting .xlsx, .xlsm, .csv, .tsv files. Built on openpyxl/pandas with no external dependencies. Triggers: 'Excel 파일', 'xlsx', 'csv', 'spreadsheet', 'Excel 편집', '엑셀', '한글 Excel 데이터'."
 ---
 
 # Requirements for Outputs
