@@ -4,6 +4,17 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-05-22 16:00:00 — dh-wiki .md 미러링 트리거 전환 (FileChanged → PostToolUse + Stop)
+
+[Detail](revisions/2026-05-22_160000_dh-wiki-mirror-trigger-fallback.md)
+
+- `hooks/hooks.json` — FileChanged 블록 제거, PostToolUse(Edit|Write|MultiEdit) + Stop 블록 추가
+- `skills/dh-wiki/hooks/dh-wiki-file-changed.mjs` — `ingestKnowledge` → `storage.writePage` 덮어쓰기, Stop 시 `git status` 스캔 폴백 추가, `sweepOrphans()` 신설(sources 부재 미러 페이지 자동 삭제)
+- `skills/dh-wiki/SKILL.md` — Auto-Mirror 섹션 트리거 갱신, write 전략·FileChanged 거부 사유 명시
+- `docs/plans/2026-05-22_153000_dh-wiki-hooks-rework.md` — Resolution 섹션 추가
+
+---
+
 ## 2026-05-22 15:45:00 — dh-wiki Hook 이벤트 재구성 (FileChanged 미러링 도입)
 
 [Detail](revisions/2026-05-22_154500_dh-wiki-hooks-rework.md)

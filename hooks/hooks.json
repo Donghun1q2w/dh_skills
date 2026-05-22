@@ -25,14 +25,25 @@
         ]
       }
     ],
-    "FileChanged": [
+    "PostToolUse": [
       {
-        "matcher": "",
+        "matcher": "Edit|Write|MultiEdit",
         "hooks": [
           {
             "type": "command",
             "command": "node \"$CLAUDE_PLUGIN_ROOT\"/skills/dh-wiki/hooks/dh-wiki-file-changed.mjs",
             "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PLUGIN_ROOT\"/skills/dh-wiki/hooks/dh-wiki-file-changed.mjs",
+            "timeout": 15
           }
         ]
       }
