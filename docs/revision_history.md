@@ -4,6 +4,14 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-07-02 21:12:50 — dh-dev 실행 단계를 goal 기반으로 전환
+
+[Detail](revisions/2026-07-02_211250_dh-dev-goal-driven-execution.md)
+
+- `skills/dh-dev/SKILL.md` — frontmatter description에서 `ultrawork` 제거(→ goal-driven implementation), 다이어그램 하단에 Effort=max 기본값 노트 추가, Step 1-b에 Goals 선(先) 명시 요구 추가, Step 3를 `/ultrawork` 대신 네이티브 `/goal` 활성화·목표 기반 순차 구현으로 개정
+
+---
+
 ## 2026-05-22 17:30:00 — plan-context Phase A에 Wiki 탐색 단계 통합
 
 [Detail](revisions/2026-05-22_173000_plan-context-wiki-integration.md)

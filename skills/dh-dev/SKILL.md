@@ -1,6 +1,6 @@
 ---
 name: dh-dev
-description: "End-to-end orchestrator for code improvement tasks on existing codebases. Chains explore (code analysis) → plan-context (structured planning) → user review (approve/reject/comment loop) → ultrawork (parallel implementation) → revision-tracker (revision logging, code quality check, git commit). Use when: adding features to existing code, refactoring modules, performance optimization, bug fixing, improving code quality, enhancing existing functionality, or any code improvement requiring structured planning and tracked execution. Triggers: '기능 개선', '기능 추가', '리팩토링', 'improve', 'enhance', 'refactor', 'optimize', 'fix bug', 'code improvement'."
+description: "End-to-end orchestrator for code improvement tasks on existing codebases. Chains explore (code analysis) → plan-context (structured planning) → user review (approve/reject/comment loop) → goal-driven implementation → revision-tracker (revision logging, code quality check, git commit). Use when: adding features to existing code, refactoring modules, performance optimization, bug fixing, improving code quality, enhancing existing functionality, or any code improvement requiring structured planning and tracked execution. Triggers: '기능 개선', '기능 추가', '리팩토링', 'improve', 'enhance', 'refactor', 'optimize', 'fix bug', 'code improvement'."
 ---
 # dh-dev
 
@@ -11,6 +11,8 @@ Step 1 ──→ Step 2 ──→ Step 3 ──→ Step 4
 Analyze     Review     Execute    Review
 & Plan      (user)     (impl)    & Commit
 ```
+
+> **Effort:** Run this workflow at maximum reasoning effort. If the current effort is below `max` and the user has not explicitly requested a lower level, raise it to `max` before Step 1 and keep it there through implementation.
 
 ## Step 1: Analyze & Plan
 
@@ -25,6 +27,7 @@ Explore target files/modules to understand current structure, behavior, and depe
 
 Invoke `/plan-context` skill to produce a structured plan.
 
+- **State the plan's Goals explicitly and up front** — a clear, concrete outcome for each Implementation Step and how success is measured. Goals must be specific and self-contained enough to hand directly to Step 3 as the active goals.
 - Incorporate context from `docs\revision_history.md`, `docs\plan_history.md`, and change history — git history when `.git` exists, file-system mtime when `.git` is absent (handled by plan-context Phase A Step 3)
 - Write concrete Implementation Steps with file references
 - Include before/after comparison criteria in Acceptance Criteria
@@ -45,8 +48,9 @@ Comment loop: max **5** iterations. After 5, present final version with approve/
 ## Step 3: Execute
 
 1. Update plan status to `In Progress` in `docs\plan_history.md`
-2. Invoke `/ultrawork` skill — convert Implementation Steps to tasks, run independent tasks in parallel
-3. On error: report to user, confirm whether to fix or abort
+2. Activate the native `/goal` feature and register the plan's explicit Goals as the active goals for the session
+3. Implement against those goals, following the plan's Implementation Steps in order; keep reasoning effort at `max` unless the user requested otherwise
+4. On error: report to user, confirm whether to fix or abort
 
 ## Step 4: Review & Commit
 
