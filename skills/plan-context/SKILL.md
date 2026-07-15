@@ -159,7 +159,7 @@ For the canonical template files see `references/templates.md` (Context Summary 
 
 ## Phase A-2: Planning Workflow
 
-After presenting the context summary, execute the planning workflow. Select mode based on the request:
+After presenting the context summary, execute the planning workflow. Exception: when called by `dh-dev`, stop after the context summary — plan authoring is handled by dh-dev's dedicated planning agent (see `references/planning-workflow.md`, Invocation Contexts). Select mode based on the request:
 
 | Mode | Trigger | Behavior |
 | --- | --- | --- |

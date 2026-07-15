@@ -4,12 +4,28 @@ Detailed procedures for each planning mode. All plan files save to `docs\plans\`
 
 ## Table of Contents
 
+- [Invocation Contexts](#invocation-contexts)
 - [Interview Mode](#interview-mode)
 - [Direct Mode](#direct-mode)
 - [Consensus Mode](#consensus-mode)
 - [Review Mode](#review-mode)
 - [Quality Criteria](#quality-criteria)
 - [Tool Usage](#tool-usage)
+
+---
+
+## Invocation Contexts
+
+When `plan-context` is called by `dh-dev`:
+
+- Run **Phase A only** (context gathering) and return the Context Summary to the orchestrator. Do **not** proceed to Phase A-2 — plan authoring is done by dh-dev's dedicated planning agent (Fable 5, max reasoning effort), not by this workflow. The Phase A-2 modes below (Interview/Direct/Consensus/Review) are never entered from dh-dev.
+- Phase B is invoked afterward by the orchestrator solely for file naming, directory creation, and `docs\plan_history.md` indexing of the agent-authored plan. Preserve the plan body's sections verbatim (dh-dev Required Plan Sections) — do not restructure it into the Plan Document Template body.
+- All user feedback and approval happen exclusively in `dh-dev` Step 2 — never inside this workflow. Do not auto-proceed to implementation even if the request is detailed, uses `--direct`, or includes "go ahead" language.
+
+Approval tooling is environment-specific:
+
+- Use `AskUserQuestion` when it is available.
+- In Codex, if no clickable approval tool is available, ask for plain-text approval and stop.
 
 ---
 
@@ -72,11 +88,13 @@ Triggered by `--consensus` or "ralplan". Uses RALPLAN-DR structured deliberation
    - If only one viable option, explicit invalidation rationale for rejected alternatives
    - Deliberate mode adds: pre-mortem (3 failure scenarios) + expanded test plan (unit/integration/e2e/observability)
 
-2. **User feedback** *(--interactive only)*: Present draft plan + RALPLAN-DR summary via `AskUserQuestion`:
+2. **User feedback** *(--interactive only)*: Present draft plan + RALPLAN-DR summary via `AskUserQuestion` when available, otherwise plain text:
 
    - Proceed to review
    - Request changes (return to step 1)
-   - Skip review (go to step 7) Without `--interactive`, auto-proceed to step 3.
+   - Skip review (go to step 7)
+
+   Without `--interactive`, auto-proceed to step 3.
 
 3. **Architect** reviews via `Task(subagent_type="oh-my-claudecode:architect", ...)`:
 
@@ -98,11 +116,13 @@ Triggered by `--consensus` or "ralplan". Uses RALPLAN-DR structured deliberation
 
    - Decision, Drivers, Alternatives considered, Why chosen, Consequences, Follow-ups
 
-7. **Final approval** *(--interactive only)*: Present plan via `AskUserQuestion`:
+7. **Final approval** *(--interactive only)*: Present plan via `AskUserQuestion` when available, otherwise plain text:
 
    - Approve and implement
    - Request changes (return to step 1)
-   - Reject Without `--interactive`, output final plan and stop.
+   - Reject
+
+   Without `--interactive`, output final plan and stop.
 
 8. Save approved plan to `docs\plans\YYYY-MM-DD_HHMMSS_<slug>.md`
 
@@ -147,7 +167,8 @@ Triggered by `--review` or "review this plan".
 
 ## Tool Usage
 
-- `AskUserQuestion` for preference questions (scope, priority, timeline) — provides clickable UI
+- `AskUserQuestion` for preference questions (scope, priority, timeline) when available — provides clickable UI
+- Plain-text approval prompts in Codex when `AskUserQuestion` is unavailable
 - Plain text for questions needing specific values (port numbers, names)
 - `explore` agent (Haiku, 30s timeout) to gather codebase facts before asking user
 - `Task(subagent_type="oh-my-claudecode:architect", ...)` for architectural review in consensus mode

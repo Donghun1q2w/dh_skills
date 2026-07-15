@@ -131,6 +131,7 @@ Summary: <2-3문장 요약>
 | Completed | 완료 |
 | Deferred | 보류 |
 | Superseded | 후속 계획으로 대체 |
+| Rejected | 사용자 반려 — 계획 거부, 미실행 종료 |
 
 ## Notes
 
