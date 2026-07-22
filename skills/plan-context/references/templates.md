@@ -122,6 +122,35 @@ Summary: <2-3문장 요약>
 ---
 ```
 
+## Interview Mode Templates (인터뷰 모드 템플릿)
+
+Chat-display formats used by Interview Mode (`planning-workflow.md`). Not saved to files.
+
+### Ambiguity Ledger Snapshot (모호성 원장 스냅샷)
+
+```markdown
+### Ambiguity Ledger (모호성 원장)
+| Track | Status | Latest resolution |
+| --- | --- | --- |
+| Scope (범위) | Resolved | <one-line pointer> |
+| Constraints (제약) | Partially resolved | <one-line pointer> |
+| Success Criteria (성공 기준) | Open | — |
+| Non-goals (제외 범위) | Open | — |
+| Verification (검증 방법) | Waived | user: "decide for me" |
+```
+
+Status values: `Open` / `Partially resolved` / `Resolved` / `Waived`.
+
+### Refine Gate Structured Payload (자유서술 구조화 페이로드)
+
+```markdown
+Decision: <the decision>
+Reasoning: <user's rationale, faithful to their wording>
+Constraints (user-stated): <explicit constraints>
+Out of scope (user-stated): <explicit exclusions>
+Codebase context (orchestrator-verified): <file/config facts verified this session>
+```
+
 ## Status Values
 
 | Status | 의미 |

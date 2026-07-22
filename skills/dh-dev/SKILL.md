@@ -1,6 +1,6 @@
 ---
 name: dh-dev
-description: "End-to-end orchestrator for code improvement tasks on existing codebases. Chains explore (code analysis) → plan authoring by a dedicated max-reasoning planning agent (Fable 5, max reasoning effort — detailed implementation steps, Definition of Done, adversarial test environment) → user review (approve/reject/comment loop) → goal-driven implementation by a dedicated executor agent (Opus 4.8, max reasoning effort) → revision-tracker (revision logging, code quality check, git commit). Use when: adding features to existing code, refactoring modules, performance optimization, bug fixing, improving code quality, enhancing existing functionality, or any code improvement requiring structured planning and tracked execution. Triggers: '기능 개선', '기능 추가', '리팩토링', 'improve', 'enhance', 'refactor', 'optimize', 'fix bug', 'code improvement'."
+description: "End-to-end orchestrator for code improvement tasks on existing codebases. Chains explore (code analysis) → context gathering with a one-sentence restate confirmation gate → plan authoring by a dedicated max-reasoning planning agent (Fable 5, max reasoning effort — detailed implementation steps, Definition of Done, adversarial test environment) → adversarial plan preview (parallel contrarian/gap-hunter review lanes) → user review (approve/reject/comment loop) → goal-driven implementation by a dedicated executor agent (Opus 4.8, max reasoning effort) → revision-tracker (revision logging, code quality check, git commit). Use when: adding features to existing code, refactoring modules, performance optimization, bug fixing, improving code quality, enhancing existing functionality, or any code improvement requiring structured planning and tracked execution. Triggers: '기능 개선', '기능 추가', '리팩토링', 'improve', 'enhance', 'refactor', 'optimize', 'fix bug', 'code improvement'."
 ---
 # dh-dev
 
@@ -10,21 +10,25 @@ Orchestrate code improvement tasks through four sequential phases.
 Step 1 ──→ Step 2 ──→ Step 3 ──→ Step 4
 Analyze     Review     Execute    Review
 & Plan      (user)     (impl)    & Commit
+
+Step 1 detail:
+1-a Analyze → 1-b Context/Interview → 1-c Restate ✓ → 1-d Plan (agent) → 1-e Adversarial Preview
 ```
 
 > **Effort:** Run this workflow at maximum reasoning effort. If the current effort is below `max` and the user has not explicitly requested a lower level, raise it to `max` before Step 1 and keep it there through implementation.
 
 ## Agent & Model Policy
 
-Plan authoring and execution each run in a **dedicated subagent** — never in the orchestrator context.
+Plan authoring, the adversarial preview lanes, and execution each run in **dedicated subagents** — never in the orchestrator context.
 
 | Phase | Agent | Model | Reasoning effort |
 | --- | --- | --- | --- |
-| Step 1-c Plan Authoring | dedicated planning agent | Fable 5 (`fable`); fallback: highest-reasoning model available (`opus`) | maximum — `effort: "max"` (ultracode-equivalent) |
+| Step 1-d Plan Authoring | dedicated planning agent | Fable 5 (`fable`); fallback: highest-reasoning model available (`opus`) | maximum — `effort: "max"` (ultracode-equivalent) |
+| Step 1-e Adversarial Preview | 2 parallel review lanes: `contrarian`, `gap_hunter` | Sonnet (`sonnet`); fallback: default model | standard — lanes critique a finished draft, they do not author; max effort is reserved for 1-d and Step 3 |
 | Step 3 Execute | dedicated executor agent | Opus 4.8 (`opus`) | maximum — `effort: "max"` (ultracode-equivalent) |
 
 - **Claude Code**: spawn via the `Agent`/`Task` tool with the `model` override. Set reasoning effort to maximum when the harness exposes it (e.g., Workflow `agent(..., {effort: "max"})`); otherwise place an explicit maximum-reasoning directive (`ultrathink`) at the top of the agent prompt.
-- **Codex / environments without subagent model or effort control**: run the phase as a separate, single-purpose pass in the current context with maximum reasoning. All other rules (inputs, required outputs, goal contract) still apply.
+- **Codex / environments without subagent model or effort control**: run the phase as a separate, single-purpose pass in the current context with maximum reasoning. All other rules (inputs, required outputs, goal contract) still apply. For Step 1-e, run the two lanes as two sequential single-purpose passes and synthesize afterward.
 - Subagents cannot interact with the user. All questions, interviews, and approvals happen in the orchestrator (main context) — never inside the planning or executor agents.
 
 ## Step 1: Analyze & Plan
@@ -41,15 +45,29 @@ Explore target files/modules to understand current structure, behavior, and depe
 Run `plan-context` Phase A in the orchestrator to build the context summary:
 
 - Incorporate context from `docs\revision_history.md`, `docs\plan_history.md`, wiki knowledge, and change history — git history when `.git` exists, file-system mtime when `.git` is absent (handled by plan-context Phase A)
-- If requirements are vague, interview the user here (one question at a time, per plan-context rules) — the planning agent cannot ask the user anything
+- If requirements are vague, interview the user here per plan-context Interview Mode mechanics — one question at a time, ambiguity ledger (모호성 원장), Refine gate, fact-confirmation routing (see plan-context references/planning-workflow.md, Interview Mode) — the planning agent cannot ask the user anything
 
-### 1-c. Plan Authoring (dedicated planning agent)
+### 1-c. Restate Gate (재진술 확인 게이트)
+
+Run in the orchestrator immediately after 1-b, **before** spawning the expensive planning agent. No subagent, no max-reasoning cost — one cheap checkpoint to prevent a wasted max-reasoning plan built on a misunderstanding.
+
+1. Restate the agreed goal as **one sentence** covering target (what/where), the change, and the success criterion. Derive it from the 1-b answers and, when present, the resolved ambiguity-ledger tracks. Test: a third party reading only this sentence should reach the same conclusion about what is being built.
+2. Confirm via `AskUserQuestion` (Codex: plain-text question, end the turn). Options:
+   - **Yes, proceed to planning** — pass the confirmed sentence to 1-d as the top-line goal statement
+   - **Adjust wording** — apply the user's correction and restate again (max 3 cycles; after the 3rd, ask the user to write the sentence verbatim and use it as-is)
+   - **Missing scope** — return to the 1-b interview for the missing scope, then restate again
+3. The confirmed sentence feeds the planning-agent input and the plan's Requirements Summary. Everything else from 1-b is passed to 1-d in full multi-section form — the restatement is the only place where one-line compression is the goal.
+
+Confirming the restatement authorizes **plan authoring (1-d) only**. It is not approval to implement — the Step 2 hard gate is unchanged.
+
+### 1-d. Plan Authoring (dedicated planning agent)
 
 Spawn the planning agent per the Agent & Model Policy. Do **not** author the plan in the orchestrator context.
 
 Agent input — include all of:
 
 - User requirements and interview answers from 1-b
+- The confirmed goal restatement from 1-c (top-line goal statement)
 - 1-a analysis results (files, structures, call relationships)
 - 1-b context summary (revision/plan history, wiki knowledge, similar past plans)
 - The Required Plan Sections below and plan-context quality criteria (`plan-context/references/planning-workflow.md`, Quality Criteria)
@@ -67,17 +85,34 @@ Agent mission: using maximum reasoning, produce an **implementation-ready plan s
 7. **Risks and Mitigations**
 8. **Verification Steps**
 
-Post-processing (orchestrator): save the returned plan to `docs\plans\YYYY-MM-DD_HHMMSS_<slug>.md` and update `docs\plan_history.md`. plan-context Phase B applies here **only** for file naming, directory creation, and plan_history indexing — the document body is the planning agent's output with the Required Plan Sections preserved verbatim (prepend the Date/Status metadata header from templates.md; do not restructure into the Summary/Background/Proposal template).
+### 1-e. Adversarial Plan Preview (계획 초안 적대적 검증)
+
+Pressure-test the draft **before** the user sees it (Step 2). Spawn both lanes in one parallel batch per the Agent & Model Policy:
+
+- **`contrarian` lane** — attacks the draft: hidden assumptions, scope-creep risk, design decisions the plan makes implicitly without recording them, directives that contradict the 1-a analysis or user-stated 1-b constraints.
+- **`gap_hunter` lane** — hunts omissions: missing acceptance criteria, unhandled edge cases, Definition of Done items that are not binary-checkable, DoD items with no matching adversarial test, constraints stated in 1-b but absent from the plan.
+
+Lane input: the plan draft, the confirmed restatement (1-c), the 1-a analysis, and the 1-b context summary. Lane output: a findings list, each as `severity (HIGH/MEDIUM/LOW) — plan section — finding — suggested fix`. Lanes only critique — they never edit the plan and never talk to the user.
+
+Deterministic synthesis (orchestrator):
+
+1. **Structure check (gate)** — checked locally by the orchestrator, no agent: all 8 Required Plan Sections present; every DoD item binary-checkable; every DoD item mapped to at least one adversarial test. Any failure counts as a HIGH finding.
+2. Any HIGH finding → return to 1-d **once**: re-spawn the planning agent with all findings appended and the instruction to address each finding or state a per-finding disposition. After this single revision, re-run the structure check only — do **not** re-spawn the lanes.
+3. No HIGH findings, or the single revision cycle is done → proceed. Carry every remaining finding and disposition into Step 2 as **Reviewer notes (검토 노트)**; mark any unresolved HIGH finding as such.
+
+The panel runs once per fresh draft; Step 2 Comment-loop revisions are user-directed and are not re-panelled. The panel never approves the plan — only the user approves, in Step 2.
+
+Post-processing (orchestrator, after the 1-e verdict): save the returned plan to `docs\plans\YYYY-MM-DD_HHMMSS_<slug>.md` and update `docs\plan_history.md`. plan-context Phase B applies here **only** for file naming, directory creation, and plan_history indexing — the document body is the planning agent's output with the Required Plan Sections preserved verbatim (prepend the Date/Status metadata header from templates.md; do not restructure into the Summary/Background/Proposal template).
 
 ## Step 2: User Review
 
-Present plan summary and affected file list. Offer three choices:
+Present the plan summary, affected file list, and the 1-e Reviewer notes (검토 노트) — including any unresolved HIGH finding, marked as such. Offer three choices:
 
 | Choice | Action |
 | --- | --- |
 | **Approve** | Proceed to Step 3 |
 | **Reject** | Set plan status to `Rejected (user rejected)` in `docs\plan_history.md`, record reason, end skill |
-| **Comment** | Revise plan per user feedback, mark previous plan `Superseded`, return to Step 1-c |
+| **Comment** | Revise plan per user feedback, mark previous plan `Superseded`, return to Step 1-d |
 
 **Hard gate**: Stop after presenting these choices. Do not continue to Step 3 until the user explicitly replies with approval after seeing the plan. A user's initial request to "proceed", "go ahead", or use this skill is not approval for Step 3.
 
@@ -88,7 +123,7 @@ Before explicit approval:
 
 In Codex, if a clickable approval UI is unavailable, ask a plain-text approval question and end the turn.
 
-Comment loop: max **5** iterations. After 5, present final version with approve/reject only. Summarize changes as diff on each iteration. Plan revisions also run through the dedicated planning agent (Step 1-c) with the user feedback appended to its input.
+Comment loop: max **5** iterations. After 5, present final version with approve/reject only. Summarize changes as diff on each iteration. Plan revisions also run through the dedicated planning agent (Step 1-d) with the user feedback appended to its input.
 
 ## Step 3: Execute (dedicated executor agent)
 
@@ -118,3 +153,6 @@ Comment loop: max **5** iterations. After 5, present final version with approve/
 | Environment lacks subagent model/effort control | Apply the fallback in Agent & Model Policy (separate max-reasoning pass in current context) |
 | Code quality issues in Step 4 | Apply simplify fixes, re-propose commit |
 | User requests abort mid-workflow | Record current state in plan_history, end skill |
+| Restate gate not converging after 3 cycles | Ask the user to write the one-sentence goal verbatim; use it as-is |
+| HIGH findings remain after the single 1-e revision cycle | Do not loop again; surface them unresolved in Step 2 Reviewer notes — the user decides |
+| Environment lacks parallel subagents for 1-e | Run the two lanes sequentially (Agent & Model Policy fallback) |

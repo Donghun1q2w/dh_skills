@@ -163,7 +163,7 @@ After presenting the context summary, execute the planning workflow. Exception: 
 
 | Mode | Trigger | Behavior |
 | --- | --- | --- |
-| Interview | Default for broad/vague requests | Interactive requirements gathering, one question at a time |
+| Interview | Default for broad/vague requests | Interactive requirements gathering, one question at a time, tracked by an ambiguity ledger (모호성 원장) |
 | Direct | `--direct`, or detailed request | Skip interview, generate plan immediately |
 | Consensus | `--consensus`, "ralplan" | Planner -&gt; Architect -&gt; Critic loop with RALPLAN-DR |
 | Review | `--review`, "review this plan" | Critic evaluation of existing plan |
@@ -174,6 +174,8 @@ After presenting the context summary, execute the planning workflow. Exception: 
 - Ask **one question at a time** during interviews — never batch multiple questions
 - Gather codebase facts via `explore` agent **before** asking the user about them
 - Classify questions: codebase facts -&gt; explore first; user preferences/scope/requirements -&gt; ask user
+- Interview Mode only: track open ambiguity in a five-track **ambiguity ledger (모호성 원장)** — Scope / Constraints / Success Criteria / Non-goals / Verification — and pass reasoning-bearing free-form answers through the **Refine gate** before committing them (see `references/planning-workflow.md`, Interview Mode)
+- Interview Mode only: route explored codebase facts by confidence — high-confidence facts auto-adopt with a non-blocking notice, medium/low confidence requires user confirmation; after 3 consecutive non-user answers the next question MUST go directly to the user (Dialectic Rhythm Guard — see `references/planning-workflow.md`, Interview Mode)
 - Plans must reference specific files/lines where applicable (80%+ claims)
 - Acceptance criteria must be testable (90%+ concrete, no vague terms without metrics)
 - **All plan files save to** `docs\plans\` — never to `.omc\plans\`

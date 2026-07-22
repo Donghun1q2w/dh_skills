@@ -4,6 +4,22 @@ Chronological log of project plans and decisions.
 
 ---
 
+## 2026-07-22 21:17:02 — dh-dev/plan-context 플래닝 단계 개선 — ouroboros interview 패턴 이식
+
+[Detail](plans/2026-07-22_211702_dh-dev-planning-stage-ouroboros-interview.md) | Status: **Completed**
+
+Summary: ouroboros `interview` 스킬(MCP 기반 Socratic 인터뷰)에서 착안한 4개 패턴을 MCP 서버 없이 스킬/서브에이전트 구조에 이식. `dh-dev`에 Restate 확인 게이트(1-c, 값비싼 플래닝 에이전트 호출 전 한 문장 목표 재확인)와 계획 초안 적대적 프리뷰 패널(1-e, contrarian+gap_hunter 병렬 레인, HIGH 발견 시 1회 재작성)을 추가. `plan-context` Interview Mode에는 모호성 원장(Scope/Constraints/Success Criteria/Non-goals/Verification), Refine 게이트(자유서술 답변 구조화), 신뢰도 기반 사실확인 라우팅(PATH 1a/1b + Dialectic Rhythm Guard)을 추가. 전부 Interview Mode 전용 범위로 한정, Direct/Consensus/Review 모드와 기존 Step 2 hard gate는 무변경.
+
+---
+
+## 2026-06-26 15:58:21 — Codex 스킬 호환성 보완
+
+[Detail](plans/2026-06-26_155821_codex-skill-compatibility.md) | Status: **Completed**
+
+Summary: 저장소의 Claude Code 중심 스킬/플러그인 구성을 Codex에서도 안정적으로 사용할 수 있도록 `dh-dev` 승인 게이트, `plan-context` 호출 규칙, Codex plugin manifest, MCP/hook 경로, skill validation 실패 항목, 설치본 동기화 절차를 보완한다. 특히 `dh-dev`는 계획 후 명시적 사용자 승인 없이는 구현 단계로 진입하지 않도록 강화한다.
+
+---
+
 ## 2026-05-22 17:30:00 — plan-context Phase A에 Wiki 탐색 단계 통합
 
 [Detail](plans/2026-05-22_173000_plan-context-wiki-integration.md) | Status: **Completed**

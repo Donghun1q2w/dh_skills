@@ -4,11 +4,36 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-07-22 21:38:25 — dh-dev/plan-context 플래닝 단계에 ouroboros interview 패턴 이식
+
+[Detail](revisions/2026-07-22_213825_dh-dev-planning-stage-ouroboros-interview.md)
+
+- `skills\dh-dev\SKILL.md` — 1-c Restate Gate·1-e Adversarial Plan Preview(contrarian+gap_hunter) 신설, 기존 1-c를 1-d로 재번호, hard gate 문단 무변경
+- `skills\plan-context\SKILL.md` — Interview Mode 전용 Core Rules 불릿 2개 추가
+- `skills\plan-context\references\planning-workflow.md` — Interview Mode에 Ambiguity Ledger·Refine Gate·Fact-Confirmation Routing(Dialectic Rhythm Guard) 하위섹션 추가, 절차 7→8단계
+- `skills\plan-context\references\templates.md` — Interview Mode Templates 섹션(원장 스냅샷, Refine 페이로드 형식) 추가
+
+---
+
 ## 2026-07-02 21:12:50 — dh-dev 실행 단계를 goal 기반으로 전환
 
 [Detail](revisions/2026-07-02_211250_dh-dev-goal-driven-execution.md)
 
 - `skills/dh-dev/SKILL.md` — frontmatter description에서 `ultrawork` 제거(→ goal-driven implementation), 다이어그램 하단에 Effort=max 기본값 노트 추가, Step 1-b에 Goals 선(先) 명시 요구 추가, Step 3를 `/ultrawork` 대신 네이티브 `/goal` 활성화·목표 기반 순차 구현으로 개정
+
+---
+
+## 2026-06-26 16:11:06 — Codex 스킬 호환성 보완
+
+[Detail](revisions/2026-06-26_161106_codex-skill-compatibility.md)
+
+- `.codex-plugin/plugin.json` — Codex plugin manifest 추가
+- `.mcp.json` — `dh-wiki` MCP 서버 경로 탐색 wrapper 적용
+- `hooks/hooks.json` — hook 명령을 Claude/Codex 공용 경로 탐색 방식으로 변경
+- `README.md` — Codex/Claude 공용 설명, `.codex-plugin` 구조, validation 명령 갱신
+- `skills/dh-dev/SKILL.md` — 계획 후 명시적 승인 전 실행 금지 hard gate 추가
+- `skills/plan-context/references/planning-workflow.md` — `dh-dev` 호출 시 always-interactive approval 규칙 추가
+- `skills/commit/SKILL.md`, `skills/e3d-launcher/SKILL.md`, `skills/load-API-key/SKILL.md`, `skills/pdf2img/SKILL.md` — Codex validator 호환 frontmatter 정리
 
 ---
 
