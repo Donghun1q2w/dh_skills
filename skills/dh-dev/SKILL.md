@@ -1,6 +1,6 @@
 ---
 name: dh-dev
-description: "End-to-end orchestrator for code improvement tasks on existing codebases. Chains explore (code analysis) → context gathering with a one-sentence restate confirmation gate → plan authoring by a dedicated max-reasoning planning agent (Fable 5, max reasoning effort — detailed implementation steps, Definition of Done, adversarial test environment) → adversarial plan preview (parallel contrarian/gap-hunter review lanes) → user review (approve/reject/comment loop) → goal-driven implementation by a dedicated executor agent (Opus 4.8, max reasoning effort) → revision-tracker (revision logging, code quality check, git commit). Use when: adding features to existing code, refactoring modules, performance optimization, bug fixing, improving code quality, enhancing existing functionality, or any code improvement requiring structured planning and tracked execution. Triggers: '기능 개선', '기능 추가', '리팩토링', 'improve', 'enhance', 'refactor', 'optimize', 'fix bug', 'code improvement'."
+description: "End-to-end orchestrator for code improvement tasks on existing codebases. Chains explore (code analysis) → context gathering with a one-sentence restate confirmation gate → plan authoring by a dedicated planning agent (tiered Large/Medium/Small model/effort, Large default: Fable 5 at max reasoning effort — detailed implementation steps, Definition of Done, adversarial test environment) → adversarial plan preview (parallel contrarian/gap-hunter review lanes) → user review (approve/reject/comment loop) → goal-driven implementation by a dedicated executor agent (tiered model/effort, Large default: Opus 4.8 at max reasoning effort) → revision-tracker (revision logging, code quality check, git commit). Use when: adding features to existing code, refactoring modules, performance optimization, bug fixing, improving code quality, enhancing existing functionality, or any code improvement requiring structured planning and tracked execution. Triggers: '기능 개선', '기능 추가', '리팩토링', 'improve', 'enhance', 'refactor', 'optimize', 'fix bug', 'code improvement'."
 ---
 # dh-dev
 
@@ -15,7 +15,7 @@ Step 1 detail:
 1-a Analyze → 1-b Context/Interview → 1-c Restate ✓ → 1-d Plan (agent) → 1-e Adversarial Preview
 ```
 
-> **Effort:** Run this workflow at maximum reasoning effort. If the current effort is below `max` and the user has not explicitly requested a lower level, raise it to `max` before Step 1 and keep it there through implementation.
+> **Effort:** Run this workflow at maximum reasoning effort. If the current effort is below `max` and the user has not explicitly requested a lower level, raise it to `max` before Step 1 and keep it there through implementation. This governs the orchestrator context itself; the 1-d and Step 3 subagents run at the model/effort chosen by the Model & Effort Tiering policy below — a Medium/Small tier there does not violate this rule.
 
 ## Agent & Model Policy
 
@@ -23,13 +23,46 @@ Plan authoring, the adversarial preview lanes, and execution each run in **dedic
 
 | Phase | Agent | Model | Reasoning effort |
 | --- | --- | --- | --- |
-| Step 1-d Plan Authoring | dedicated planning agent | Fable 5 (`fable`); fallback: highest-reasoning model available (`opus`) | maximum — `effort: "max"` (ultracode-equivalent) |
+| Step 1-d Plan Authoring | dedicated planning agent | tiered — decided in 1-c (see Model & Effort Tiering); Large (default): Fable 5 (`fable`), fallback: highest-reasoning model available (`opus`) | tiered — Large (default): maximum `effort: "max"` (ultracode-equivalent) |
 | Step 1-e Adversarial Preview | 2 parallel review lanes: `contrarian`, `gap_hunter` | Sonnet (`sonnet`); fallback: default model | standard — lanes critique a finished draft, they do not author; max effort is reserved for 1-d and Step 3 |
-| Step 3 Execute | dedicated executor agent | Opus 4.8 (`opus`) | maximum — `effort: "max"` (ultracode-equivalent) |
+| Step 3 Execute | dedicated executor agent | tiered — decided at Step 3 item 1 (see Model & Effort Tiering); Large (default): Opus 4.8 (`opus`) | tiered — Large (default): maximum `effort: "max"` (ultracode-equivalent) |
 
-- **Claude Code**: spawn via the `Agent`/`Task` tool with the `model` override. Set reasoning effort to maximum when the harness exposes it (e.g., Workflow `agent(..., {effort: "max"})`); otherwise place an explicit maximum-reasoning directive (`ultrathink`) at the top of the agent prompt.
-- **Codex / environments without subagent model or effort control**: run the phase as a separate, single-purpose pass in the current context with maximum reasoning. All other rules (inputs, required outputs, goal contract) still apply. For Step 1-e, run the two lanes as two sequential single-purpose passes and synthesize afterward.
+- **Claude Code**: spawn via the `Agent`/`Task` tool with the `model` override. Set reasoning effort to the decided tier's level when the harness exposes it (e.g., Workflow `agent(..., {effort: "max"})` — Large: `"max"`, Medium: `"high"`, Small: harness default); otherwise map the tier to a reasoning directive at the top of the agent prompt — Large: `ultrathink`, Medium: `think hard`, Small: no directive.
+- **Codex / environments without subagent model or effort control**: run the phase as a separate, single-purpose pass in the current context with maximum reasoning. All other rules (inputs, required outputs, goal contract) still apply. For Step 1-e, run the two lanes as two sequential single-purpose passes and synthesize afterward. Tiering fallback: when reasoning effort cannot be controlled per pass, still decide and announce the tier, but run every 1-d/Step 3 pass at maximum reasoning regardless of tier — append `(fallback: max reasoning — no effort control)` to the Tier announcement line. A lower tier is never permission to run a weaker pass in such environments.
 - Subagents cannot interact with the user. All questions, interviews, and approvals happen in the orchestrator (main context) — never inside the planning or executor agents.
+
+### Model & Effort Tiering (모델·effort 티어링)
+
+1-d Plan Authoring and Step 3 Execute scale their subagent's model and reasoning effort to the size of the job. Three tiers — **Large is the conservative default**; when in doubt, round up.
+
+| Tier | Signals (판정 기준) | 1-d Plan Authoring | Step 3 Execute |
+| --- | --- | --- | --- |
+| **Large** (default) | 6+ files or architectural/cross-module change; any risk-keyword hit; >150 changed lines expected; or any signal ambiguous or unestimable | Fable 5 (`fable`); fallback `opus` — `effort: "max"` | Opus 4.8 (`opus`) — `effort: "max"` |
+| **Medium** | 2–5 files; logic changes present but localized and low-risk; 31–150 changed lines expected; no risk-keyword hit | Opus (`opus`) — `effort: "high"` | Opus (`opus`) — `effort: "high"` |
+| **Small** | single file; no new logic or algorithm (config/docs/typo/rename level); ≤30 changed lines expected; no risk-keyword hit | Sonnet (`sonnet`) — standard effort | Sonnet (`sonnet`) — standard effort |
+
+**Classification checklist (판정 체크리스트)** — run by the orchestrator alone: deterministic, no subagent, and never an extra user question (the tier is announced, not asked). Score every signal, then take the **highest** tier any single signal produces:
+
+1. **File count** — distinct files expected to change: 1 → Small; 2–5 → Medium; 6+ → Large; unestimable → Large
+2. **Change size** — estimated changed lines in total: ≤30 → Small; 31–150 → Medium; >150 → Large; unestimable → Large
+3. **Logic novelty** — none, config/docs/typo/rename level (e.g., changing a config value, fixing wording in docs, renaming without signature changes) → Small; modified or new logic that stays localized (e.g., adding an if-branch or a parameter inside an existing function, adjusting an existing query or output format) → Medium; new algorithms or architectural/cross-module changes (e.g., a new module, a changed algorithmic-complexity profile, a modified public interface or cross-module contract) → Large
+4. **Risk keywords (위험 영역)** — any hit forces Large: security/auth (보안·인증·인가), payment/billing (결제·과금), migration or schema change (마이그레이션·스키마 변경), concurrency/locking/threading (동시성·락·스레드), secrets/credentials/API keys (시크릿·자격증명·API 키), destructive operations such as delete/drop/force-push/mass update (삭제·파괴적 작업)
+
+**Round-up rule (상향 반올림)**: signals that conflict, straddle a boundary, or cannot be estimated always resolve to the higher tier. Small requires **all four** signals to land in the Small band.
+
+**Tier decision timing (판정 시점):**
+
+- **1-d tier** — decided in 1-c item 3, at the moment the user confirms the restatement. Never earlier: 1-a exploration signals alone must not set the tier — the 1-b interview and the restatement can still change scope. Inputs: 1-a analysis, 1-b interview answers, the confirmed sentence.
+- **Step 3 tier** — decided at Step 3 item 1 from the approved plan's **Implementation Steps** (target-file count, per-step diff sketches/pseudocode for change size, risk keywords in the steps and Risks sections). Judged independently of the 1-d tier — the two may differ.
+- **Re-spawns** — a Step 2 Comment-loop revision re-runs the checklist with the user feedback applied; the tier may rise but never falls within the same comment loop. The single 1-e revision cycle and Step 3 error-fix re-spawns reuse the already-decided tier.
+
+**Tier announcement (등급 고지)** — print exactly one line immediately before spawning the phase agent, in this form:
+
+`Tier: <Large|Medium|Small> — rationale: <파일 수>, <예상 변경 규모>, <로직/위험 근거> → <model>/<effort>`
+
+Example: `Tier: Small — rationale: 단일 파일, 예상 12줄 변경, 문서 전용, 위험 키워드 없음 → Sonnet/standard`
+
+**Invariant (불변 조건)**: tiering selects model and reasoning effort **only**. Every tier — including Small — runs the identical workflow: 1-e adversarial preview, the Step 2 user review with its hard gate, Step 3 evidence verification, and Step 4. No tier skips, weakens, or auto-approves any gate. 1-e stays fixed at Sonnet/standard for every tier; 1-c has no subagent and is not tiered.
 
 ## Step 1: Analyze & Plan
 
@@ -56,7 +89,8 @@ Run in the orchestrator immediately after 1-b, **before** spawning the expensive
    - **Yes, proceed to planning** — pass the confirmed sentence to 1-d as the top-line goal statement
    - **Adjust wording** — apply the user's correction and restate again (max 3 cycles; after the 3rd, ask the user to write the sentence verbatim and use it as-is)
    - **Missing scope** — return to the 1-b interview for the missing scope, then restate again
-3. The confirmed sentence feeds the planning-agent input and the plan's Requirements Summary. Everything else from 1-b is passed to 1-d in full multi-section form — the restatement is the only place where one-line compression is the goal.
+3. **Tier decision (티어 판정, 1-d)** — the moment the user selects **Yes, proceed to planning**, run the Model & Effort Tiering checklist (Agent & Model Policy) against the confirmed scope — inputs: 1-a analysis, 1-b interview answers, the confirmed sentence. Never decide earlier from 1-a exploration signals alone, and never ask the user an extra tier-confirmation question. Print the Tier announcement line, then proceed to item 4 — 1-d is spawned at this tier with the inputs item 4 describes.
+4. The confirmed sentence feeds the planning-agent input and the plan's Requirements Summary. Everything else from 1-b is passed to 1-d in full multi-section form — the restatement is the only place where one-line compression is the goal.
 
 Confirming the restatement authorizes **plan authoring (1-d) only**. It is not approval to implement — the Step 2 hard gate is unchanged.
 
@@ -127,16 +161,17 @@ Comment loop: max **5** iterations. After 5, present final version with approve/
 
 ## Step 3: Execute (dedicated executor agent)
 
-1. Update plan status to `In Progress` in `docs\plan_history.md`
-2. If the native `/goal` feature is available, register the plan's Definition of Done items as the active goals for the session
-3. Spawn the executor agent per the Agent & Model Policy (Opus 4.8, max reasoning effort). Executor rules:
+1. **Tier decision (티어 판정, Step 3)** — before any status change, run the Model & Effort Tiering checklist (Agent & Model Policy) against the approved plan's **Implementation Steps**: count distinct target files, estimate total change size from each step's expected-diff sketch/pseudocode, and scan the Implementation Steps and Risks sections for risk keywords. Orchestrator-only, no subagent, no extra user question. Print the Tier announcement line before proceeding. This tier is judged independently of the 1-d tier — the two may differ.
+2. Update plan status to `In Progress` in `docs\plan_history.md`
+3. If the native `/goal` feature is available, register the plan's Definition of Done items as the active goals for the session
+4. Spawn the executor agent per the Agent & Model Policy at the tier decided in item 1 (Large default: Opus 4.8, max reasoning effort). Executor rules:
    - **Goal contract first**: before writing any code, read the plan document and extract the **Definition of Done** and **Adversarial Test Environment** sections. Adopt them as the goal. Meeting every completion condition and passing the adversarial tests is the top priority — above speed and token cost.
    - Implement strictly following the **Implementation Steps** and **Code Writing Guide**. Do not re-litigate design decisions already made in the plan; if a directive is impossible as written, stop and report instead of improvising.
    - **Goal-seeking loop**: implement → build and run the adversarial tests → analyze failures → fix → re-run. Repeat until all Definition of Done items pass. If not converging (e.g., the same test still fails after 5 fix attempts) or genuinely blocked, stop and report the gap with evidence — never ship a partial result as done.
    - Return to the orchestrator: changed-file list, test-run evidence (commands + output), and a Definition of Done checklist with per-item pass/fail.
-4. Parallelization: if the Implementation Steps contain independent groups with no file overlap, the orchestrator may spawn one executor agent per group (same model/effort) in parallel; otherwise use a single executor agent.
-5. The orchestrator verifies the returned evidence against the plan before Step 4. An executor "done" claim without a fully green Definition of Done checklist is not done.
-6. On error: report to user, confirm whether to fix or abort.
+5. Parallelization: if the Implementation Steps contain independent groups with no file overlap, the orchestrator may spawn one executor agent per group in parallel — every group uses the single tier decided in item 1 (the tier is judged once per Step 3 from the whole plan, never per group); otherwise use a single executor agent.
+6. The orchestrator verifies the returned evidence against the plan before Step 4. An executor "done" claim without a fully green Definition of Done checklist is not done.
+7. On error: report to user, confirm whether to fix or abort.
 
 ## Step 4: Review & Commit
 
@@ -150,7 +185,8 @@ Comment loop: max **5** iterations. After 5, present final version with approve/
 | Target code not found | Ask user for correct path/file |
 | Error during Step 3 | Report error, confirm fix or abort |
 | Executor cannot meet a Definition of Done item | Report the gap with evidence; ask user: revise plan / accept as partial / abort |
-| Environment lacks subagent model/effort control | Apply the fallback in Agent & Model Policy (separate max-reasoning pass in current context) |
+| Environment lacks subagent model/effort control | Apply the fallback in Agent & Model Policy (separate pass in current context; without per-pass effort control, always run at maximum reasoning regardless of tier) |
+| Tier signals ambiguous, conflicting, or unestimable | Round up to the higher tier — Large is the default; never ask the user an extra tier-confirmation question |
 | Code quality issues in Step 4 | Apply simplify fixes, re-propose commit |
 | User requests abort mid-workflow | Record current state in plan_history, end skill |
 | Restate gate not converging after 3 cycles | Ask the user to write the one-sentence goal verbatim; use it as-is |

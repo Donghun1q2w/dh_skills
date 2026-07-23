@@ -4,6 +4,15 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-07-23 14:12:26 — dh-dev Agent & Model Policy에 3단계 모델·effort 티어링 도입
+
+[Detail](revisions/2026-07-23_141226_dh-dev-model-effort-tiering.md)
+
+- `skills\dh-dev\SKILL.md` — `### Model & Effort Tiering` 섹션 신설(Large/Medium/Small 판정 체크리스트·상향 반올림·판정 시점·Comment 루프 단조 규칙), 1-c/Step 3에 티어 판정 항목 삽입·재번호, hard gate 문단 무변경 (158→194행)
+- `skills\plan-context\references\planning-workflow.md` — Invocation Contexts의 dh-dev 플래닝 에이전트 모델 서술을 티어링 반영 문구로 1줄 수정
+
+---
+
 ## 2026-07-22 21:38:25 — dh-dev/plan-context 플래닝 단계에 ouroboros interview 패턴 이식
 
 [Detail](revisions/2026-07-22_213825_dh-dev-planning-stage-ouroboros-interview.md)

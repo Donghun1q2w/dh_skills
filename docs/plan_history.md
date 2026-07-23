@@ -4,6 +4,14 @@ Chronological log of project plans and decisions.
 
 ---
 
+## 2026-07-23 10:55:47 — dh-dev Agent & Model Policy 모델·effort 3단계 티어링 도입
+
+[Detail](plans/2026-07-23_105547_dh-dev-model-effort-tiering.md) | Status: **Completed**
+
+Summary: dh-dev의 Agent & Model Policy(1-d Plan Authoring, Step 3 Execute)에 작업 규모(파일 수·변경 라인 수·위험 영역) 기반 3단계(Large/Medium/Small) 모델·effort 티어링을 도입. 1-d 티어는 1-c Restate 확정 시점에, Step 3 티어는 승인된 계획의 Implementation Steps로 각각 독립 판정하며, 신호가 애매하면 항상 상위 등급으로 반올림하고 Large를 보수적 기본값으로 유지. Step 2 hard gate는 무변경. 1-e contrarian/gap_hunter 검토에서 발견된 13건(HIGH 4)을 1회 재작성으로 전부 반영.
+
+---
+
 ## 2026-07-22 21:17:02 — dh-dev/plan-context 플래닝 단계 개선 — ouroboros interview 패턴 이식
 
 [Detail](plans/2026-07-22_211702_dh-dev-planning-stage-ouroboros-interview.md) | Status: **Completed**

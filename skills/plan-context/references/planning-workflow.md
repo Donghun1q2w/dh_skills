@@ -18,7 +18,7 @@ Detailed procedures for each planning mode. All plan files save to `docs\plans\`
 
 When `plan-context` is called by `dh-dev`:
 
-- Run **Phase A only** (context gathering) and return the Context Summary to the orchestrator. Do **not** proceed to Phase A-2 — plan authoring is done by dh-dev's dedicated planning agent (Fable 5, max reasoning effort), not by this workflow. The Phase A-2 modes below (Interview/Direct/Consensus/Review) are never entered from dh-dev.
+- Run **Phase A only** (context gathering) and return the Context Summary to the orchestrator. Do **not** proceed to Phase A-2 — plan authoring is done by dh-dev's dedicated planning agent (model/effort per dh-dev's Model & Effort Tiering; Large default: Fable 5, max reasoning effort), not by this workflow. The Phase A-2 modes below (Interview/Direct/Consensus/Review) are never entered from dh-dev.
 - Phase B is invoked afterward by the orchestrator solely for file naming, directory creation, and `docs\plan_history.md` indexing of the agent-authored plan. Preserve the plan body's sections verbatim (dh-dev Required Plan Sections) — do not restructure it into the Plan Document Template body.
 - All user feedback and approval happen exclusively in `dh-dev` Step 2 — never inside this workflow. Do not auto-proceed to implementation even if the request is detailed, uses `--direct`, or includes "go ahead" language.
 - Exception to the above: when dh-dev runs its 1-b interview in the orchestrator, the Interview Mode **mechanics** below do apply — ambiguity ledger, Refine gate, fact-confirmation routing, one question at a time. What is never entered from dh-dev is Interview Mode plan authoring (steps 7-8): the plan is always authored by dh-dev's dedicated planning agent.
