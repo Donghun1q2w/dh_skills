@@ -4,6 +4,14 @@ Chronological log of project plans and decisions.
 
 ---
 
+## 2026-07-25 15:33:52 — dh-dev Opus 버전 표기 일반화
+
+[Detail](plans/2026-07-25_153352_dh-dev-opus-label-generalization.md) | Status: **Completed**
+
+Summary: 2026-07-24 Claude Opus 5 출시(Opus 4.8과 동일 가격, 병행 운영)에 대응해, dh-dev/SKILL.md의 Large 등급 Step 3 모델 표기 4곳에서 하드코딩된 "Opus 4.8" 버전 문자열을 Medium 등급과 동일한 범용 "Opus (`opus`)" alias 표기로 일반화 — 향후 Opus 갱신 시 문서 수정 불필요. 신규 티어링 시스템으로 Small 등급 판정(Sonnet/standard). 1-e 검토에서 6건(HIGH 4) 발견 후 1회 재작성으로 전부 반영.
+
+---
+
 ## 2026-07-23 10:55:47 — dh-dev Agent & Model Policy 모델·effort 3단계 티어링 도입
 
 [Detail](plans/2026-07-23_105547_dh-dev-model-effort-tiering.md) | Status: **Completed**
