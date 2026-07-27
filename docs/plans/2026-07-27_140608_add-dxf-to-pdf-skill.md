@@ -1,7 +1,7 @@
 # 구현 계획: dxf-to-pdf 스킬 신규 작성 (번들 CLI 직접 실행형)
 
 - **Date**: 2026-07-27 14:06:08
-- **Status**: In Progress
+- **Status**: Completed
 
 > Top-line goal: `skills/dxf-to-pdf/SKILL.md`를 새로 작성해, release-cli 전체(dxf_converter.exe + 종속 DLL들 + contracts 스키마)를 `skills/dxf-to-pdf/references/cli/`에 그대로 복사해 리포지에 커밋하고, 사용자가 DXF→PDF 변환을 요청하면 Claude가 settings.json을 생성해 이 CLI를 직접 실행함으로써(단일 파일과 폴더 배치 모두 지원, preview 모드는 제외) 실제 PDF 산출물을 생성하는 것을 성공 기준으로 한다.
 

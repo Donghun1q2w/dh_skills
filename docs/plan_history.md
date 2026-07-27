@@ -6,7 +6,7 @@ Chronological log of project plans and decisions.
 
 ## 2026-07-27 14:06:08 — dxf-to-pdf 스킬 신규 작성 (번들 CLI 직접 실행형)
 
-[Detail](plans/2026-07-27_140608_add-dxf-to-pdf-skill.md) | Status: **In Progress**
+[Detail](plans/2026-07-27_140608_add-dxf-to-pdf-skill.md) | Status: **Completed**
 
 Summary: `D:\002_C_Sharp\dxf_to_pdf\dxf_converter\release-cli`의 dxf_converter CLI(exe+DLL 14개+contracts 스키마, 총 24개 파일)를 `skills/dxf-to-pdf/references/cli/`에 그대로 복사해 커밋하고, `scripts/convert-dxf.ps1`이 매 실행 시 %TEMP% 작업 폴더로 번들을 복사한 뒤 settings.json을 생성해 CLI를 직접 실행함으로써 단일 파일·폴더 배치(재귀 옵션 포함) DXF→PDF 변환을 수행하는 신규 스킬. 1-e 적대적 검증(contrarian+gap_hunter, HIGH 5/MEDIUM 9/LOW 5 총 19건)을 1회 재작성으로 전부 반영 — 정적 AT 6종 신설로 DoD-AT 매핑 완결, skip-only 재실행 시 %TEMP% 누적 버그 수정, AT-2 `in_flat` 준비 코드 누락 수정, preview 제외 검증 항목 추가. 계획 서두에 사용자 재확인이 필요한 계획 작성자 임의 결정 3건(기본값 무질문 정책·자연어 의도 추론·파라미터 노출)을 명시.
 
