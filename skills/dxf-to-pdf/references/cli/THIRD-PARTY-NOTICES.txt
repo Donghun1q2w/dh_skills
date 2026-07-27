@@ -1,0 +1,33 @@
+DXF PDF Converter — Third-Party Notices
+========================================
+
+This product includes third-party components. The corresponding license texts
+and notices must remain available with redistributed builds.
+
+ACadSharp 3.6.35
+----------------
+Project: https://github.com/DomCR/ACadSharp
+License: MIT
+Purpose: Reading AC1032 ASCII DXF documents and CAD entity data.
+
+OpenMcdf 3.1.4
+--------------
+Project: https://github.com/ironfede/openmcdf
+License: Mozilla Public License 2.0 (MPL-2.0)
+Purpose: Reading OLE Compound File Binary payloads embedded in OLE2FRAME entities.
+
+System.Text.Json 8.0.6
+----------------------
+Project: https://github.com/dotnet/runtime
+License: MIT
+Purpose: Versioned settings, protocol, worker, and manifest JSON serialization.
+
+.NET and WPF
+------------
+Project: https://github.com/dotnet/runtime and https://github.com/dotnet/wpf
+License: MIT
+Purpose: Runtime, desktop UI, and base class libraries.
+
+This notice is informational and does not replace the full license files
+distributed by the package authors. Release automation validates the dependency
+inventory so newly introduced packages are not silently omitted from this file.

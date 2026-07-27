@@ -1,0 +1,125 @@
+{
+  "product": "DXF PDF Converter (CLI)",
+  "version": "0.1.0",
+  "architecture": "x64",
+  "backend_runtime": ".NET Framework 4.8",
+  "includes_ui": false,
+  "generated_utc": "2026-07-27T03:23:59.2662155Z",
+  "files": [
+    {
+      "path": "ACadSharp.dll",
+      "size_bytes": 1293824,
+      "sha256": "c1ba2b017d254b43d46a926b631701e705dd94367d54bf033f29f7a8c40813c2"
+    },
+    {
+      "path": "contracts/manifest.schema.json",
+      "size_bytes": 4119,
+      "sha256": "ce2c85a779ec17668a83a3e1c4a3a62d1188e447d156a644bc458ea27f310bb8"
+    },
+    {
+      "path": "contracts/progress-event.schema.json",
+      "size_bytes": 4344,
+      "sha256": "23fccf4b7ffe29f3a9b2c4a655a1ee8e867dabe22c815a3f0da50c1710486a52"
+    },
+    {
+      "path": "contracts/settings.schema.json",
+      "size_bytes": 3741,
+      "sha256": "49926073839f382a5b8c4ccbb07572f8378b6100b2b159a8c83e8a6d41f950f4"
+    },
+    {
+      "path": "dxf_converter.exe",
+      "size_bytes": 90624,
+      "sha256": "fe1e9f936eb09ee84e6c65d2a78fd1a2e7bac54cdf9cfefdec8d078d5c0eb65c"
+    },
+    {
+      "path": "dxf_converter.exe.config",
+      "size_bytes": 2033,
+      "sha256": "7fa292fafed9fc644eceec0011a94d9cb026d11989f8b0d6ad2816b26265909d"
+    },
+    {
+      "path": "DxfToPdfConverter.Contracts.dll",
+      "size_bytes": 30208,
+      "sha256": "62ad876f1b8cce652561499db005d74c0240f144b40fbcc27a1c57012d9af23a"
+    },
+    {
+      "path": "DxfToPdfConverter.Core.dll",
+      "size_bytes": 104448,
+      "sha256": "5c24b6e9fd6059c9b4b19d3f57ea7500f78de18d0b65b0e3788379410dd54414"
+    },
+    {
+      "path": "Microsoft.Bcl.AsyncInterfaces.dll",
+      "size_bytes": 26904,
+      "sha256": "80678203bd0203a6594f4e330b22543c0de5059382bb1c9334b7868b8f31b1bc"
+    },
+    {
+      "path": "Microsoft.Bcl.HashCode.dll",
+      "size_bytes": 26920,
+      "sha256": "3a4e851ee5fc0f6182aa5a3d65dc56fcd6979b65334b5c3b92fbdc791457c0ab"
+    },
+    {
+      "path": "OpenMcdf.dll",
+      "size_bytes": 76800,
+      "sha256": "4b2f43f3847ce5df89542b30580a7cf57b9bb8fc3e36dd411f6993de1d6c1bfd"
+    },
+    {
+      "path": "README.txt",
+      "size_bytes": 3704,
+      "sha256": "d8a89cd74966b9da6791bb1da8a4d4a84dca68218ffe41941ddb59ce86f7e732"
+    },
+    {
+      "path": "settings.ini",
+      "size_bytes": 152,
+      "sha256": "7393e269a576f27eb3ca555c53e39d024a9cce45685fa2fc0e1a59718d270be0"
+    },
+    {
+      "path": "settings.json",
+      "size_bytes": 593,
+      "sha256": "96f82226d27d67f906057fa7338003d9d31aa8700604c5278f85dfc6120a6595"
+    },
+    {
+      "path": "System.Buffers.dll",
+      "size_bytes": 23816,
+      "sha256": "2d78d770c9cb997199154ae8c018b9f1d1efbc86729f7264dde6dbad2a12cac3"
+    },
+    {
+      "path": "System.Memory.dll",
+      "size_bytes": 145200,
+      "sha256": "d5e8e4866f9cfa66f7765660f84b210198893e55335487afe5ebda342c0e913d"
+    },
+    {
+      "path": "System.Numerics.Vectors.dll",
+      "size_bytes": 110344,
+      "sha256": "20c2fa81b8c70d651099d762954f285fd4f942e63b2d7217c145dab8d4b2f4c9"
+    },
+    {
+      "path": "System.Runtime.CompilerServices.Unsafe.dll",
+      "size_bytes": 19256,
+      "sha256": "08cbd7278b66f1e68425a82d4b97181a4130d93e3dd91831407aba7212ccdacf"
+    },
+    {
+      "path": "System.Text.Encodings.Web.dll",
+      "size_bytes": 79024,
+      "sha256": "e9c4f5eed186cb129c527c4b8d67d163ea2f2396e9d8b96e30b5e7c12203ce84"
+    },
+    {
+      "path": "System.Text.Json.dll",
+      "size_bytes": 644904,
+      "sha256": "0cf5a9763c98f09e94dfcdaa4437e9508eabe2e50b408ba421d5faf734c5556a"
+    },
+    {
+      "path": "System.Threading.Tasks.Extensions.dll",
+      "size_bytes": 25984,
+      "sha256": "4f81ffd0dc7204db75afc35ea4291769b07c440592f28894260eea76626a23c6"
+    },
+    {
+      "path": "System.ValueTuple.dll",
+      "size_bytes": 25232,
+      "sha256": "e905d102585b22c6df04f219af5cbdbfa7bc165979e9788b62df6dcc165e10f4"
+    },
+    {
+      "path": "THIRD-PARTY-NOTICES.txt",
+      "size_bytes": 1176,
+      "sha256": "dae40883ec758d1392341bffb35dcb461f1d246dc1a5ac8872c73fa3ee0bd62a"
+    }
+  ]
+}

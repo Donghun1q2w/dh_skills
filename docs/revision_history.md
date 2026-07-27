@@ -4,6 +4,19 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-07-27 14:49:40 — dxf-to-pdf 스킬 신규 추가 (번들 CLI 직접 실행형)
+
+[Detail](revisions/2026-07-27_144940_add-dxf-to-pdf-skill.md)
+
+- `skills/dxf-to-pdf/SKILL.md` — 스킬 메인 문서 신규 작성
+- `skills/dxf-to-pdf/.gitattributes` — 번들 바이너리 -text 보호
+- `skills/dxf-to-pdf/scripts/convert-dxf.ps1` — 실행 자동화 스크립트 (/simplify 4건 적용)
+- `skills/dxf-to-pdf/references/cli/` — dxf_converter CLI 번들 24개 파일
+- `README.md` — 스킬 목록 표 + 디렉토리 트리에 dxf-to-pdf 반영
+- `docs/plans/2026-07-27_140608_add-dxf-to-pdf-skill.md`, `docs/plan_history.md` — 계획 문서 및 인덱스
+
+---
+
 ## 2026-07-25 18:21:50 — dh-dev의 Opus 버전 표기를 범용 alias로 일반화
 
 [Detail](revisions/2026-07-25_182150_dh-dev-opus-label-generalization.md)

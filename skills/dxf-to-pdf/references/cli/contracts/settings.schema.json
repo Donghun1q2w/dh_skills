@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://seonghwa.local/dxf-to-pdf/settings.schema.json",
+  "title": "DXF to PDF converter settings",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "input_sources", "resolved_inputs", "output_folder", "paper", "render", "behavior"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "input_sources": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/input_source" }
+    },
+    "resolved_inputs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/resolved_input" }
+    },
+    "output_folder": { "type": "string" },
+    "paper": { "$ref": "#/$defs/paper" },
+    "render": { "$ref": "#/$defs/render" },
+    "behavior": { "$ref": "#/$defs/behavior" }
+  },
+  "$defs": {
+    "input_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_id", "kind", "path", "recursive", "output_prefix"],
+      "properties": {
+        "source_id": { "type": "string", "minLength": 1 },
+        "kind": { "enum": ["file", "folder"] },
+        "path": { "type": "string", "minLength": 1 },
+        "recursive": { "type": "boolean" },
+        "output_prefix": { "type": "string" }
+      }
+    },
+    "resolved_input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file_id", "source_id", "path", "source_root", "output_relative_path"],
+      "properties": {
+        "file_id": { "type": "string", "minLength": 1 },
+        "source_id": { "type": "string", "minLength": 1 },
+        "path": { "type": "string", "minLength": 1 },
+        "source_root": { "type": "string", "minLength": 1 },
+        "input_relative_path": { "type": "string", "minLength": 1 },
+        "output_relative_path": { "type": "string", "minLength": 1 },
+        "input_sha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+        "size_bytes": { "type": ["integer", "null"], "minimum": 0 }
+      }
+    },
+    "paper": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["size", "orientation", "margin_mm", "fit_to_page"],
+      "properties": {
+        "size": { "enum": ["A4", "A3", "A2", "A1", "A0"] },
+        "orientation": { "enum": ["landscape", "portrait"] },
+        "margin_mm": { "type": "number", "minimum": 0, "maximum": 50 },
+        "fit_to_page": { "type": "boolean" }
+      }
+    },
+    "render": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dpi", "color_mode", "model_space_only", "fail_on_unsupported", "font_paths"],
+      "properties": {
+        "dpi": { "type": "integer", "minimum": 72, "maximum": 1200 },
+        "color_mode": { "enum": ["monochrome", "color"] },
+        "model_space_only": { "type": "boolean" },
+        "fail_on_unsupported": { "type": "boolean" },
+        "font_paths": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
+      }
+    },
+    "behavior": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["overwrite", "skip_if_exists", "continue_on_error", "max_parallelism", "file_timeout_seconds", "batch_deadline_seconds", "cancel_grace_seconds"],
+      "properties": {
+        "overwrite": { "type": "boolean" },
+        "skip_if_exists": { "type": "boolean" },
+        "continue_on_error": { "type": "boolean" },
+        "max_parallelism": { "type": "integer", "minimum": 1, "maximum": 16 },
+        "file_timeout_seconds": { "type": "integer", "minimum": 1, "maximum": 86400 },
+        "batch_deadline_seconds": { "type": "integer", "minimum": 1, "maximum": 604800 },
+        "cancel_grace_seconds": { "type": "integer", "minimum": 1, "maximum": 300 }
+      }
+    }
+  }
+}

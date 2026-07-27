@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "input_sources": [],
+  "resolved_inputs": [],
+  "output_folder": "",
+  "paper": {
+    "size": "A4",
+    "orientation": "landscape",
+    "margin_mm": 5.0,
+    "fit_to_page": true
+  },
+  "render": {
+    "dpi": 300,
+    "color_mode": "monochrome",
+    "model_space_only": true,
+    "fail_on_unsupported": true,
+    "font_paths": []
+  },
+  "behavior": {
+    "overwrite": false,
+    "skip_if_exists": true,
+    "continue_on_error": true,
+    "max_parallelism": 1,
+    "file_timeout_seconds": 900,
+    "batch_deadline_seconds": 21600,
+    "cancel_grace_seconds": 15
+  }
+}

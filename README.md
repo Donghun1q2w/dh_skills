@@ -26,6 +26,7 @@ Claude Code용 개인 스킬 플러그인. 반복적인 개발 패턴과 도구 
 | [e3d-standalone](skills/e3d-standalone/) | AVEVA E3D Standalone 모드 접속·PML 매크로 실행 가이드 | C# |
 | [e3d-launcher](skills/e3d-launcher/) | E3D 모듈(Design/Drawing/Paragon/Admin) 프로세스 실행 런처 | Python, C# |
 | [dh-wiki](skills/dh-wiki/) | LLM Wiki — docs/wiki/ 기반 마크다운 지식 베이스 (독립 MCP 서버) | Node.js |
+| [dxf-to-pdf](skills/dxf-to-pdf/) | DXF 도면을 A계열 단일 페이지 PDF로 일괄 변환 (번들 dxf_converter CLI 실행) | C# CLI |
 
 ## 디렉토리 구조
 
@@ -118,6 +119,13 @@ dh_skills/
 │   │       ├── config-sample.json         ← 프로젝트 인증/경로 config 샘플
 │   │       ├── e3d-launcher-sample.py     ← Python subprocess 런처
 │   │       └── e3d-launcher-sample.cs     ← C# Process.Start 런처
+│   ├── dxf-to-pdf/
+│   │   ├── SKILL.md              ← DXF→PDF 변환 실행 가이드
+│   │   ├── .gitattributes        ← 번들 바이너리 -text 보호
+│   │   ├── scripts/
+│   │   │   └── convert-dxf.ps1   ← 작업폴더 복사·실행·파싱 자동화
+│   │   └── references/
+│   │       └── cli/              ← dxf_converter CLI 번들 (exe+DLL+contracts)
 │   └── dh-wiki/
 │       ├── SKILL.md              ← LLM Wiki 스킬 안내
 │       ├── mcp-server/           ← 독립 MCP 서버

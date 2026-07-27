@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://seonghwa.local/dxf-to-pdf/progress-event.schema.json",
+  "title": "DXF to PDF JSON Lines event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "run_id", "sequence", "timestamp_utc", "type", "code"],
+  "properties": {
+    "protocol_version": { "const": 1 },
+    "run_id": { "type": "string", "format": "uuid" },
+    "sequence": { "type": "integer", "minimum": 1 },
+    "timestamp_utc": { "type": "string", "format": "date-time" },
+    "type": { "enum": ["progress", "log", "error", "file_result", "result"] },
+    "code": { "type": "string", "minLength": 1 },
+    "file_id": { "type": ["string", "null"] },
+    "step": { "type": ["string", "null"] },
+    "current": { "type": ["integer", "null"], "minimum": 0 },
+    "total": { "type": ["integer", "null"], "minimum": 0 },
+    "message": { "type": ["string", "null"] },
+    "level": { "enum": ["debug", "info", "warning", "error", null] },
+    "status": { "type": ["string", "null"] },
+    "input_file": { "type": ["string", "null"] },
+    "output_file": { "type": ["string", "null"] },
+    "output_folder": { "type": ["string", "null"] },
+    "manifest_file": { "type": ["string", "null"] },
+    "manifest_state": { "enum": ["none", "incomplete", "complete", null] },
+    "succeeded": { "type": ["integer", "null"], "minimum": 0 },
+    "failed": { "type": ["integer", "null"], "minimum": 0 },
+    "skipped": { "type": ["integer", "null"], "minimum": 0 },
+    "cancelled": { "type": ["integer", "null"], "minimum": 0 },
+    "elapsed_ms": { "type": ["integer", "null"], "minimum": 0 },
+    "peak_working_set_bytes": { "type": ["integer", "null"], "minimum": 0 },
+    "page": { "oneOf": [{ "$ref": "#/$defs/page" }, { "type": "null" }] },
+    "content_bounds": { "oneOf": [{ "$ref": "#/$defs/content_bounds" }, { "type": "null" }] },
+    "diagnostics": { "type": ["array", "null"], "items": { "$ref": "#/$defs/diagnostic" } },
+    "details": { "type": ["object", "null"], "additionalProperties": { "type": "string" } }
+  },
+  "allOf": [
+    { "if": { "properties": { "type": { "const": "progress" } } }, "then": { "required": ["step", "current", "total", "message"] } },
+    { "if": { "properties": { "type": { "const": "log" } } }, "then": { "required": ["level", "message"] } },
+    { "if": { "properties": { "type": { "const": "error" } } }, "then": { "required": ["message"] } },
+    { "if": { "properties": { "type": { "const": "file_result" } } }, "then": { "required": ["file_id", "status", "input_file", "output_file", "elapsed_ms"] } },
+    { "if": { "properties": { "type": { "const": "result" } } }, "then": { "required": ["status", "manifest_state", "succeeded", "failed", "skipped", "cancelled", "elapsed_ms"] } }
+  ],
+  "$defs": {
+    "diagnostic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["severity", "code", "message"],
+      "properties": {
+        "severity": { "enum": ["debug", "info", "warning", "error"] },
+        "code": { "type": "string", "minLength": 1 },
+        "message": { "type": "string" },
+        "details": { "type": ["object", "null"], "additionalProperties": { "type": "string" } }
+      }
+    },
+    "page": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width_mm", "height_mm", "width_points", "height_points", "pixel_width", "pixel_height", "dpi"],
+      "properties": {
+        "width_mm": { "type": "number", "minimum": 0 },
+        "height_mm": { "type": "number", "minimum": 0 },
+        "width_points": { "type": "number", "minimum": 0 },
+        "height_points": { "type": "number", "minimum": 0 },
+        "pixel_width": { "type": "integer", "minimum": 1 },
+        "pixel_height": { "type": "integer", "minimum": 1 },
+        "dpi": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "content_bounds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["min_x", "min_y", "max_x", "max_y", "width", "height"],
+      "properties": {
+        "min_x": { "type": "number" },
+        "min_y": { "type": "number" },
+        "max_x": { "type": "number" },
+        "max_y": { "type": "number" },
+        "width": { "type": "number", "minimum": 0 },
+        "height": { "type": "number", "minimum": 0 }
+      }
+    }
+  }
+}

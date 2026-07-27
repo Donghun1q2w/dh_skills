@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://seonghwa.local/dxf-to-pdf/manifest.schema.json",
+  "title": "DXF to PDF conversion manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "run_id", "product_version", "started_utc", "manifest_state", "settings_fingerprint", "output_folder", "summary", "files"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "run_id": { "type": "string", "format": "uuid" },
+    "product_version": { "type": "string", "minLength": 1 },
+    "started_utc": { "type": "string", "format": "date-time" },
+    "completed_utc": { "type": ["string", "null"], "format": "date-time" },
+    "manifest_state": { "enum": ["incomplete", "complete"] },
+    "settings_fingerprint": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "output_folder": { "type": "string", "minLength": 1 },
+    "summary": { "$ref": "#/$defs/summary" },
+    "files": { "type": "array", "items": { "$ref": "#/$defs/file" } }
+  },
+  "$defs": {
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total", "succeeded", "failed", "skipped", "cancelled"],
+      "properties": {
+        "total": { "type": "integer", "minimum": 0 },
+        "succeeded": { "type": "integer", "minimum": 0 },
+        "failed": { "type": "integer", "minimum": 0 },
+        "skipped": { "type": "integer", "minimum": 0 },
+        "cancelled": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "file": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file_id", "source_id", "input_file", "input_relative_path", "input_sha256", "output_file", "status", "code", "message", "elapsed_ms", "peak_working_set_bytes", "diagnostics"],
+      "properties": {
+        "file_id": { "type": "string", "minLength": 1 },
+        "source_id": { "type": "string", "minLength": 1 },
+        "input_file": { "type": "string", "minLength": 1 },
+        "input_relative_path": { "type": "string", "minLength": 1 },
+        "input_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "output_file": { "type": "string", "minLength": 1 },
+        "output_sha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+        "output_size_bytes": { "type": ["integer", "null"], "minimum": 0 },
+        "status": { "enum": ["success", "failure", "skipped_verified", "skipped_unverified", "cancelled", "not_run"] },
+        "code": { "type": "string", "minLength": 1 },
+        "message": { "type": "string" },
+        "elapsed_ms": { "type": "integer", "minimum": 0 },
+        "peak_working_set_bytes": { "type": "integer", "minimum": 0 },
+        "page": { "oneOf": [{ "$ref": "#/$defs/page" }, { "type": "null" }] },
+        "content_bounds": { "oneOf": [{ "$ref": "#/$defs/content_bounds" }, { "type": "null" }] },
+        "diagnostics": { "type": "array", "items": { "$ref": "https://seonghwa.local/dxf-to-pdf/progress-event.schema.json#/$defs/diagnostic" } }
+      }
+    },
+    "page": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["width_mm", "height_mm", "width_points", "height_points", "pixel_width", "pixel_height", "dpi"],
+      "properties": {
+        "width_mm": { "type": "number", "minimum": 0 },
+        "height_mm": { "type": "number", "minimum": 0 },
+        "width_points": { "type": "number", "minimum": 0 },
+        "height_points": { "type": "number", "minimum": 0 },
+        "pixel_width": { "type": "integer", "minimum": 1 },
+        "pixel_height": { "type": "integer", "minimum": 1 },
+        "dpi": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "content_bounds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["min_x", "min_y", "max_x", "max_y", "width", "height"],
+      "properties": {
+        "min_x": { "type": "number" },
+        "min_y": { "type": "number" },
+        "max_x": { "type": "number" },
+        "max_y": { "type": "number" },
+        "width": { "type": "number", "minimum": 0 },
+        "height": { "type": "number", "minimum": 0 }
+      }
+    }
+  }
+}
