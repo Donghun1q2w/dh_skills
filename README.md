@@ -27,6 +27,7 @@ Claude Code용 개인 스킬 플러그인. 반복적인 개발 패턴과 도구 
 | [e3d-launcher](skills/e3d-launcher/) | E3D 모듈(Design/Drawing/Paragon/Admin) 프로세스 실행 런처 | Python, C# |
 | [dh-wiki](skills/dh-wiki/) | LLM Wiki — docs/wiki/ 기반 마크다운 지식 베이스 (독립 MCP 서버) | Node.js |
 | [dxf-to-pdf](skills/dxf-to-pdf/) | DXF 도면을 A계열 단일 페이지 PDF로 일괄 변환 (번들 dxf_converter CLI 실행) | C# CLI |
+| [pdf-annotate](skills/pdf-annotate/) | PDF에 pypdf 네이티브 주석 추가 (색상 박스 + 한글 라벨, PIL appearance stream) | Python |
 
 ## 디렉토리 구조
 
@@ -53,6 +54,8 @@ dh_skills/
 │   │       ├── settings.ini
 │   │       └── sample.env
 │   ├── pdf2img/
+│   │   └── SKILL.md
+│   ├── pdf-annotate/
 │   │   └── SKILL.md
 │   ├── dotnet-analyze/
 │   │   ├── SKILL.md
@@ -151,6 +154,7 @@ dh_skills/
 │       └── AGENT.md              ← 설계 문서
 └── refcode/
     ├── pdf2jpg/                  ← PDF→JPG 변환 패키지 레퍼런스 구현
+    ├── pdf_annotate/             ← PDF 네이티브 주석 패키지 레퍼런스 구현
     └── e3dstandalone/            ← E3D Standalone 레퍼런스 및 테스트
         └── E3DStandaloneTest/    ← 접속 테스트 콘솔 앱 (ALP 프로젝트)
 ```

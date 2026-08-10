@@ -4,6 +4,14 @@ Chronological log of project plans and decisions.
 
 ---
 
+## 2026-08-10 17:06:32 — pdf-annotate 스킬 신규 추가 (pdf2img 패턴)
+
+[Detail](plans/2026-08-10_170632_pdf-annotate-skill.md) | Status: **Completed**
+
+Summary: ReportReviewer 저장소의 `cert-review-annotate` 스킬(및 실제 구현 `skills/cert-review/scripts/annotate_pdf.py`)이 쓰는 pypdf 네이티브 PDF 주석 기법 — 판정별 색상의 경계선 `/Square` + Acrobat `/Popup` 컴패니언 + PIL 래스터 기반 커스텀 appearance stream을 가진 한글 `/FreeText` 라벨 3종 묶음 — 을 ReportReviewer의 케이스 관리 종속성 없이 범용 재사용 가능한 샘플로 일반화해 `skills/pdf-annotate/`(얇은 SKILL.md, pdf2img 패턴) + `refcode/pdf_annotate/`(8파일 참조 패키지)로 신규 추가. 1-e 적대적 검증(contrarian+gap_hunter, HIGH 7/MEDIUM 7/LOW 5, 중복 제거 후)을 1회 재작성으로 전부 반영 — DoD-적대적테스트 태그 불일치 다수 정정(`[ADV-n]`/`[V-n]` 이원화), ReportReviewer 판정 라벨(주의/N/A/FAIL)을 키로 쓰던 PRESET_COLORS를 도메인 중립 키로 교체, 회전 라운드트립 오차 허용치 통일(1e-9), 출력=입력 가드용 DoD 신설, 절대 성능 기준을 상대 기준으로 완화.
+
+---
+
 ## 2026-07-27 14:06:08 — dxf-to-pdf 스킬 신규 작성 (번들 CLI 직접 실행형)
 
 [Detail](plans/2026-07-27_140608_add-dxf-to-pdf-skill.md) | Status: **Completed**

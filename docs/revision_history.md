@@ -4,6 +4,17 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-08-10 17:36:49 — pdf-annotate 스킬 신규 추가 (pypdf 네이티브 PDF 주석 샘플)
+
+[Detail](revisions/2026-08-10_173649_add-pdf-annotate-skill.md)
+
+- `refcode/pdf_annotate/__init__.py`, `__main__.py`, `config.py`, `geometry.py`, `appearance.py`, `annotator.py`, `demo.py`, `main.py` — pypdf 네이티브 주석(색상 Square + Popup + 한글 FreeText 라벨) 참조 패키지 신규
+- `skills/pdf-annotate/SKILL.md` — 스킬 가이드 문서 신규
+- `README.md` — 스킬 목록 표 + 디렉토리 트리에 pdf-annotate 반영
+- `docs/plans/2026-08-10_170632_pdf-annotate-skill.md`, `docs/plan_history.md` — 계획 문서 및 인덱스 (Status: Completed)
+
+---
+
 ## 2026-07-27 14:49:40 — dxf-to-pdf 스킬 신규 추가 (번들 CLI 직접 실행형)
 
 [Detail](revisions/2026-07-27_144940_add-dxf-to-pdf-skill.md)
