@@ -4,6 +4,15 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-08-14 14:22:46 — dh-dev 스킬 모델·effort 정책 개정 및 개발 방향 분류 신설
+
+[Detail](revisions/2026-08-14_142246_dh-dev-policy-revision.md)
+
+- `skills/dh-dev/SKILL.md` — 실행 단계 Sonnet 고정(등급은 추론 강도만 결정), Large 판정 기준 상향(10개 이상 파일·400줄 초과·아키텍처 또는 모듈 간 계약 변경·위험 키워드)과 기본 등급 Medium화, 1-b 개발 방향 질문(단발성/간단한/심화)과 범용성 4축 표 신설, 등급과 개발 방향의 직교성 명시
+- `docs/plans/2026-08-14_135718_dh-dev-policy-revision.md`, `docs/plan_history.md` — 계획 문서 및 인덱스 (Status: Completed)
+
+---
+
 ## 2026-08-10 17:36:49 — pdf-annotate 스킬 신규 추가 (pypdf 네이티브 PDF 주석 샘플)
 
 [Detail](revisions/2026-08-10_173649_add-pdf-annotate-skill.md)

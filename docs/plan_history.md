@@ -4,6 +4,14 @@ Chronological log of project plans and decisions.
 
 ---
 
+## 2026-08-14 13:57:18 — dh-dev 스킬 모델·effort 정책 및 워크플로우 개정
+
+[Detail](plans/2026-08-14_135718_dh-dev-policy-revision.md) | Status: **Completed**
+
+Summary: dh-dev 스킬의 (1) Step 3 구현 에이전트를 모든 등급에서 Sonnet 고정(등급은 reasoning effort만 선택), (2) Large(최대 추론) 판정 기준을 10개 이상 파일·400줄 초과·아키텍처 또는 모듈 간 계약 변경·위험 키워드로 대폭 상향하고 기본 등급을 Medium으로 변경(애매한 신호는 Large가 아니라 Medium으로 반올림), (3) 1-b 초반에 개발 방향을 단발성/간단한/심화로 묻는 절차 신설, (4) 개발 방향이 올라갈수록 설정 외부화·재사용 인터페이스와 확장점·경계 예외 처리·테스트와 문서 커버리지 요구가 단계적으로 높아지는 범용성 4축 표 도입. 개발 방향은 등급·게이트와 직교하며 어떤 게이트도 축소하지 않는다.
+
+---
+
 ## 2026-08-10 17:06:32 — pdf-annotate 스킬 신규 추가 (pdf2img 패턴)
 
 [Detail](plans/2026-08-10_170632_pdf-annotate-skill.md) | Status: **Completed**
