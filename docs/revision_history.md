@@ -4,6 +4,16 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-09-02 10:43:04 — dh-loop 반복 오케스트레이터 스킬 신규 추가
+
+[Detail](revisions/2026-09-02_104304_add-dh-loop-skill.md)
+
+- `skills/dh-loop/SKILL.md` — dh-dev 절차를 위임 방식으로 감싸는 반복 오케스트레이터 신규 추가(264줄). 초기 계획 1회만 승인받고 이후 무인 진행, 독립 검증 에이전트의 증거 기반 완료조건 판정, 안정 키 기반 정체 감지(연속 2회·누적 4회), `dh-loop/` 전용 브랜치 격리, `docs\dh-loop\` 회차 기록으로 대화 압축 뒤 재개
+- `README.md` — 스킬 목록 표 1행 추가(22행 → 23행), 스킬 트리와 `docs/` 트리에 항목 추가
+- `docs/plans/2026-09-02_101002_add-dh-loop-skill.md`, `docs/plan_history.md` — 계획 문서 및 인덱스 (Status: Completed)
+
+---
+
 ## 2026-08-14 14:22:46 — dh-dev 스킬 모델·effort 정책 개정 및 개발 방향 분류 신설
 
 [Detail](revisions/2026-08-14_142246_dh-dev-policy-revision.md)

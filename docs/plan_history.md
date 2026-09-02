@@ -4,6 +4,14 @@ Chronological log of project plans and decisions.
 
 ---
 
+## 2026-09-02 10:10:02 — dh-loop 반복 오케스트레이터 스킬 신규 추가
+
+[Detail](plans/2026-09-02_101002_add-dh-loop-skill.md) | Status: **Completed**
+
+Summary: dh-dev의 계획→실행→검토→커밋 절차를 위임 방식으로 감싸는 반복 오케스트레이터 스킬 `skills/dh-loop/SKILL.md`를 신규 추가한다. dh-dev 본문을 복제하지 않고 `skills\dh-dev\SKILL.md`를 읽어 그 절차를 회차마다 수행하므로 dh-dev 개정을 자동으로 따라간다. 초기 계획 1회만 사용자 승인을 받고 이후에는 무인으로 돌며, 실행 에이전트와 분리된 독립 검증 에이전트가 증거를 요구하며 개발 완료조건을 항목별로 판정한다. 미충족 항목은 직전 회차의 실패 증거와 함께 재계획으로 되돌아가고, 반복 횟수 상한은 없다. 같은 항목이 개선 없이 2회 연속 불합격하거나 누적 4회 불합격하면 증거와 실패 이력을 모아 사용자를 호출하고 멈춘다. 회차 상태는 `docs\dh-loop\`의 기록 파일에 남겨 대화 압축 이후에도 재개할 수 있다. 무인 커밋은 `dh-loop/<slug>` 전용 브랜치에서만 수행하고 보호 브랜치에서는 금지한다. 1-e 적대적 검증(contrarian + gap_hunter, HIGH 9/MEDIUM 6/LOW 1)을 1회 재작성으로 전부 반영 — README 기준선 행 수 정정, 브랜치 격리 정책 신설, 분량 상한 280줄로 상향, 자동 승인 조건에 미해결 HIGH 없음 추가, plan_history Status 표준값 준수, 축소 실동 예행 신설.
+
+---
+
 ## 2026-08-14 13:57:18 — dh-dev 스킬 모델·effort 정책 및 워크플로우 개정
 
 [Detail](plans/2026-08-14_135718_dh-dev-policy-revision.md) | Status: **Completed**

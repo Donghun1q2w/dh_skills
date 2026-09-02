@@ -1,6 +1,6 @@
 # dh_skills
 
-Claude Code용 개인 스킬 플러그인. 반복적인 개발 패턴과 도구 사용법을 스킬로 정리하여 Claude가 일관된 방식으로 코드를 생성하도록 한다.
+Claude Code와 Codex용 개인 스킬 플러그인. 반복적인 개발 패턴과 도구 사용법을 스킬로 정리하여 에이전트가 일관된 방식으로 코드를 생성하도록 한다.
 
 ## 스킬 목록
 
@@ -8,7 +8,7 @@ Claude Code용 개인 스킬 플러그인. 반복적인 개발 패턴과 도구 
 |------|------|------|
 | [commit](skills/commit/) | Conventional Commit 형식의 Git 커밋 메시지 작성 가이드 | - |
 | [csharp](skills/csharp/) | C#/.NET 코딩 참조 가이드 (3단계 레퍼런스 순서 강제) | C# |
-| [load-API-key](skills/load-API-key/) | 공용서버 .env 파일에서 API 키를 로드하는 표준 패턴 | Python, C#, VBA |
+| [load-api-key](skills/load-API-key/) | 공용서버 .env 파일에서 API 키를 로드하는 표준 패턴 | Python, C#, VBA |
 | [pdf2img](skills/pdf2img/) | PDF를 JPG 이미지로 변환하는 가이드 | Python |
 | [dotnet-analyze](skills/dotnet-analyze/) | .NET 어셈블리(DLL/EXE) 구조 분석, 메타데이터 추출 | C# |
 | [dotnet-decompile](skills/dotnet-decompile/) | .NET 어셈블리를 C# 소스코드로 디컴파일 | C# |
@@ -22,6 +22,7 @@ Claude Code용 개인 스킬 플러그인. 반복적인 개발 패턴과 도구 
 | [plan-context](skills/plan-context/) | 계획 수립 시 프로젝트 컨텍스트 제공 및 완료된 계획을 docs\plans\에 저장 | - |
 | [revision-tracker](skills/revision-tracker/) | 파일 수정 시 docs\revisions\에 수정내역 로그 생성 및 revision_history.md 인덱싱 | - |
 | [dh-dev](skills/dh-dev/) | 코드 기능개선 오케스트레이터 (plan→review→execute→commit) | - |
+| [dh-loop](skills/dh-loop/) | dh-dev 반복 오케스트레이터 (무인 재계획→실행→독립 검증 루프) | - |
 | [notebooklm](skills/notebooklm-skill/) | Google NotebookLM 노트북 쿼리 (브라우저 자동화, 소스 근거 답변) | Python |
 | [e3d-standalone](skills/e3d-standalone/) | AVEVA E3D Standalone 모드 접속·PML 매크로 실행 가이드 | C# |
 | [e3d-launcher](skills/e3d-launcher/) | E3D 모듈(Design/Drawing/Paragon/Admin) 프로세스 실행 런처 | Python, C# |
@@ -34,11 +35,13 @@ Claude Code용 개인 스킬 플러그인. 반복적인 개발 패턴과 도구 
 ```
 dh_skills/
 ├── README.md
+├── .codex-plugin/
+│   └── plugin.json              ← Codex 플러그인 manifest
 ├── .claude-plugin/
-│   └── marketplace.json          ← 플러그인 메타데이터
-├── .mcp.json                     ← MCP 서버 등록 (dh-wiki)
+│   └── marketplace.json          ← Claude Code 플러그인 메타데이터
+├── .mcp.json                     ← MCP 서버 등록 (dh-wiki, Codex/Claude 공용)
 ├── hooks/
-│   └── hooks.json                ← 플러그인 루트 hook 등록
+│   └── hooks.json                ← lifecycle hook 등록
 ├── skills/
 │   ├── commit/
 │   │   └── SKILL.md
@@ -87,6 +90,7 @@ dh_skills/
 │   ├── plan-context/
 │   │   ├── SKILL.md
 │   │   └── references/
+│   │       ├── planning-workflow.md
 │   │       └── templates.md      ← 계획 문서 및 인덱스 템플릿
 │   ├── pdp-agent/
 │   │   ├── SKILL.md              ← 오케스트레이터 (단계 판별 → 라우팅)
@@ -107,6 +111,8 @@ dh_skills/
 │   │       └── templates.md      ← 수정내역 파일 및 인덱스 템플릿
 │   ├── dh-dev/
 │   │   └── SKILL.md              ← 코드 기능개선 오케스트레이터
+│   ├── dh-loop/
+│   │   └── SKILL.md              ← dh-dev 반복 래퍼 (독립 검증·정체 감지)
 │   ├── notebooklm-skill/
 │   │   ├── SKILL.md              ← NotebookLM Research Assistant
 │   │   ├── references/
@@ -140,13 +146,14 @@ dh_skills/
 │       │   ├── query.mjs
 │       │   └── lint.mjs
 │       └── hooks/
-│           ├── session-start.mjs ← SessionStart 컨텍스트 주입
-│           ├── pre-compact.mjs   ← PreCompact 요약 주입
-│           └── session-end.mjs   ← SessionEnd 자동 캡처
+│           ├── dh-wiki-user-prompt-submit.mjs
+│           ├── dh-wiki-pre-compact.mjs
+│           └── dh-wiki-file-changed.mjs
 ├── docs/
 │   ├── hwpxskill-readme.md         ← HWPX 스킬 상세 가이드
 │   ├── plan_history.md             ← 전체 계획 인덱스
 │   ├── plans/                      ← 개별 계획 문서
+│   ├── dh-loop/                    ← dh-loop 회차 기록
 │   ├── revision_history.md         ← 전체 수정내역 인덱스
 │   ├── revisions/                  ← 개별 수정내역 로그
 │   └── pdp-agent/
@@ -169,9 +176,21 @@ dh_skills/
 ---
 name: skill-name                    # 필수. 디렉토리명과 동일, kebab-case
 description: "Use when ..."         # 필수. 영문. 트리거 문구 포함
-argument-hint: "[optional: ...]"    # 선택. 인자 힌트
 allowed-tools: Bash, Read, Write    # 선택. 허용 도구 제한
 ---
+```
+
+Codex의 기본 스킬 트리거는 `name`과 `description`을 읽는다. 인자 힌트는 frontmatter에 `argument-hint`로 넣지 말고 본문에 짧게 작성한다.
+
+### 검증
+
+Windows 한글 환경에서는 UTF-8 모드를 명시한다.
+
+```powershell
+$env:PYTHONUTF8='1'
+$env:PYTHONIOENCODING='utf-8'
+python C:\Users\donghun.lee\.codex\skills\.system\skill-creator\scripts\quick_validate.py .\skills\<skill-name>
+python C:\Users\donghun.lee\.codex\skills\.system\plugin-creator\scripts\validate_plugin.py .
 ```
 
 ### 번들 리소스
