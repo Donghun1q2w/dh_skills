@@ -4,6 +4,17 @@ Chronological log of project modifications.
 
 ---
 
+## 2026-09-04 16:03:30 — dh-dev 문서의 'Fable 5' 버전 표기를 버전 없는 'Fable'로 일반화
+
+[Detail](revisions/2026-09-04_160330_fable-version-label-generalization.md)
+
+- `skills/dh-dev/SKILL.md` — 3행(frontmatter description)·26행(Agent & Model Policy 표)·40행(Model & Effort Tiering Large 행)의 `Fable 5` → 버전 없는 `Fable`. 도구 호출 값인 백틱 alias `` `fable` ``은 그대로 유지
+- `skills/plan-context/references/planning-workflow.md` — 21행의 `Large default: Fable 5` → `Large default: Fable`
+- 2026-07-25의 "Opus 4.8" → "Opus (`opus`)" 일반화와 같은 표기 규칙 적용. harness가 alias를 최신 모델로 해석하므로 동작 변화 없음, 향후 Fable 갱신 시 문서 재수정 불필요
+- `docs/plans/2026-09-04_152646_fable-version-label-generalization.md`, `docs/plan_history.md` — 계획 문서 및 인덱스
+
+---
+
 ## 2026-09-02 10:43:04 — dh-loop 반복 오케스트레이터 스킬 신규 추가
 
 [Detail](revisions/2026-09-02_104304_add-dh-loop-skill.md)
